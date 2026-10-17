@@ -1,10 +1,10 @@
 ## 1. Contrato (prioridad máxima: subir a main ~15:10)
 
-- [ ] 1.1 Crear `backend/` con `uv`, FastAPI, Pydantic v2 y pytest (RF-F0-01)
-- [ ] 1.2 Escribir enums y modelos de `contract.py` según los acuerdos de interfaz (RF-F0-02)
-- [ ] 1.3 Implementar `consolidar_control`, `calcular_estado_sistema`, `PAYLOAD_POR_TIPO` y `validar_payload` (RT-02, RT-03)
-- [ ] 1.4 Subir `contract.py` a main y avisar al equipo
-- [ ] 1.5 Tests del contrato: peor estado, requisito faltante, bloqueado, payload inválido, rechazo sin comentario (RF-F0-02)
+- [x] 1.1 Crear `backend/` con `uv`, FastAPI, Pydantic v2 y pytest (RF-F0-01)
+- [x] 1.2 Escribir enums y modelos de `contract.py` según los acuerdos de interfaz (RF-F0-02)
+- [x] 1.3 Implementar `consolidar_control`, `calcular_estado_sistema`, `PAYLOAD_POR_TIPO` y `validar_payload` (RT-02, RT-03)
+- [x] 1.4 Subir `contract.py` a main y avisar al equipo
+- [x] 1.5 Tests del contrato: peor estado, requisito faltante, bloqueado, payload inválido, rechazo sin comentario (RF-F0-02)
 
 ## 2. Store y arranque
 
