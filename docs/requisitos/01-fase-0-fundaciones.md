@@ -8,7 +8,7 @@
 
 | ID | Requisito | Prio | Rúbrica | Aceptación |
 |---|---|---|---|---|
-| RF-F0-01 | El repositorio sigue la estructura: `backend/`, `frontend/`, `data/`, `knowledge/`, `replays/`, `registry/`, `supabase/`, `docs/requisitos/`. | M | EJ | `tree -L 2` coincide; `README.md` raíz con comandos de arranque. |
+| RF-F0-01 | El repositorio sigue la estructura: `backend/`, `frontend/`, `data/`, `knowledge/`, `replays/`, `registry/` (futuro, vacía en el MVP), `supabase/`, `docs/requisitos/`. | M | EJ | `tree -L 2` coincide; `README.md` raíz con comandos de arranque. |
 | RF-F0-02 | `contract.py` y `test_contract.py` están en `backend/`; los 14 tests pasan. | M | PT | `pytest backend` en verde. |
 | RF-F0-03 | Script que genera `frontend/src/api/types.ts` desde el OpenAPI de FastAPI (`openapi-typescript`). | M | EJ | Tras cambiar un modelo del contrato y re-ejecutar, cambia `types.ts`; el front compila. |
 | RF-F0-04 | Proyecto Supabase creado y migración inicial aplicada (ver `90-anexo-supabase.md`). Una sola persona crea el proyecto y comparte credenciales por canal privado. | M | EJ | Las tablas existen; la migración está versionada en `supabase/migrations/`. |

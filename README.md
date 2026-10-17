@@ -39,7 +39,7 @@ capataz/
 ├─ data/           Catálogo, incidentes y escenarios (JSON, simulados)
 ├─ knowledge/      Base de conocimiento normativa (Markdown, con citas)
 ├─ replays/        Eventos grabados por escenario (demo sin red)
-├─ registry/       Tarjetas de agentes (fase opcional, inspirada en NANDA)
+├─ registry/       Tarjetas de agentes (futuro, vacía en el MVP)
 ├─ scripts/        Generador sintético (borradores de datos, revisión humana)
 ├─ supabase/       Migraciones SQL
 ├─ docs/requisitos/   Requisitos funcionales por fase

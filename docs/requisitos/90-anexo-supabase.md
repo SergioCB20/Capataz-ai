@@ -69,8 +69,8 @@ create table if not exists decisiones (
   check (decision <> 'rechazar' or length(trim(coalesce(comentario,''))) > 0)
 );
 
--- Solo fase 4 (opcional)
-create table if not exists agent_registry (id text primary key, data jsonb not null);
+-- Futuro: no se crea en el MVP (hoja de ruta NANDA, ver 05-hoja-de-ruta-nanda.md)
+-- create table if not exists agent_registry (id text primary key, data jsonb not null);
 
 -- Seguridad: RLS activada, sin políticas para anon/authenticated.
 -- El backend usa la service_role key (que ignora RLS) y nunca la expone al navegador.
@@ -85,7 +85,7 @@ alter table runs enable row level security;
 alter table eventos enable row level security;
 alter table planes enable row level security;
 alter table decisiones enable row level security;
-alter table agent_registry enable row level security;
+-- alter table agent_registry enable row level security;  -- futuro
 ```
 
 ## Reglas de uso

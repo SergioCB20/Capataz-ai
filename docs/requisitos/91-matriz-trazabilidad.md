@@ -7,9 +7,9 @@
 | **Ejecución** — el prototipo funciona y muestra el flujo en vivo | E1 y E2 corriendo con eventos en vivo; replay como respaldo | RF-F1-01–05, RF-F1-20, RF-F2-01–07, RF-F0-18, RF-F3-01–04, RF-F3-40–42, RF-F3-45 |
 | **Aplicación práctica** — responde al reto y aporta valor al sector | Problema real («el control existe pero no se ejecuta efectivamente»), E2 con alternativas verificadas, E3 con escalamiento, métrica de detección | RF-F0-09, RF-F0-16, RF-F1-10, RF-F1-16, RF-F1-19, RF-F2-05–07, RF-F2-20, RF-F3-20–22 |
 | **Experiencia de usuario** — interacción clara que ayuda a resolver la tarea | Presets, grafo vivo, semáforo con icono+texto, cajón de evidencia, comparación lado a lado, barra de decisión | RF-F1-30–36, RF-F2-30–35, RF-F3-10–14 |
-| **Innovación** | Verificación de *ejecutabilidad* del control (no solo checklist), alternativas re-verificadas con herramientas, humano en el circuito, (opcional) descubrimiento de agentes | RF-F2-02–03, RF-F2-08, RF-F3-11, RF-F4-03 |
-| **Propuesta técnica** — agentes de IA integrados | Orquestación asíncrona, agentes paralelos, separación código-verifica / LLM-razona, contrato tipado, auditoría por eventos, (opcional) registro NANDA | RT-01–06, RF-F1-10–17, RF-F2-02–04, RF-F4-01–06 |
-| **Reconocimiento opcional: mejor aplicación de NANDA** | Panel de agentes con tarjetas, descubrimiento por capacidad, (N2) firma | Fase 4 completa |
+| **Innovación** | Verificación de *ejecutabilidad* del control (no solo checklist), alternativas re-verificadas con herramientas, humano en el circuito, checklist dinámico por incidentes | RF-F1-10, RF-F1-19, RF-F2-02–03, RF-F2-08, RF-F3-11 |
+| **Propuesta técnica** — agentes de IA integrados | Orquestación asíncrona, agentes paralelos, separación código-verifica / LLM-razona, contrato tipado, auditoría por eventos | RT-01–06, RF-F1-10–19, RF-F2-02–04 |
+| **Hoja de ruta (no se implementa):** registro de agentes inspirado en NANDA | No se muestra en la demo | `05-hoja-de-ruta-nanda.md` (prioridad F) |
 
 ## Escenario → requisitos que lo habilitan
 
@@ -44,7 +44,6 @@
 | F1 Núcleo | 26 | 24 | 2 | 0 |
 | F2 Conflicto y decisión | 21 | 18 | 3 | 0 |
 | F3 UX, evaluación, demo | 26 | 13 | 7 | 6 |
-| F4 NANDA (opcional) | 11 | 7 | 0 | 4 |
-| **Total** | **103** | **76** | **16** | **11** |
+| **Total MVP** | **92** | **69** | **16** | **7** |
 
-Las reglas transversales (RT-01 a RT-10) se cuentan aparte.
+Aparte: hoja de ruta NANDA (`05-hoja-de-ruta-nanda.md`), **11 requisitos con prioridad F** (futuro), fuera del recuento. Las reglas transversales (RT-01 a RT-10) también se cuentan aparte.
