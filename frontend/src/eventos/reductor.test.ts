@@ -68,6 +68,16 @@ describe('reducir', () => {
     expect(s.agentes.personal.estado).toBe('inactivo')
   })
 
+  it('al pedir campo el Supervisor deja de trabajar (orquestador stub de P1, sin plan.listo)', () => {
+    const parcial = reducirTodos(eventosE1.slice(0, 1))
+    const s = reducir(parcial, {
+      run_id: 'replay-e1', seq: 2, ts: '2026-10-17T15:00:01.000Z', tipo: 'humano.campo_requerido',
+      actor: 'capataz:agente-supervisor', payload: { preguntas: [{ requisito_id: 'req-x', pregunta: '¿Ok?' }] },
+    })
+    expect(s.estadoRun).toBe('ESPERANDO_CAMPO')
+    expect(s.agentes.supervisor.estado).toBe('completado')
+  })
+
   it('normaliza ids de agente', () => {
     expect(idAgente('capataz:agente-equipo')).toBe('equipo')
     expect(idAgente('riesgo')).toBe('riesgo')

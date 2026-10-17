@@ -203,12 +203,21 @@ function aplicar(estado: EstadoUI, e: Evento): EstadoUI {
         planesAlternativos: e.payload.planes_alternativos ?? [],
         estadoSistema: e.payload.plan.estado_sistema,
       }
+    // Al esperar a la persona, el Supervisor deja de «trabajar» aunque aún no haya plan.listo.
     case 'humano.campo_requerido':
-      return { ...estado, preguntasCampo: e.payload.preguntas, estadoRun: 'ESPERANDO_CAMPO' }
+      return {
+        ...conAgente(estado, 'supervisor', (a) => ({ ...a, estado: 'completado' })),
+        preguntasCampo: e.payload.preguntas,
+        estadoRun: 'ESPERANDO_CAMPO',
+      }
     case 'humano.campo_confirmado':
       return { ...estado, preguntasCampo: [], estadoRun: 'EVALUANDO' }
     case 'humano.decision_requerida':
-      return { ...estado, decisionRequerida: e.payload, estadoRun: 'ESPERANDO_DECISION' }
+      return {
+        ...conAgente(estado, 'supervisor', (a) => ({ ...a, estado: 'completado' })),
+        decisionRequerida: e.payload,
+        estadoRun: 'ESPERANDO_DECISION',
+      }
     case 'humano.decision_tomada':
       return { ...estado, decision: e.payload.decision, decisionRequerida: null }
     case 'run.finalizado':
