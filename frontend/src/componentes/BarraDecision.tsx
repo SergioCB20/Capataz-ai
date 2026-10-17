@@ -14,11 +14,13 @@ const FINAL: Partial<Record<EstadoRun, string>> = {
   ERROR: 'La evaluación terminó con error',
 }
 
-export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, enviando, error, onDecidir }: {
+export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, planElegido, enviando, error, onDecidir }: {
   estadoSistema: EstadoSistema | null
   estadoRun: EstadoRun | null
   requerida: { plan_id: string; solo_rechazo: boolean } | null
   decision: DecisionHumana | null
+  /** Plan elegido cuando hay varias alternativas verificadas (se muestra para que quede claro qué se aprueba). */
+  planElegido?: string | null
   enviando: boolean
   error: string | null
   onDecidir: (d: 'aprobar' | 'rechazar', comentario?: string) => void
@@ -39,12 +41,13 @@ export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, e
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium">Plan (PTW borrador)</span>
           <EstadoSistemaBadge estado={estadoSistema} />
+          {planElegido && <span className="font-mono text-xs">{planElegido}</span>}
           <span className="text-xs text-muted-foreground">Borrador: CAPATAZ no firma ni autoriza; la persona responsable decide.</span>
         </div>
 
         {decision ? (
           <div className="text-sm">
-            <b>{(estadoRun && FINAL[estadoRun]) ?? (decision.decision === 'aprobar' ? 'Aprobado' : 'Rechazado')}</b> por {nombreActor(`humano:${decision.usuario}`)}
+            <b>{(estadoRun && FINAL[estadoRun]) ?? (decision.decision === 'aprobar' ? 'Aprobado' : 'Rechazado')}</b> <span className="font-mono text-xs">({decision.plan_id})</span> por {nombreActor(`humano:${decision.usuario}`)}
             {decision.comentario && <span className="text-muted-foreground"> — «{decision.comentario}»</span>}
           </div>
         ) : requerida ? (

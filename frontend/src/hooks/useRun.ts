@@ -61,15 +61,21 @@ export function useRun() {
       try {
         const backendVivo = await api.health().then(() => true, () => false)
 
+        const local = modo === 'replay' && escenarioId ? replayLocal(escenarioId) : null
         if (backendVivo) {
-          const { run_id } = await api.crearRun({ modo, escenario_id: escenarioId, tarea: modo === 'vivo' ? tarea : null })
-          setSesion({ modo, origen: 'backend', runId: run_id })
-          conectar(fuenteSSE(run_id))
-          return
+          try {
+            const { run_id } = await api.crearRun({ modo, escenario_id: escenarioId, tarea: modo === 'vivo' ? tarea : null })
+            setSesion({ modo, origen: 'backend', runId: run_id })
+            conectar(fuenteSSE(run_id))
+            return
+          } catch (e) {
+            // Replay que el backend no tiene grabado: se reproduce el local del navegador.
+            if (!local) throw e
+          }
         }
 
         if (modo === 'vivo') throw new Error('El backend no responde. Usa el modo replay o arranca el backend (uvicorn en :8000).')
-        const eventos = escenarioId ? replayLocal(escenarioId) : null
+        const eventos = local
         if (!eventos) throw new Error(`No hay replay local para ${escenarioId ?? 'una tarea libre'}.`)
         const replay = crearReplayLocal(eventos, { velocidad: 1.5 })
         replayRef.current = replay
@@ -86,10 +92,11 @@ export function useRun() {
   )
 
   const decidir = useCallback(
-    async (decision: 'aprobar' | 'rechazar', comentario?: string) => {
+    async (decision: 'aprobar' | 'rechazar', comentario?: string, planId?: string) => {
       const requerida = estado.decisionRequerida
       if (!sesion || !requerida) return
-      const d: DecisionHumana = { plan_id: requerida.plan_id, decision, comentario: comentario || null, usuario: USUARIO }
+      // Con varias alternativas verificadas la persona elige el plan_id (RF-F2-21).
+      const d: DecisionHumana = { plan_id: planId ?? requerida.plan_id, decision, comentario: comentario || null, usuario: USUARIO }
       setErrorAccion(null)
       if (sesion.origen === 'local') return replayRef.current?.decidir(d, requerida.solo_rechazo)
       setEnviando(true)
@@ -109,7 +116,13 @@ export function useRun() {
       if (!sesion) return
       const c: ConfirmacionesCampo = { usuario: USUARIO, ts: new Date().toISOString(), respuestas }
       setErrorAccion(null)
-      if (sesion.origen === 'local') return replayRef.current?.confirmarCampo(c)
+      if (sesion.origen === 'local') {
+        const sigue = replayRef.current?.confirmarCampo(c)
+        if (!sigue) {
+          setErrorAccion('Respuesta registrada. En el replay sin backend solo hay corrida grabada para «Sí»; para ver el recálculo con «No», usa el modo en vivo.')
+        }
+        return
+      }
       setEnviando(true)
       try {
         await api.confirmarCampo(sesion.runId, c)

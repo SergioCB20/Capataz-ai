@@ -9,9 +9,14 @@ import { filasControles, incidentesDeControl, nombrePeligro, type FilaControl, t
 import type { ControlRun } from '@/hooks/useRun'
 import { BarraDecision } from './BarraDecision'
 import { CajonEvidencia } from './CajonEvidencia'
+import { ComparacionPlanes } from './ComparacionPlanes'
+import { EstadoBloqueado } from './EstadoBloqueado'
+import { FormCampo } from './FormCampo'
 import { GrafoAgentes } from './GrafoAgentes'
 import { InsigniaReplay, Pastilla } from './insignias'
+import { LineaTiempo } from './LineaTiempo'
 import { Semaforo } from './Semaforo'
+import { VistaConflicto } from './VistaConflicto'
 
 const CONEXION: Record<EstadoConexion, { texto: string; tono: 'ok' | 'aviso' | 'peligro' | 'neutro' }> = {
   conectando: { texto: 'Conectando', tono: 'neutro' },
@@ -26,6 +31,11 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
   const [seleccion, setSeleccion] = useState<{ control: FilaControl; requisito: FilaRequisito } | null>(null)
   const filas = useMemo(() => filasControles(estado, catalogo), [estado, catalogo])
   const sinEventos = estado.ultimoSeq === 0
+  const [planElegido, setPlanElegido] = useState<string | null>(null)
+  const planes = useMemo(() => (estado.plan ? [estado.plan, ...estado.planesAlternativos] : []), [estado.plan, estado.planesAlternativos])
+  const planId = planElegido ?? estado.decisionRequerida?.plan_id ?? estado.plan?.id ?? ''
+  const bloqueado = estado.plan?.estado_sistema === 'BLOQUEADO'
+  const nombreControl = (id: string) => catalogo.controles.find((x) => x.id === id)?.nombre ?? id
   const c = CONEXION[conexion]
 
   return (
@@ -115,15 +125,47 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
             </Card>
           </div>
 
+          {estado.conflicto && (
+            <VistaConflicto
+              conflicto={estado.conflicto}
+              nombreControl={nombreControl(estado.conflicto.control_id)}
+              ronda={estado.ronda}
+              alternativas={estado.alternativas}
+              enCurso={estado.estadoRun === 'RESOLVIENDO_CONFLICTO'}
+            />
+          )}
+
+          {estado.estadoRun === 'ESPERANDO_CAMPO' && estado.preguntasCampo.length > 0 && (
+            <FormCampo preguntas={estado.preguntasCampo} enviando={run.enviando} error={run.errorAccion} onEnviar={run.confirmarCampo} />
+          )}
+
+          {bloqueado && (
+            <EstadoBloqueado causa={estado.conflicto?.causa ?? null} alternativas={estado.alternativas} escalamiento={estado.plan?.escalamiento} />
+          )}
+
+          {estado.tarea && planes.length > 0 && !bloqueado && (planes.length > 1 || planes[0].cambios.length > 0) && (
+            <ComparacionPlanes
+              tarea={estado.tarea}
+              planes={planes}
+              elegido={planId}
+              onElegir={setPlanElegido}
+              catalogo={catalogo}
+              puedeElegir={!!estado.decisionRequerida}
+            />
+          )}
+
           <BarraDecision
-            estadoSistema={estado.estadoSistema}
+            estadoSistema={estado.plan?.estado_sistema ?? estado.estadoSistema}
             estadoRun={estado.estadoRun}
             requerida={estado.decisionRequerida}
             decision={estado.decision}
+            planElegido={planes.length > 1 ? planId : null}
             enviando={run.enviando}
-            error={run.errorAccion}
-            onDecidir={run.decidir}
+            error={estado.estadoRun === 'ESPERANDO_CAMPO' ? null : run.errorAccion}
+            onDecidir={(d, comentario) => run.decidir(d, comentario, planId || undefined)}
           />
+
+          <LineaTiempo entradas={estado.lineaTiempo} />
         </>
       )}
 

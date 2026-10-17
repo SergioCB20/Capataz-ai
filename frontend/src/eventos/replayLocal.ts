@@ -9,7 +9,8 @@ const esAccionHumana = (e: Evento) => e.tipo === 'humano.campo_confirmado' || e.
 
 export interface ReplayLocal {
   fuente: FuenteEventos
-  confirmarCampo(c: ConfirmacionesCampo): void
+  /** Devuelve false si el replay no puede seguir (respuesta «No»: no hay corrida grabada para ese caso). */
+  confirmarCampo(c: ConfirmacionesCampo): boolean
   /** `soloRechazo` viene de `humano.decision_requerida`: un rechazo de plan bloqueado termina en BLOQUEADA. */
   decidir(d: DecisionHumana, soloRechazo: boolean): void
 }
@@ -55,14 +56,22 @@ export function crearReplayLocal(eventos: Evento[], opciones: OpcionesArchivo = 
     },
 
     confirmarCampo(c) {
-      if (terminado) return
+      if (terminado) return false
       const enArchivo = orden[cursor]?.tipo === 'humano.campo_confirmado'
       emitir({
         run_id: runId, seq: siguienteSeq('humano.campo_confirmado'), ts: new Date().toISOString(),
         tipo: 'humano.campo_confirmado', actor: `humano:${c.usuario}`, payload: { confirmaciones: c },
       })
-      // El resto del archivo asume las respuestas grabadas: es una simulación, no se recalcula.
-      if (enArchivo) reproducirDesde(cursor + 1)
+      // El resto del archivo asume que todo se confirmó. Sin backend no se recalcula el estado
+      // (esa lógica es del backend, RT-02), así que con algún «No» el replay se detiene.
+      const todoSi = c.respuestas.every((r) => r.cumple)
+      if (enArchivo && todoSi) {
+        reproducirDesde(cursor + 1)
+        return true
+      }
+      terminado = true
+      m?.onConexion?.('cerrada')
+      return false
     },
 
     decidir(d, soloRechazo) {

@@ -16,11 +16,11 @@
 
 ## 3. E2, E2c y E3 (hito 16:20)
 
-- [ ] 3.1 Vista de conflicto con tarjetas de alternativas e indicador de ronda (RF-F2-30, RF-F2-35)
-- [ ] 3.2 Comparación plan original vs. alternativa elegida; elegir `plan_id` si hay varias (RF-F2-31, RF-F2-21)
-- [ ] 3.3 Formulario de confirmación de campo (RF-F2-32)
-- [ ] 3.4 Estado bloqueado: motivo, escalamiento y solo «Rechazar» (RF-F2-33)
-- [ ] 3.5 Línea de tiempo de auditoría (RF-F2-34)
+- [x] 3.1 Vista de conflicto con tarjetas de alternativas e indicador de ronda (RF-F2-30, RF-F2-35)
+- [x] 3.2 Comparación plan original vs. alternativa elegida; elegir `plan_id` si hay varias (RF-F2-31, RF-F2-21)
+- [x] 3.3 Formulario de confirmación de campo (RF-F2-32)
+- [x] 3.4 Estado bloqueado: motivo, escalamiento y solo «Rechazar» (RF-F2-33)
+- [x] 3.5 Línea de tiempo de auditoría (RF-F2-34)
 
 ## 4. Pulido y despliegue (hasta 16:45)
 
