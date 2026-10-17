@@ -1,0 +1,25 @@
+[
+ {
+  "id": "SC-OCUPA",
+  "nombre": "Tarea que ocupa a PER-5 el turno día",
+  "tarea": {
+   "id": "TA-OCUPA",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Otra labor del mismo turno",
+   "zona": "Nivel 2",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-5"
+    ],
+    "equipos": [
+     "EQ-1"
+    ]
+   }
+  },
+  "resultado_esperado": "RECOMENDADO"
+ }
+]

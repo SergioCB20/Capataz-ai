@@ -1,0 +1,64 @@
+[
+ {
+  "id": "INC-1",
+  "fecha": "2025-05-04",
+  "nivel_potencial": "V",
+  "riesgo_critico": "caída de rocas",
+  "descripcion": "Desprendimiento de roca durante el sostenimiento con pernos",
+  "equipo": "empernador",
+  "actividad": "sostenimiento",
+  "tipo_tarea": "TT-SOST",
+  "control_fallido": "CTL-EMP"
+ },
+ {
+  "id": "INC-2",
+  "fecha": "2025-07-11",
+  "nivel_potencial": "IV",
+  "riesgo_critico": "caída de rocas",
+  "descripcion": "Roca suelta cae en la galería sin desatado previo",
+  "equipo": "jumbo",
+  "actividad": "desatado de rocas",
+  "tipo_tarea": "TT-CAMPO",
+  "control_fallido": "CTL-DESATE"
+ },
+ {
+  "id": "INC-3",
+  "fecha": "2025-02-02",
+  "nivel_potencial": "III",
+  "riesgo_critico": "trabajo en altura",
+  "descripcion": "Caída de un técnico sin arnés certificado",
+  "equipo": "plataforma",
+  "actividad": "mantenimiento en altura",
+  "tipo_tarea": "TT-ALT",
+  "control_fallido": "CTL-ARNES"
+ },
+ {
+  "id": "INC-4",
+  "fecha": "2024-11-20",
+  "nivel_potencial": "II",
+  "riesgo_critico": "caída de rocas",
+  "descripcion": "Golpe menor por un fragmento de roca",
+  "equipo": "empernador",
+  "actividad": "sostenimiento",
+  "tipo_tarea": "TT-SOST"
+ },
+ {
+  "id": "INC-5",
+  "fecha": "2025-09-09",
+  "nivel_potencial": "VI",
+  "riesgo_critico": "trabajo en altura",
+  "descripcion": "Caída desde la canasta de una plataforma",
+  "equipo": "plataforma",
+  "actividad": "mantenimiento en altura",
+  "tipo_tarea": "TT-ALT"
+ },
+ {
+  "id": "INC-6",
+  "fecha": "2024-06-30",
+  "nivel_potencial": "I",
+  "riesgo_critico": "ruido",
+  "descripcion": "Exposición a ruido en la sala de compresores",
+  "equipo": "compresor",
+  "actividad": "operación"
+ }
+]

@@ -1,0 +1,32 @@
+[
+ {
+  "id": "EQ-1",
+  "nombre": "Empernador 1",
+  "tipo_equipo": "empernador"
+ },
+ {
+  "id": "EQ-2",
+  "nombre": "Empernador 2",
+  "tipo_equipo": "empernador",
+  "estado": "mantenimiento"
+ },
+ {
+  "id": "EQ-3",
+  "nombre": "Perforadora 1",
+  "tipo_equipo": "perforadora",
+  "tipos_equivalentes": [
+   "empernador"
+  ],
+  "mantenimiento": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "noche"
+   }
+  ]
+ },
+ {
+  "id": "EQ-4",
+  "nombre": "Plataforma 1",
+  "tipo_equipo": "plataforma"
+ }
+]

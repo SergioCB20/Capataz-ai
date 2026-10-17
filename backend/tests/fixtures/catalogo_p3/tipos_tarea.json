@@ -1,0 +1,14 @@
+[
+ {
+  "id": "TT-SOST",
+  "nombre": "Sostenimiento con pernos"
+ },
+ {
+  "id": "TT-CAMPO",
+  "nombre": "Sostenimiento con desatado previo"
+ },
+ {
+  "id": "TT-ALT",
+  "nombre": "Mantenimiento en altura"
+ }
+]

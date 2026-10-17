@@ -1,0 +1,98 @@
+[
+ {
+  "id": "PER-1",
+  "nombre": "Ana Quispe",
+  "rol": "operador",
+  "certificaciones": [
+   {
+    "codigo": "SOST",
+    "vence": "2027-03-01"
+   },
+   {
+    "codigo": "ARNES",
+    "vence": "2027-01-01"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   {
+    "fecha": "2026-10-20",
+    "turno": "noche"
+   }
+  ]
+ },
+ {
+  "id": "PER-2",
+  "nombre": "Luis Huamán",
+  "rol": "operador",
+  "certificaciones": [
+   {
+    "codigo": "SOST",
+    "vence": "2026-09-30"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-3",
+  "nombre": "Rosa Mamani",
+  "rol": "operador",
+  "certificaciones": [
+   {
+    "codigo": "SOST-B",
+    "vence": "2027-05-01"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   {
+    "fecha": "2026-10-20",
+    "turno": "noche"
+   }
+  ]
+ },
+ {
+  "id": "PER-4",
+  "nombre": "Carlos Díaz",
+  "rol": "ayudante",
+  "certificaciones": [],
+  "turnos": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-5",
+  "nombre": "Marta Soto",
+  "rol": "operador",
+  "certificaciones": [
+   {
+    "codigo": "SOST",
+    "vence": "2027-06-01"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   {
+    "fecha": "2026-10-20",
+    "turno": "noche"
+   }
+  ]
+ }
+]

@@ -40,12 +40,15 @@ async def _riesgo_por_defecto(ctx: ContextoFake) -> dict[str, Any]:
         if peligro is None:
             continue
         encontrados = json.loads(await ctx.llamar(
-            "buscar_incidentes", actividad=actividad, riesgo_critico=peligro.nombre))
+            "buscar_incidentes", actividad=actividad, riesgo_critico=peligro.nombre))[:2]
+        # Checklist dinámico: el control que falló en un incidente similar se suma (si está en el catálogo).
+        extras = [i["control_fallido"] for i in encontrados
+                  if i.get("control_fallido") and i["control_fallido"] not in controles]
         peligros.append({
             "peligro_id": peligro_id,
             "justificacion": f"{peligro.nombre}: peligro asociado a «{actividad}».",
-            "controles": controles,
-            "incidentes_similares": [i["id"] for i in encontrados[:2]],
+            "controles": controles + list(dict.fromkeys(extras)),
+            "incidentes_similares": [i["id"] for i in encontrados],
         })
     return {"peligros": peligros}
 
