@@ -1,6 +1,7 @@
 // Menú lateral: navegación entre «Nueva evaluación» y la ejecución en curso, y el recordatorio
 // de que la persona decide (el plan es un PTW borrador).
 import { CirclePlay, Plus } from 'lucide-react'
+import logo from '@/assets/logo-capataz.png'
 import { cn } from '@/lib/utils'
 
 export type Pantalla = 'inicio' | 'ejecucion'
@@ -8,10 +9,7 @@ export type Pantalla = 'inicio' | 'ejecucion'
 function Logo() {
   return (
     <div className="flex items-center gap-3 px-2">
-      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
-        <circle cx="22" cy="14" r="11" fill="#6D4AFF" />
-        <circle cx="11" cy="25" r="7" fill="#1F7AE0" />
-      </svg>
+      <img src={logo} alt="" aria-hidden="true" width={40} height={40} className="size-10" />
       <span className="text-xl font-extrabold tracking-tight">CAPATAZ</span>
     </div>
   )
