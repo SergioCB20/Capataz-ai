@@ -34,7 +34,7 @@ Frontend: Vite + React + TS, Tailwind, shadcn/ui, React Flow, Motion. Tiempo rea
 
 - `docs/requisitos/00-indice.md`: índice, reglas transversales (RT-01..10) y escenarios E1, E2, E2c, E3. Las fases `01`..`05`, el anexo de Supabase (`90`) y la matriz de trazabilidad (`91`) cuelgan de ahí.
 - `docs/capataz-stack-y-contrato.html`: stack y contrato de datos. `docs/capataz-arquitectura.html`: diagramas y flujos.
-- `docs/reparto-equipo.md` y `openspec/changes/p1`..`p5`: reparto entre 5 personas, hitos y tareas. Los acuerdos de interfaz entre personas están en `openspec/changes/p1-contrato-api-runtime/design.md`.
+- `docs/reparto-equipo.md` y `openspec/changes/p1`..`p5`: reparto entre 5 personas, hitos y tareas. Los acuerdos de interfaz entre personas están en `openspec/changes/p1-contrato-api-runtime/design.md`. Las convenciones de planes y eventos que P2 fija para P1, P3, P4 y P5 están en `openspec/changes/p2-orquestador-agentes-llm/design.md` (sección «Acuerdos que P2 fija…»).
 - Si dos documentos se contradicen, mandan los requisitos (`docs/requisitos/`) y el contrato (`contract.py`); corrige el otro documento.
 
 ## Reglas de trabajo
