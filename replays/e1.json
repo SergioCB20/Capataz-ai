@@ -1,0 +1,351 @@
+[
+  {
+    "run_id": "replay-e1",
+    "seq": 1,
+    "ts": "2026-10-17T15:00:00.000Z",
+    "tipo": "run.iniciado",
+    "actor": "sistema",
+    "payload": {
+      "tarea": {
+        "id": "t-e1",
+        "tipo_tarea": "sostenimiento_pernos",
+        "descripcion": "Sostenimiento con pernos helicoidales en labor 12 tras voladura",
+        "zona": "Nivel 3200 · Labor 12",
+        "turno": { "fecha": "2026-10-17", "turno": "dia" },
+        "asignacion": { "personas": ["p-001", "p-002"], "equipos": ["eq-jumbo-01"] }
+      }
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 2,
+    "ts": "2026-10-17T15:00:00.300Z",
+    "tipo": "agente.iniciado",
+    "actor": "capataz:agente-riesgo",
+    "payload": { "agente": "capataz:agente-riesgo" }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 3,
+    "ts": "2026-10-17T15:00:01.200Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-riesgo",
+    "payload": {
+      "agente": "capataz:agente-riesgo",
+      "trace": {
+        "nombre": "buscar_incidentes",
+        "entrada": { "equipo": "jumbo_empernador", "actividad": "sostenimiento", "riesgo_critico": "caida_rocas" },
+        "salida_resumen": "2 incidentes similares (inc-007, inc-021)",
+        "duracion_ms": 12
+      }
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 4,
+    "ts": "2026-10-17T15:00:02.800Z",
+    "tipo": "agente.completado",
+    "actor": "capataz:agente-riesgo",
+    "payload": {
+      "agente": "capataz:agente-riesgo",
+      "resumen": "2 peligros detectados: caída de rocas y energía peligrosa. 3 controles del catálogo aplican.",
+      "evaluacion": {
+        "peligros": [
+          {
+            "peligro_id": "pel-caida-rocas",
+            "justificacion": "Labor recién disparada: el macizo puede estar fracturado hasta completar el desatado y el sostenimiento.",
+            "controles": ["ctl-sostenimiento", "ctl-epp"],
+            "incidentes_similares": ["inc-007", "inc-021"]
+          },
+          {
+            "peligro_id": "pel-energia",
+            "justificacion": "El jumbo empernador trabaja con energía hidráulica y eléctrica durante el mantenimiento en labor.",
+            "controles": ["ctl-loto"],
+            "incidentes_similares": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 5,
+    "ts": "2026-10-17T15:00:03.000Z",
+    "tipo": "agente.iniciado",
+    "actor": "capataz:agente-personal",
+    "payload": { "agente": "capataz:agente-personal" }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 6,
+    "ts": "2026-10-17T15:00:03.050Z",
+    "tipo": "agente.iniciado",
+    "actor": "capataz:agente-equipo",
+    "payload": { "agente": "capataz:agente-equipo" }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 7,
+    "ts": "2026-10-17T15:00:03.600Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal",
+      "trace": {
+        "nombre": "listar_personal_turno",
+        "entrada": { "fecha": "2026-10-17", "turno": "dia" },
+        "salida_resumen": "6 personas disponibles en el turno día",
+        "duracion_ms": 4
+      }
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 8,
+    "ts": "2026-10-17T15:00:03.700Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-equipo",
+    "payload": {
+      "agente": "capataz:agente-equipo",
+      "trace": {
+        "nombre": "estado_equipo",
+        "entrada": { "equipo_id": "eq-jumbo-01", "fecha": "2026-10-17", "turno": "dia" },
+        "salida_resumen": "eq-jumbo-01: operativo, disponible en el turno",
+        "duracion_ms": 3
+      }
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 9,
+    "ts": "2026-10-17T15:00:04.300Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal",
+      "trace": {
+        "nombre": "verificar_certificaciones",
+        "entrada": { "personas": ["p-001", "p-002"], "a_fecha": "2026-10-17" },
+        "salida_resumen": "OP-EMPERNADOR, LOTO e INDUCCION-SSO vigentes",
+        "duracion_ms": 5
+      }
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 10,
+    "ts": "2026-10-17T15:00:04.600Z",
+    "tipo": "agente.completado",
+    "actor": "capataz:agente-equipo",
+    "payload": {
+      "agente": "capataz:agente-equipo",
+      "resumen": "1 requisito de equipo verificado: CUMPLE.",
+      "resultados": [
+        {
+          "control_id": "ctl-sostenimiento",
+          "requisito_id": "req-jumbo-operativo",
+          "estado": "CUMPLE",
+          "evidencia": [
+            {
+              "registro": "equipos/eq-jumbo-01",
+              "campo": "estado",
+              "valor": "operativo",
+              "fuente": { "tipo": "simulado", "referencia": "Registro de equipos (seed)" }
+            }
+          ],
+          "verificado_por": "capataz:agente-equipo",
+          "detalle": "Jumbo empernador eq-jumbo-01 operativo y sin otra asignación en el turno día."
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 11,
+    "ts": "2026-10-17T15:00:05.000Z",
+    "tipo": "agente.completado",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal",
+      "resumen": "3 requisitos de competencia verificados: todos CUMPLE.",
+      "resultados": [
+        {
+          "control_id": "ctl-sostenimiento",
+          "requisito_id": "req-operador-empernador",
+          "estado": "CUMPLE",
+          "evidencia": [
+            {
+              "registro": "personas/p-001",
+              "campo": "certificaciones.OP-EMPERNADOR.vence",
+              "valor": "2027-03-31",
+              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+            }
+          ],
+          "verificado_por": "capataz:agente-personal",
+          "detalle": "p-001 (operador) tiene OP-EMPERNADOR vigente a la fecha del turno."
+        },
+        {
+          "control_id": "ctl-loto",
+          "requisito_id": "req-loto",
+          "estado": "CUMPLE",
+          "evidencia": [
+            {
+              "registro": "personas/p-001",
+              "campo": "certificaciones.LOTO.vence",
+              "valor": "2026-12-15",
+              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+            }
+          ],
+          "verificado_por": "capataz:agente-personal",
+          "detalle": "p-001 tiene la capacitación de bloqueo y etiquetado (LOTO) vigente."
+        },
+        {
+          "control_id": "ctl-epp",
+          "requisito_id": "req-induccion",
+          "estado": "CUMPLE",
+          "evidencia": [
+            {
+              "registro": "personas/p-001",
+              "campo": "certificaciones.INDUCCION-SSO.vence",
+              "valor": "2027-01-10",
+              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+            },
+            {
+              "registro": "personas/p-002",
+              "campo": "certificaciones.INDUCCION-SSO.vence",
+              "valor": "2026-11-30",
+              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+            }
+          ],
+          "verificado_por": "capataz:agente-personal",
+          "detalle": "p-001 y p-002 tienen la inducción de seguridad vigente."
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 12,
+    "ts": "2026-10-17T15:00:05.300Z",
+    "tipo": "supervisor.consolidado",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "estado_sistema": "RECOMENDADO",
+      "resultados": [
+        {
+          "control_id": "ctl-sostenimiento",
+          "bloqueante": true,
+          "estado": "CUMPLE",
+          "requisitos": [
+            {
+              "control_id": "ctl-sostenimiento",
+              "requisito_id": "req-operador-empernador",
+              "estado": "CUMPLE",
+              "evidencia": [
+                {
+                  "registro": "personas/p-001",
+                  "campo": "certificaciones.OP-EMPERNADOR.vence",
+                  "valor": "2027-03-31",
+                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+                }
+              ],
+              "verificado_por": "capataz:agente-personal",
+              "detalle": "p-001 (operador) tiene OP-EMPERNADOR vigente a la fecha del turno."
+            },
+            {
+              "control_id": "ctl-sostenimiento",
+              "requisito_id": "req-jumbo-operativo",
+              "estado": "CUMPLE",
+              "evidencia": [
+                {
+                  "registro": "equipos/eq-jumbo-01",
+                  "campo": "estado",
+                  "valor": "operativo",
+                  "fuente": { "tipo": "simulado", "referencia": "Registro de equipos (seed)" }
+                }
+              ],
+              "verificado_por": "capataz:agente-equipo",
+              "detalle": "Jumbo empernador eq-jumbo-01 operativo y sin otra asignación en el turno día."
+            }
+          ]
+        },
+        {
+          "control_id": "ctl-loto",
+          "bloqueante": true,
+          "estado": "CUMPLE",
+          "requisitos": [
+            {
+              "control_id": "ctl-loto",
+              "requisito_id": "req-loto",
+              "estado": "CUMPLE",
+              "evidencia": [
+                {
+                  "registro": "personas/p-001",
+                  "campo": "certificaciones.LOTO.vence",
+                  "valor": "2026-12-15",
+                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+                }
+              ],
+              "verificado_por": "capataz:agente-personal",
+              "detalle": "p-001 tiene la capacitación de bloqueo y etiquetado (LOTO) vigente."
+            }
+          ]
+        },
+        {
+          "control_id": "ctl-epp",
+          "bloqueante": false,
+          "estado": "CUMPLE",
+          "requisitos": [
+            {
+              "control_id": "ctl-epp",
+              "requisito_id": "req-induccion",
+              "estado": "CUMPLE",
+              "evidencia": [
+                {
+                  "registro": "personas/p-001",
+                  "campo": "certificaciones.INDUCCION-SSO.vence",
+                  "valor": "2027-01-10",
+                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+                },
+                {
+                  "registro": "personas/p-002",
+                  "campo": "certificaciones.INDUCCION-SSO.vence",
+                  "valor": "2026-11-30",
+                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
+                }
+              ],
+              "verificado_por": "capataz:agente-personal",
+              "detalle": "p-001 y p-002 tienen la inducción de seguridad vigente."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 13,
+    "ts": "2026-10-17T15:00:05.500Z",
+    "tipo": "plan.listo",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "plan": {
+        "id": "plan-e1",
+        "run_id": "replay-e1",
+        "estado_sistema": "RECOMENDADO",
+        "asignacion": { "personas": ["p-001", "p-002"], "equipos": ["eq-jumbo-01"] },
+        "cambios": [],
+        "resultados": [],
+        "escalamiento": null
+      }
+    }
+  },
+  {
+    "run_id": "replay-e1",
+    "seq": 14,
+    "ts": "2026-10-17T15:00:05.600Z",
+    "tipo": "humano.decision_requerida",
+    "actor": "sistema",
+    "payload": { "plan_id": "plan-e1", "solo_rechazo": false }
+  }
+]

@@ -1,0 +1,626 @@
+[
+  {
+    "run_id": "replay-e3",
+    "seq": 1,
+    "ts": "2026-10-17T15:10:00.000Z",
+    "tipo": "run.iniciado",
+    "actor": "sistema",
+    "payload": {
+      "tarea": {
+        "id": "t-e3",
+        "tipo_tarea": "sostenimiento_pernos",
+        "descripcion": "Sostenimiento urgente en labor 20 sin equipo ni operador disponibles",
+        "zona": "Nivel 3100 · Labor 20",
+        "turno": {
+          "fecha": "2026-10-17",
+          "turno": "noche"
+        },
+        "asignacion": {
+          "personas": [
+            "p-003"
+          ],
+          "equipos": [
+            "eq-jumbo-02"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 2,
+    "ts": "2026-10-17T15:10:00.400Z",
+    "tipo": "agente.iniciado",
+    "actor": "capataz:agente-riesgo",
+    "payload": {
+      "agente": "capataz:agente-riesgo"
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 3,
+    "ts": "2026-10-17T15:10:01.300Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-riesgo",
+    "payload": {
+      "agente": "capataz:agente-riesgo",
+      "trace": {
+        "nombre": "buscar_incidentes",
+        "entrada": {
+          "equipo": "jumbo_empernador",
+          "actividad": "sostenimiento",
+          "riesgo_critico": "caida_rocas"
+        },
+        "salida_resumen": "incidentes similares ordenados por nivel potencial",
+        "duracion_ms": 5
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 4,
+    "ts": "2026-10-17T15:10:02.500Z",
+    "tipo": "agente.completado",
+    "actor": "capataz:agente-riesgo",
+    "payload": {
+      "agente": "capataz:agente-riesgo",
+      "resumen": "1 peligros detectados",
+      "evaluacion": {
+        "peligros": [
+          {
+            "peligro_id": "pel-caida-rocas",
+            "justificacion": "Labor recién disparada: riesgo de desprendimiento hasta completar el sostenimiento.",
+            "controles": [
+              "ctl-sostenimiento",
+              "ctl-epp"
+            ],
+            "incidentes_similares": [
+              "inc-007",
+              "inc-021"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 5,
+    "ts": "2026-10-17T15:10:02.900Z",
+    "tipo": "agente.iniciado",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal"
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 6,
+    "ts": "2026-10-17T15:10:02.950Z",
+    "tipo": "agente.iniciado",
+    "actor": "capataz:agente-equipo",
+    "payload": {
+      "agente": "capataz:agente-equipo"
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 7,
+    "ts": "2026-10-17T15:10:03.450Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-equipo",
+    "payload": {
+      "agente": "capataz:agente-equipo",
+      "trace": {
+        "nombre": "estado_equipo",
+        "entrada": {
+          "equipo_id": "eq-jumbo-02",
+          "turno": "noche"
+        },
+        "salida_resumen": "eq-jumbo-02: mantenimiento",
+        "duracion_ms": 5
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 8,
+    "ts": "2026-10-17T15:10:03.950Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal",
+      "trace": {
+        "nombre": "verificar_certificaciones",
+        "entrada": {
+          "personas": [
+            "p-003"
+          ],
+          "a_fecha": "2026-10-17"
+        },
+        "salida_resumen": "OP-EMPERNADOR vencida",
+        "duracion_ms": 5
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 9,
+    "ts": "2026-10-17T15:10:04.350Z",
+    "tipo": "agente.completado",
+    "actor": "capataz:agente-equipo",
+    "payload": {
+      "agente": "capataz:agente-equipo",
+      "resumen": "1 requisito NO_CUMPLE",
+      "resultados": [
+        {
+          "control_id": "ctl-sostenimiento",
+          "requisito_id": "req-jumbo-operativo",
+          "estado": "NO_CUMPLE",
+          "evidencia": [
+            {
+              "registro": "equipos/eq-jumbo-02",
+              "campo": "estado",
+              "valor": "mantenimiento",
+              "fuente": {
+                "tipo": "simulado",
+                "referencia": "Registro de equipos (seed)"
+              }
+            }
+          ],
+          "verificado_por": "capataz:agente-equipo",
+          "detalle": "eq-jumbo-02 está en mantenimiento el turno noche."
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 10,
+    "ts": "2026-10-17T15:10:04.750Z",
+    "tipo": "agente.completado",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal",
+      "resumen": "1 NO_CUMPLE, 1 CUMPLE",
+      "resultados": [
+        {
+          "control_id": "ctl-sostenimiento",
+          "requisito_id": "req-operador-empernador",
+          "estado": "NO_CUMPLE",
+          "evidencia": [
+            {
+              "registro": "personas/p-003",
+              "campo": "certificaciones.OP-EMPERNADOR.vence",
+              "valor": "2026-09-30",
+              "fuente": {
+                "tipo": "simulado",
+                "referencia": "Registro de personal (seed)"
+              }
+            }
+          ],
+          "verificado_por": "capataz:agente-personal",
+          "detalle": "p-003 tiene OP-EMPERNADOR vencida (30/09/2026) a la fecha del turno."
+        },
+        {
+          "control_id": "ctl-epp",
+          "requisito_id": "req-induccion",
+          "estado": "CUMPLE",
+          "evidencia": [
+            {
+              "registro": "personas/p-003",
+              "campo": "certificaciones.INDUCCION-SSO.vence",
+              "valor": "2027-01-10",
+              "fuente": {
+                "tipo": "simulado",
+                "referencia": "Registro de personal (seed)"
+              }
+            }
+          ],
+          "verificado_por": "capataz:agente-personal",
+          "detalle": "p-003 tiene la inducción vigente."
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 11,
+    "ts": "2026-10-17T15:10:05.150Z",
+    "tipo": "supervisor.consolidado",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "estado_sistema": "BLOQUEADO",
+      "resultados": [
+        {
+          "control_id": "ctl-sostenimiento",
+          "bloqueante": true,
+          "estado": "NO_CUMPLE",
+          "requisitos": [
+            {
+              "control_id": "ctl-sostenimiento",
+              "requisito_id": "req-operador-empernador",
+              "estado": "NO_CUMPLE",
+              "evidencia": [
+                {
+                  "registro": "personas/p-003",
+                  "campo": "certificaciones.OP-EMPERNADOR.vence",
+                  "valor": "2026-09-30",
+                  "fuente": {
+                    "tipo": "simulado",
+                    "referencia": "Registro de personal (seed)"
+                  }
+                }
+              ],
+              "verificado_por": "capataz:agente-personal",
+              "detalle": "p-003 tiene OP-EMPERNADOR vencida (30/09/2026) a la fecha del turno."
+            },
+            {
+              "control_id": "ctl-sostenimiento",
+              "requisito_id": "req-jumbo-operativo",
+              "estado": "NO_CUMPLE",
+              "evidencia": [
+                {
+                  "registro": "equipos/eq-jumbo-02",
+                  "campo": "estado",
+                  "valor": "mantenimiento",
+                  "fuente": {
+                    "tipo": "simulado",
+                    "referencia": "Registro de equipos (seed)"
+                  }
+                }
+              ],
+              "verificado_por": "capataz:agente-equipo",
+              "detalle": "eq-jumbo-02 está en mantenimiento el turno noche."
+            }
+          ]
+        },
+        {
+          "control_id": "ctl-epp",
+          "bloqueante": false,
+          "estado": "CUMPLE",
+          "requisitos": [
+            {
+              "control_id": "ctl-epp",
+              "requisito_id": "req-induccion",
+              "estado": "CUMPLE",
+              "evidencia": [
+                {
+                  "registro": "personas/p-003",
+                  "campo": "certificaciones.INDUCCION-SSO.vence",
+                  "valor": "2027-01-10",
+                  "fuente": {
+                    "tipo": "simulado",
+                    "referencia": "Registro de personal (seed)"
+                  }
+                }
+              ],
+              "verificado_por": "capataz:agente-personal",
+              "detalle": "p-003 tiene la inducción vigente."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 12,
+    "ts": "2026-10-17T15:10:05.550Z",
+    "tipo": "conflicto.detectado",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "control_id": "ctl-sostenimiento",
+      "requisito_id": "req-jumbo-operativo",
+      "causa": "El jumbo eq-jumbo-02 está en mantenimiento y p-003 no tiene OP-EMPERNADOR vigente en el turno noche",
+      "evidencia": [
+        {
+          "registro": "equipos/eq-jumbo-02",
+          "campo": "estado",
+          "valor": "mantenimiento",
+          "fuente": {
+            "tipo": "simulado",
+            "referencia": "Registro de equipos (seed)"
+          }
+        },
+        {
+          "registro": "personas/p-003",
+          "campo": "certificaciones.OP-EMPERNADOR.vence",
+          "valor": "2026-09-30",
+          "fuente": {
+            "tipo": "simulado",
+            "referencia": "Registro de personal (seed)"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 13,
+    "ts": "2026-10-17T15:10:07.050Z",
+    "tipo": "conflicto.alternativas",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "ronda": 1,
+      "alternativas": [
+        {
+          "id": "alt-a",
+          "ronda": 1,
+          "cambios": [
+            {
+              "tipo": "reprogramar_turno",
+              "desde": "noche 17/10",
+              "hacia": "día 17/10",
+              "motivo": "En el turno día hay operador certificado"
+            }
+          ],
+          "explicacion": "Pasar al turno día con p-001 y el jumbo 01.",
+          "cumple_bloqueantes": null,
+          "motivo_fallo": null
+        },
+        {
+          "id": "alt-b",
+          "ronda": 1,
+          "cambios": [
+            {
+              "tipo": "equipo_equivalente",
+              "desde": "eq-jumbo-02",
+              "hacia": "eq-bolter-01",
+              "motivo": "Bolter equivalente"
+            }
+          ],
+          "explicacion": "Usar el bolter 01 en el turno noche.",
+          "cumple_bloqueantes": null,
+          "motivo_fallo": null
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 14,
+    "ts": "2026-10-17T15:10:07.550Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal",
+      "trace": {
+        "nombre": "detectar_doble_asignacion",
+        "entrada": {
+          "personas": [
+            "p-001"
+          ],
+          "turno": "dia"
+        },
+        "salida_resumen": "p-001 ya asignado a otra tarea en el turno día",
+        "duracion_ms": 5
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 15,
+    "ts": "2026-10-17T15:10:07.950Z",
+    "tipo": "conflicto.alternativa_verificada",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "alternativa": {
+        "id": "alt-a",
+        "ronda": 1,
+        "cambios": [
+          {
+            "tipo": "reprogramar_turno",
+            "desde": "noche 17/10",
+            "hacia": "día 17/10",
+            "motivo": "En el turno día hay operador certificado"
+          }
+        ],
+        "explicacion": "Pasar al turno día con p-001 y el jumbo 01.",
+        "cumple_bloqueantes": false,
+        "motivo_fallo": "p-001 y eq-jumbo-01 ya están asignados a otra tarea en el turno día (doble asignación)"
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 16,
+    "ts": "2026-10-17T15:10:08.350Z",
+    "tipo": "conflicto.alternativa_verificada",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "alternativa": {
+        "id": "alt-b",
+        "ronda": 1,
+        "cambios": [
+          {
+            "tipo": "equipo_equivalente",
+            "desde": "eq-jumbo-02",
+            "hacia": "eq-bolter-01",
+            "motivo": "Bolter equivalente"
+          }
+        ],
+        "explicacion": "Usar el bolter 01 en el turno noche.",
+        "cumple_bloqueantes": false,
+        "motivo_fallo": "El bolter resuelve el equipo, pero p-003 sigue sin OP-EMPERNADOR vigente"
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 17,
+    "ts": "2026-10-17T15:10:09.850Z",
+    "tipo": "conflicto.alternativas",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "ronda": 2,
+      "alternativas": [
+        {
+          "id": "alt-c",
+          "ronda": 2,
+          "cambios": [
+            {
+              "tipo": "certificacion_equivalente",
+              "desde": "OP-EMPERNADOR",
+              "hacia": "OP-JUMBO-PERF",
+              "motivo": "p-003 tiene OP-JUMBO-PERF vigente"
+            }
+          ],
+          "explicacion": "Aceptar OP-JUMBO-PERF como equivalente para p-003 (ronda 2, tras fallar la ronda 1 por competencia y doble asignación).",
+          "cumple_bloqueantes": null,
+          "motivo_fallo": null
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 18,
+    "ts": "2026-10-17T15:10:10.350Z",
+    "tipo": "agente.herramienta",
+    "actor": "capataz:agente-personal",
+    "payload": {
+      "agente": "capataz:agente-personal",
+      "trace": {
+        "nombre": "verificar_certificaciones",
+        "entrada": {
+          "personas": [
+            "p-003"
+          ],
+          "permitir_equivalencias": true
+        },
+        "salida_resumen": "OP-JUMBO-PERF no es equivalente en el catálogo",
+        "duracion_ms": 5
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 19,
+    "ts": "2026-10-17T15:10:10.750Z",
+    "tipo": "conflicto.alternativa_verificada",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "alternativa": {
+        "id": "alt-c",
+        "ronda": 2,
+        "cambios": [
+          {
+            "tipo": "certificacion_equivalente",
+            "desde": "OP-EMPERNADOR",
+            "hacia": "OP-JUMBO-PERF",
+            "motivo": "p-003 tiene OP-JUMBO-PERF vigente"
+          }
+        ],
+        "explicacion": "Aceptar OP-JUMBO-PERF como equivalente para p-003 (ronda 2, tras fallar la ronda 1 por competencia y doble asignación).",
+        "cumple_bloqueantes": false,
+        "motivo_fallo": "OP-JUMBO-PERF no figura como equivalente de OP-EMPERNADOR en el catálogo"
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 20,
+    "ts": "2026-10-17T15:10:11.150Z",
+    "tipo": "plan.listo",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "plan": {
+        "id": "plan-e3",
+        "run_id": "replay-e3",
+        "estado_sistema": "BLOQUEADO",
+        "asignacion": {
+          "personas": [
+            "p-003"
+          ],
+          "equipos": [
+            "eq-jumbo-02"
+          ]
+        },
+        "cambios": [],
+        "resultados": [
+          {
+            "control_id": "ctl-sostenimiento",
+            "bloqueante": true,
+            "estado": "NO_CUMPLE",
+            "requisitos": [
+              {
+                "control_id": "ctl-sostenimiento",
+                "requisito_id": "req-operador-empernador",
+                "estado": "NO_CUMPLE",
+                "evidencia": [
+                  {
+                    "registro": "personas/p-003",
+                    "campo": "certificaciones.OP-EMPERNADOR.vence",
+                    "valor": "2026-09-30",
+                    "fuente": {
+                      "tipo": "simulado",
+                      "referencia": "Registro de personal (seed)"
+                    }
+                  }
+                ],
+                "verificado_por": "capataz:agente-personal",
+                "detalle": "p-003 tiene OP-EMPERNADOR vencida (30/09/2026) a la fecha del turno."
+              },
+              {
+                "control_id": "ctl-sostenimiento",
+                "requisito_id": "req-jumbo-operativo",
+                "estado": "NO_CUMPLE",
+                "evidencia": [
+                  {
+                    "registro": "equipos/eq-jumbo-02",
+                    "campo": "estado",
+                    "valor": "mantenimiento",
+                    "fuente": {
+                      "tipo": "simulado",
+                      "referencia": "Registro de equipos (seed)"
+                    }
+                  }
+                ],
+                "verificado_por": "capataz:agente-equipo",
+                "detalle": "eq-jumbo-02 está en mantenimiento el turno noche."
+              }
+            ]
+          },
+          {
+            "control_id": "ctl-epp",
+            "bloqueante": false,
+            "estado": "CUMPLE",
+            "requisitos": [
+              {
+                "control_id": "ctl-epp",
+                "requisito_id": "req-induccion",
+                "estado": "CUMPLE",
+                "evidencia": [
+                  {
+                    "registro": "personas/p-003",
+                    "campo": "certificaciones.INDUCCION-SSO.vence",
+                    "valor": "2027-01-10",
+                    "fuente": {
+                      "tipo": "simulado",
+                      "referencia": "Registro de personal (seed)"
+                    }
+                  }
+                ],
+                "verificado_por": "capataz:agente-personal",
+                "detalle": "p-003 tiene la inducción vigente."
+              }
+            ]
+          }
+        ],
+        "escalamiento": "Avisar al jefe de guardia: no hay operador certificado ni jumbo operativo en el turno noche. No iniciar la tarea."
+      }
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 21,
+    "ts": "2026-10-17T15:10:11.250Z",
+    "tipo": "humano.decision_requerida",
+    "actor": "sistema",
+    "payload": {
+      "plan_id": "plan-e3",
+      "solo_rechazo": true
+    }
+  }
+]
