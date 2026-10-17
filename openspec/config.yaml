@@ -1,0 +1,24 @@
+schema: spec-driven
+
+context: |
+  CAPATAZ: sistema multiagente que verifica, antes de una tarea minera, que los controles
+  críticos se pueden ejecutar (personal competente, equipo disponible, condiciones de campo)
+  y entrega un «Plan (PTW borrador)». Un humano siempre decide.
+  Hackathon Sundai LATAM x NTT Data, 17 oct 2026; cierre del equipo 17:00.
+
+  Stack: backend Python 3.11 + FastAPI + Pydantic v2 + asyncio (local, :8000); frontend Vite +
+  React + TS + Tailwind + shadcn/ui + React Flow; SSE; Supabase con MemoryStore de respaldo;
+  LLM GPT-6 Luna vía OpenRouter (function calling) con modo fake.
+
+  Fuente de verdad de los requisitos: docs/requisitos/*.md (IDs RF-Fx-nn, RT-nn).
+  Reparto del equipo e hitos: docs/reparto-equipo.md.
+  Acuerdos de interfaz entre personas: openspec/changes/p1-contrato-api-runtime/design.md.
+
+  Reglas clave: el código verifica y el LLM razona (RT-01); tres estados de control, gana el
+  peor (RT-02); un plan BLOQUEADO solo admite rechazo (RT-04); todo dato simulado se marca
+  (RT-07); la demo funciona sin red en modo replay (RT-08). Todo el texto visible en español.
+
+rules:
+  tasks:
+    - Cada tarea indica el RF que cubre entre paréntesis.
+    - Evitar dependencias entre personas; si existe, usar un stub con la interfaz acordada.

@@ -28,12 +28,13 @@ Todo paso se emite como evento tipado, que sirve de auditoría. Los datos están
 
 ## Stack (resumen; detalle en `README.md`)
 
-Frontend: Vite + React + TS, Tailwind, shadcn/ui, React Flow, Motion. Tiempo real: SSE. Backend: Python 3.11+, FastAPI, Pydantic v2, asyncio. LLM: SDK `anthropic` con tool use. Persistencia: Supabase vía `supabase-py` (async) con `MemoryStore` de respaldo. Entorno: `uv` + `pnpm`, sin Docker.
+Frontend: Vite + React + TS, Tailwind, shadcn/ui, React Flow, Motion. Tiempo real: SSE. Backend: Python 3.11+, FastAPI, Pydantic v2, asyncio. LLM: GPT-6 Luna vía OpenRouter (API compatible con OpenAI, function calling). Persistencia: Supabase vía `supabase-py` (async) con `MemoryStore` de respaldo. Entorno: `uv` + `pnpm`, sin Docker.
 
 ## Dónde está cada cosa
 
 - `docs/requisitos/00-indice.md`: índice, reglas transversales (RT-01..10) y escenarios E1, E2, E2c, E3. Las fases `01`..`05`, el anexo de Supabase (`90`) y la matriz de trazabilidad (`91`) cuelgan de ahí.
 - `docs/capataz-stack-y-contrato.html`: stack y contrato de datos. `docs/capataz-arquitectura.html`: diagramas y flujos.
+- `docs/reparto-equipo.md` y `openspec/changes/p1`..`p5`: reparto entre 5 personas, hitos y tareas. Los acuerdos de interfaz entre personas están en `openspec/changes/p1-contrato-api-runtime/design.md`.
 - Si dos documentos se contradicen, mandan los requisitos (`docs/requisitos/`) y el contrato (`contract.py`); corrige el otro documento.
 
 ## Reglas de trabajo

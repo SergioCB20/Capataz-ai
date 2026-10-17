@@ -15,7 +15,7 @@ Muchos incidentes graves no ocurren porque falte un control, sino porque el cont
 3. El **Supervisor** reparte los requisitos al **Agente Personal** y al **Agente Equipo**, que trabajan en paralelo con herramientas deterministas.
 4. Cada control queda en `CUMPLE`, `NO_VERIFICABLE` o `NO_CUMPLE` (gana el peor), y el plan en `RECOMENDADO`, `REQUIERE_CAMPO` o `BLOQUEADO`.
 5. Si hay conflicto, se proponen alternativas (máx. 2 rondas) y **cada una se re-verifica con herramientas**.
-6. La persona responsable aprueba o rechaza. Un plan bloqueado solo admite rechazo.
+6. El resultado se presenta como **«Plan (PTW borrador)»**. La persona responsable aprueba o rechaza; un plan bloqueado solo admite rechazo. CAPATAZ entrega un borrador: la persona lo firma, el código no firma ni autoriza.
 
 Principio central: **el código verifica; el LLM razona y explica.**
 
@@ -27,7 +27,7 @@ Principio central: **el código verifica; el LLM razona y explica.**
 | Tiempo real | SSE (`EventSource` en el front, `sse-starlette` en el backend); el stream queda abierto hasta `run.finalizado`/`run.error` |
 | Backend | Python 3.11+, FastAPI, Uvicorn, Pydantic v2, asyncio |
 | Contrato → front | Pydantic → OpenAPI → `openapi-typescript` (`frontend/src/api/types.ts`) |
-| LLM | SDK `anthropic` con *tool use* (`claude-sonnet-5-5`; `claude-haiku-5-5` opcional) |
+| LLM | GPT-6 Luna vía OpenRouter (API compatible con OpenAI, *function calling*) |
 | Persistencia | Supabase (Postgres) vía `supabase-py` async, con `MemoryStore` como respaldo |
 | Pruebas | pytest |
 
@@ -37,18 +37,20 @@ Principio central: **el código verifica; el LLM razona y explica.**
 capataz-project/
 ├─ backend/        FastAPI, contrato (contract.py), orquestador, agentes, herramientas
 ├─ frontend/       Vite + React + TS
-├─ data/           Catálogo y escenarios (JSON, simulados)
+├─ data/           Catálogo, incidentes y escenarios (JSON, simulados)
 ├─ knowledge/      Base de conocimiento normativa (Markdown, con citas)
 ├─ replays/        Eventos grabados por escenario (demo sin red)
-├─ registry/       Tarjetas de agentes (fase opcional, inspirada en NANDA)
+├─ registry/       Tarjetas de agentes (futuro, vacía en el MVP)
+├─ scripts/        Generador sintético (borradores de datos, revisión humana)
 ├─ supabase/       Migraciones SQL
-└─ docs/requisitos/  Requisitos funcionales por fase
+├─ docs/requisitos/   Requisitos funcionales por fase
+└─ docs/arquitectura/ Diagrama de arquitectura y notas
 ```
 
 ## Arranque rápido
 
 ```bash
-cp .env.example .env          # ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+cp .env.example .env          # OPENROUTER_API_KEY, LLM_MODEL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, DATABASE_URL, CORS_ORIGINS
 # Sin credenciales: STORE_BACKEND=memory y LLM_MODE=fake
 
 cd backend && uv sync && uv run uvicorn app.main:app --reload     # :8000
@@ -57,6 +59,16 @@ cd backend && uv run pytest                                       # pruebas
 ```
 
 Las claves viven solo en el backend. Nunca se suben al repositorio.
+
+### Despliegue y demo
+
+- **Demo:** frontend y backend **locales**, para no depender de Internet:
+  ```bash
+  cd frontend && VITE_API_URL=http://localhost:8000 pnpm build && pnpm preview
+  ```
+  El backend debe incluir ese origen en `CORS_ORIGINS`.
+- **Vercel:** solo vitrina pública del frontend (`VITE_API_URL` apunta al backend local); no se usa para presentar. Una página HTTPS que llama a `http://localhost` puede ser bloqueada por el navegador: verificar antes de la demo.
+- **SSE:** sale del backend local, no pasa por Vercel.
 
 ## Escenarios de demo
 
@@ -72,3 +84,5 @@ Si falla la red o el LLM, la demo corre en **modo replay**.
 ## Documentación
 
 Requisitos funcionales por fase, anexo de Supabase y matriz de trazabilidad con la rúbrica: [`docs/requisitos/00-indice.md`](docs/requisitos/00-indice.md).
+
+Arquitectura: [`docs/arquitectura/README.md`](docs/arquitectura/README.md).
