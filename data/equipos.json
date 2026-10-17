@@ -1,0 +1,50 @@
+[
+ {
+  "id": "EQ-SCOOP-01",
+  "nombre": "Scooptram 01",
+  "tipo_equipo": "scooptram",
+  "estado": "operativo"
+ },
+ {
+  "id": "EQ-SCOOP-02",
+  "nombre": "Scooptram 02",
+  "tipo_equipo": "scooptram",
+  "estado": "mantenimiento"
+ },
+ {
+  "id": "EQ-EMP-01",
+  "nombre": "Empernador 01",
+  "tipo_equipo": "empernador",
+  "estado": "mantenimiento"
+ },
+ {
+  "id": "EQ-EMP-02",
+  "nombre": "Empernador 02",
+  "tipo_equipo": "empernador",
+  "estado": "operativo"
+ },
+ {
+  "id": "EQ-EMP-03",
+  "nombre": "Empernador 03",
+  "tipo_equipo": "empernador",
+  "estado": "fuera_servicio"
+ },
+ {
+  "id": "EQ-EMP-04",
+  "nombre": "Empernador 04",
+  "tipo_equipo": "empernador",
+  "estado": "operativo"
+ },
+ {
+  "id": "EQ-DES-01",
+  "nombre": "Desatador mecánico 01",
+  "tipo_equipo": "desatador",
+  "estado": "operativo"
+ },
+ {
+  "id": "EQ-DUMP-01",
+  "nombre": "Dumper 01",
+  "tipo_equipo": "dumper",
+  "estado": "fuera_servicio"
+ }
+]

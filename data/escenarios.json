@@ -1,0 +1,96 @@
+[
+ {
+  "id": "E1",
+  "nombre": "Caso limpio: acarreo con scooptram",
+  "resultado_esperado": "RECOMENDADO",
+  "tarea": {
+   "id": "TAR-E1",
+   "tipo_tarea": "TT-ACARREO",
+   "descripcion": "Limpieza de mineral en el tajo 420 con scooptram",
+   "zona": "Nivel 3, tajo 420",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-01"
+    ],
+    "equipos": [
+     "EQ-SCOOP-01"
+    ]
+   }
+  }
+ },
+ {
+  "id": "E2",
+  "nombre": "Conflicto: empernador en mantenimiento y certificación vencida",
+  "resultado_esperado": "RECOMENDADO",
+  "tarea": {
+   "id": "TAR-E2",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Sostenimiento con pernos en la galería 310",
+   "zona": "Nivel 2, galería 310",
+   "turno": {
+    "fecha": "2026-10-21",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-02"
+    ],
+    "equipos": [
+     "EQ-EMP-01"
+    ]
+   }
+  }
+ },
+ {
+  "id": "E2c",
+  "nombre": "Campo: desatado y tabla geomecánica por confirmar",
+  "resultado_esperado": "REQUIERE_CAMPO",
+  "tarea": {
+   "id": "TAR-E2C",
+   "tipo_tarea": "TT-DESATE",
+   "descripcion": "Desatado mecanizado y sostenimiento en la rampa 5 (techo de 6 m)",
+   "zona": "Rampa 5",
+   "turno": {
+    "fecha": "2026-10-22",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-05"
+    ],
+    "equipos": [
+     "EQ-DES-01",
+     "EQ-EMP-04"
+    ]
+   }
+  }
+ },
+ {
+  "id": "E3",
+  "nombre": "Bloqueo: dumper fuera de servicio sin reemplazo",
+  "resultado_esperado": "BLOQUEADO",
+  "escalamiento": "Avisar al jefe de mantenimiento mina y al superintendente de operaciones: no hay dumper operativo ni equivalente para el turno.",
+  "tarea": {
+   "id": "TAR-E3",
+   "tipo_tarea": "TT-TRANSP",
+   "descripcion": "Transporte de mineral por la rampa 2 hacia la cancha de mineral",
+   "zona": "Rampa 2",
+   "turno": {
+    "fecha": "2026-10-23",
+    "turno": "noche"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-06"
+    ],
+    "equipos": [
+     "EQ-DUMP-01"
+    ]
+   }
+  }
+ }
+]

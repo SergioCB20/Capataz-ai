@@ -1,0 +1,176 @@
+[
+ {
+  "id": "CTL-LIC",
+  "nombre": "Operador autorizado con licencia A-I",
+  "peligro_id": "PEL-EQM",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-ACARREO",
+   "TT-TRANSP"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 232"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-LIC",
+    "tipo": "competencia",
+    "descripcion": "Operador capacitado, autorizado y con licencia de conducir A-I vigente",
+    "certificacion": "LIC-A1"
+   }
+  ]
+ },
+ {
+  "id": "CTL-SCOOP",
+  "nombre": "Scooptram operativo y fuera de mantenimiento",
+  "peligro_id": "PEL-ENERGIA",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-ACARREO"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 38, inc. 11"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-SCOOP",
+    "tipo": "equipo",
+    "descripcion": "Scooptram operativo",
+    "tipo_equipo": "scooptram"
+   }
+  ]
+ },
+ {
+  "id": "CTL-DUMPER",
+  "nombre": "Dumper operativo y fuera de mantenimiento",
+  "peligro_id": "PEL-ENERGIA",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-TRANSP"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 38, inc. 11"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-DUMPER",
+    "tipo": "equipo",
+    "descripcion": "Dumper operativo",
+    "tipo_equipo": "dumper"
+   }
+  ]
+ },
+ {
+  "id": "CTL-SOST",
+  "nombre": "Operador capacitado en desate y sostenimiento",
+  "peligro_id": "PEL-ROCA",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-SOST",
+   "TT-DESATE"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 75, inc. 1-3"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-SOST",
+    "tipo": "competencia",
+    "descripcion": "Certificación vigente en desate y sostenimiento",
+    "certificacion": "SOST",
+    "certificaciones_equivalentes": [
+     "SOST-B"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "CTL-EMP",
+  "nombre": "Sostenimiento mecanizado con empernador operativo",
+  "peligro_id": "PEL-ROCA",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-SOST",
+   "TT-DESATE"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, arts. 225 y 231"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-EMP",
+    "tipo": "equipo",
+    "descripcion": "Empernador operativo",
+    "tipo_equipo": "empernador"
+   }
+  ]
+ },
+ {
+  "id": "CTL-DESATADOR",
+  "nombre": "Desatador mecánico operativo (techo mayor a 5 m)",
+  "peligro_id": "PEL-ROCA",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-DESATE"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 230"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-DESATADOR",
+    "tipo": "equipo",
+    "descripcion": "Desatador mecánico operativo",
+    "tipo_equipo": "desatador"
+   }
+  ]
+ },
+ {
+  "id": "CTL-GEOMEC",
+  "nombre": "Tabla geomecánica vigente publicada en la labor",
+  "peligro_id": "PEL-ROCA",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-DESATE"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 33"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-GEOMEC",
+    "tipo": "condicion_campo",
+    "descripcion": "Tabla y plano geomecánico del mes publicados en la labor",
+    "pregunta_campo": "¿Está publicada en la labor la tabla geomecánica vigente del mes?"
+   }
+  ]
+ },
+ {
+  "id": "CTL-DESATADO",
+  "nombre": "Desatado total antes del sostenimiento",
+  "peligro_id": "PEL-ROCA",
+  "bloqueante": true,
+  "aplica_a": [
+   "TT-DESATE"
+  ],
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 224, lit. c y d"
+  },
+  "requisitos": [
+   {
+    "id": "REQ-DESATADO",
+    "tipo": "condicion_campo",
+    "descripcion": "Desatado total de la labor, realizado por dos personas",
+    "pregunta_campo": "¿Se completó el desatado total de la labor, con dos personas (una desata y otra vigila)?"
+   }
+  ]
+ }
+]

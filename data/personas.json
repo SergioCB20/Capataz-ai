@@ -1,0 +1,141 @@
+[
+ {
+  "id": "PER-01",
+  "nombre": "Jorge Ccori",
+  "rol": "operador de scoop",
+  "certificaciones": [
+   {
+    "codigo": "LIC-A1",
+    "vence": "2027-08-15"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-02",
+  "nombre": "Luis Huamán",
+  "rol": "operador de empernador",
+  "certificaciones": [
+   {
+    "codigo": "SOST",
+    "vence": "2026-09-30"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-21",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-03",
+  "nombre": "Rosa Mamani",
+  "rol": "operadora de empernador",
+  "certificaciones": [
+   {
+    "codigo": "SOST-B",
+    "vence": "2027-05-01"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-21",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-04",
+  "nombre": "Ana Quispe",
+  "rol": "operadora de empernador",
+  "certificaciones": [
+   {
+    "codigo": "SOST",
+    "vence": "2027-03-01"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-21",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-05",
+  "nombre": "Marta Soto",
+  "rol": "operadora de desatador",
+  "certificaciones": [
+   {
+    "codigo": "SOST",
+    "vence": "2027-01-10"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-22",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-06",
+  "nombre": "Pedro Condori",
+  "rol": "operador de dumper",
+  "certificaciones": [
+   {
+    "codigo": "LIC-A1",
+    "vence": "2027-02-01"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-23",
+    "turno": "noche"
+   }
+  ]
+ },
+ {
+  "id": "PER-07",
+  "nombre": "Carlos Díaz",
+  "rol": "ayudante",
+  "certificaciones": [],
+  "turnos": [
+   {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   {
+    "fecha": "2026-10-21",
+    "turno": "dia"
+   },
+   {
+    "fecha": "2026-10-22",
+    "turno": "dia"
+   }
+  ]
+ },
+ {
+  "id": "PER-08",
+  "nombre": "Elena Rojas",
+  "rol": "operadora de dumper",
+  "certificaciones": [
+   {
+    "codigo": "LIC-A1",
+    "vence": "2026-10-01"
+   }
+  ],
+  "turnos": [
+   {
+    "fecha": "2026-10-23",
+    "turno": "noche"
+   }
+  ]
+ }
+]

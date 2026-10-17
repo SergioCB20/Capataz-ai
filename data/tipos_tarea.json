@@ -1,0 +1,22 @@
+[
+ {
+  "id": "TT-ACARREO",
+  "nombre": "Limpieza y acarreo con scooptram",
+  "descripcion": "Carguío y acarreo de mineral en labor subterránea."
+ },
+ {
+  "id": "TT-SOST",
+  "nombre": "Sostenimiento con pernos",
+  "descripcion": "Instalación de pernos de roca con empernador."
+ },
+ {
+  "id": "TT-DESATE",
+  "nombre": "Desatado mecanizado y sostenimiento",
+  "descripcion": "Desatado con desatador mecánico y sostenimiento en labor de techo alto."
+ },
+ {
+  "id": "TT-TRANSP",
+  "nombre": "Transporte de mineral con dumper",
+  "descripcion": "Transporte de mineral por rampa con dumper."
+ }
+]

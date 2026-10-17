@@ -1,0 +1,29 @@
+[
+ {
+  "id": "PEL-ROCA",
+  "nombre": "Caída de rocas",
+  "descripcion": "Desprendimiento de rocas del techo o hastiales en labor subterránea.",
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 224"
+  }
+ },
+ {
+  "id": "PEL-EQM",
+  "nombre": "Interacción con equipo móvil",
+  "descripcion": "Atropello, atrapamiento o choque con equipos de carguío y acarreo.",
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 232"
+  }
+ },
+ {
+  "id": "PEL-ENERGIA",
+  "nombre": "Energía no controlada en equipos",
+  "descripcion": "Operar o intervenir equipos en mantenimiento sin bloqueo.",
+  "fuente": {
+   "tipo": "normativa",
+   "referencia": "DS 024-2016-EM, art. 38, inc. 11"
+  }
+ }
+]
