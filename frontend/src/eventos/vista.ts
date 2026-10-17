@@ -1,7 +1,7 @@
 // Cruza el estado del reductor con el catálogo para pintar el semáforo y el cajón.
 // No calcula estados de control: solo muestra los que llegan en los eventos (RT-02; la lógica
 // de «gana el peor» vive en el backend, en consolidar_control).
-import type { Catalogo, Control, EstadoControl, Fuente, Incidente, Requisito, ResultadoRequisito } from '@/api/types'
+import type { Catalogo, Control, EstadoControl, Fuente, Incidente, Requisito, ResultadoControl, ResultadoRequisito } from '@/api/types'
 import { claveRequisito, type EstadoUI } from './reductor'
 
 export interface FilaRequisito {
@@ -59,6 +59,32 @@ export function filasControles(estado: EstadoUI, catalogo: Catalogo): FilaContro
       peligroId: control?.peligro_id ?? peligro?.peligro_id ?? null,
       estado: consolidado?.estado ?? null,
       requisitos: filas,
+    }
+  })
+}
+
+/**
+ * Filas a partir de los `resultados` de un Plan concreto (original o alternativa), para comparar planes.
+ * Si el plan no trae resultados, se usa lo verificado en vivo (`filasControles`).
+ */
+export function filasDePlan(resultados: ResultadoControl[], estado: EstadoUI, catalogo: Catalogo): FilaControl[] {
+  if (!resultados.length) return filasControles(estado, catalogo)
+  return resultados.map((rc) => {
+    const control = catalogo.controles.find((c) => c.id === rc.control_id)
+    return {
+      controlId: rc.control_id,
+      nombre: control?.nombre ?? rc.control_id,
+      bloqueante: rc.bloqueante,
+      fuente: control?.fuente ?? null,
+      peligroId: control?.peligro_id ?? null,
+      estado: rc.estado,
+      requisitos: rc.requisitos.map((r) => ({
+        requisito: control?.requisitos.find((q) => q.id === r.requisito_id) ?? {
+          id: r.requisito_id, tipo: 'competencia' as const, descripcion: r.requisito_id,
+          certificacion: null, certificaciones_equivalentes: [], tipo_equipo: null, pregunta_campo: null,
+        },
+        resultado: r,
+      })),
     }
   })
 }

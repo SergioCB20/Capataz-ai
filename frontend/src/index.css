@@ -1,13 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import "@fontsource-variable/manrope";
+@import "@fontsource/jetbrains-mono/500.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
     --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif;
+    --font-sans: 'Manrope Variable', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -127,4 +129,28 @@
   html {
     @apply font-sans;
     }
+}
+/* Paleta CAPATAZ (rediseño). Estados: icono + texto y tonos que difieren también en luminosidad. */
+@theme {
+    --color-lila: #ECEAF4;
+    --color-tinta: #17151F;
+    --color-tinta-2: #2E2A3B;
+    --color-tenue: #5E5A6E;
+    --color-linea: #E7E4EF;
+    --color-campo: #F7F6FB;
+    --color-segmento: #F1EFF7;
+    --color-acento: #6D4AFF;
+    --color-acento-texto: #3A2A8C;
+    --color-acento-suave: #E4DEFF;
+    --color-acento-fondo: #F3F0FF;
+    --color-ok: #145C34;
+    --color-ok-fondo: #DDF3E6;
+    --color-aviso: #7A4600;
+    --color-aviso-fondo: #FFEDC7;
+    --color-mal: #9B1C1C;
+    --color-mal-fondo: #FDE0DE;
+}
+
+body {
+    background: var(--color-lila);
 }

@@ -1,23 +1,23 @@
-// Vista de ejecución: grafo, semáforo, evidencia y decisión, todo derivado del reductor.
+// Vista de ejecución: progreso, flujo de agentes, controles con evidencia, alternativas y decisión.
+// Todo se deriva del reductor de eventos (mismo resultado en vivo y en replay).
 import { useMemo, useState } from 'react'
-import { Activity, ArrowLeft, CircleAlert, Loader2, RefreshCw, Wifi, WifiOff } from 'lucide-react'
+import { Activity, ArrowLeft, CircleAlert, Loader2, Play, RefreshCw, Wifi, WifiOff } from 'lucide-react'
 import type { Catalogo } from '@/api/types'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { EstadoConexion } from '@/eventos/fuentes'
-import { candidatos, sinAlternativaSegura } from '@/eventos/reductor'
-import { filasControles, incidentesDeControl, nombrePeligro, nombreRecurso, type FilaControl, type FilaRequisito } from '@/eventos/vista'
+import { candidatos, claveRequisito, sinAlternativaSegura } from '@/eventos/reductor'
+import { filasControles, filasDePlan, incidentesDeControl, nombreRecurso } from '@/eventos/vista'
 import type { ControlRun } from '@/hooks/useRun'
 import { BarraDecision } from './BarraDecision'
-import { CajonEvidencia } from './CajonEvidencia'
 import { ComparacionPlanes } from './ComparacionPlanes'
 import { EstadoBloqueado } from './EstadoBloqueado'
 import { FormCampo } from './FormCampo'
 import { GrafoAgentes } from './GrafoAgentes'
-import { InsigniaReplay, Pastilla } from './insignias'
+import { EstadoSistemaBadge, Pastilla } from './insignias'
 import { LineaTiempo } from './LineaTiempo'
-import { Semaforo } from './Semaforo'
-import { VistaConflicto } from './VistaConflicto'
+import { PanelEvidencia } from './PanelEvidencia'
+import { ProgresoEvaluacion } from './ProgresoEvaluacion'
+import { TablaControles, type VistaPlan } from './TablaControles'
+import { TIPO_CAMBIO, VistaConflicto } from './VistaConflicto'
 
 const CONEXION: Record<EstadoConexion, { texto: string; tono: 'ok' | 'aviso' | 'peligro' | 'neutro' }> = {
   conectando: { texto: 'Conectando', tono: 'neutro' },
@@ -49,107 +49,127 @@ function exportarAuditoria({ estado, eventos, sesion }: ControlRun) {
   URL.revokeObjectURL(url)
 }
 
-export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: Catalogo }) {
+export function VistaEjecucion({ run, catalogo, onNuevaTarea }: { run: ControlRun; catalogo: Catalogo; onNuevaTarea: () => void }) {
   const { estado, sesion, conexion } = run
-  const [seleccion, setSeleccion] = useState<{ control: FilaControl; requisito: FilaRequisito } | null>(null)
-  const filas = useMemo(() => filasControles(estado, catalogo), [estado, catalogo])
-  const sinEventos = estado.ultimoSeq === 0
   const [planElegido, setPlanElegido] = useState<string | null>(null)
+  const [vista, setVista] = useState<VistaPlan>('elegido')
+  const [clave, setClave] = useState<string | null>(null)
+
   const planes = useMemo(() => candidatos(estado), [estado])
-  const planId = planElegido ?? estado.decisionRequerida?.plan_id ?? planes[0]?.id ?? ''
+  const planId = planElegido ?? estado.decisionRequerida?.plan_id ?? planes[0]?.id ?? null
   const planActual = planes.find((p) => p.id === planId) ?? planes[0] ?? null
+  const comparar = !!estado.plan && estado.planesAlternativos.length > 0
   const bloqueado = sinAlternativaSegura(estado)
-  const nombreControl = (id: string) => catalogo.controles.find((x) => x.id === id)?.nombre ?? id
   const recurso = (v: string) => nombreRecurso(catalogo, v)
-  // «Antes» del diff: el plan original de P2 si hay alternativas; si no, la asignación de la tarea.
-  const original = estado.planesAlternativos.length && estado.plan ? estado.plan.asignacion : estado.tarea?.asignacion
+  const nombreControl = (id: string) => catalogo.controles.find((x) => x.id === id)?.nombre ?? id
+
+  const filas = useMemo(() => {
+    if (!comparar) return filasControles(estado, catalogo)
+    const plan = vista === 'original' ? estado.plan! : planActual!
+    return filasDePlan(plan.resultados, estado, catalogo)
+  }, [comparar, vista, estado, catalogo, planActual])
+
+  // Requisito elegido: el que marcó la persona o, por defecto, el primero que ya tiene resultado.
+  const todas = filas.flatMap((c) => c.requisitos.map((r) => ({ control: c, requisito: r })))
+  const claveDe = (s: (typeof todas)[number]) => claveRequisito({ control_id: s.control.controlId, requisito_id: s.requisito.requisito.id })
+  const seleccion = todas.find((s) => claveDe(s) === clave) ?? todas.find((s) => s.requisito.resultado) ?? todas[0] ?? null
+
+  const resumenPlan = planActual
+    ? planActual.cambios.length
+      ? planActual.cambios.map((c) => `${TIPO_CAMBIO[c.tipo].toLowerCase()} ${recurso(c.desde)} → ${recurso(c.hacia)}`).join('; ') + '.'
+      : 'sin cambios frente a la asignación original.'
+    : null
+
+  const ayudaPlan = estado.decision
+    ? `${estado.decision.decision === 'aprobar' ? 'Aprobado' : 'Rechazado'} por ${estado.decision.usuario}`
+    : estado.estadoRun === 'ESPERANDO_CAMPO'
+      ? 'Falta confirmar en campo'
+      : estado.decisionRequerida
+        ? 'Esperando tu decisión'
+        : estado.error
+          ? 'La evaluación falló'
+          : 'Evaluando…'
   const c = CONEXION[conexion]
+  const sinEventos = estado.ultimoSeq === 0
+  const enCurso = estado.estadoRun === 'EVALUANDO' || estado.estadoRun === 'RESOLVIENDO_CONFLICTO'
 
   return (
-    <div className="mx-auto grid max-w-7xl gap-4 p-4 sm:p-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={run.salir}>
-            <ArrowLeft aria-hidden /> Nueva tarea
-          </Button>
-          <div className="min-w-0">
-            <h1 className="truncate font-semibold">{estado.tarea?.descripcion ?? 'Evaluación en curso'}</h1>
+    <>
+      <header className="flex flex-wrap items-center justify-between gap-6 rounded-[28px] bg-white px-6 py-6 sm:px-8">
+        <div className="min-w-0 flex-[1_1_420px]">
+          <button
+            type="button"
+            onClick={onNuevaTarea}
+            className="inline-flex min-h-8 items-center gap-1.5 text-sm font-bold text-acento-texto hover:text-tinta focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-acento"
+          >
+            <ArrowLeft aria-hidden className="size-[18px]" /> Nueva tarea
+          </button>
+          <h1 className="mt-1.5 text-[28px] leading-tight font-extrabold tracking-tight">{estado.tarea?.descripcion ?? 'Evaluación en curso'}</h1>
+          <div className="mt-2.5 flex flex-wrap items-center gap-2 text-[13px] text-tenue">
             {estado.tarea && (
-              <p className="text-xs text-muted-foreground">
-                {estado.tarea.zona} · turno {estado.tarea.turno.turno === 'dia' ? 'día' : 'noche'} del {estado.tarea.turno.fecha}
-              </p>
+              <span>
+                {estado.tarea.zona} · turno {estado.tarea.turno.turno === 'dia' ? 'día' : 'noche'} · {estado.tarea.turno.fecha}
+              </span>
+            )}
+            {sesion?.modo === 'replay' && <Pastilla tono="neutro" icono={Play} texto="Replay" />}
+            {sesion?.origen === 'local' && <Pastilla tono="neutro" icono={WifiOff} texto="Sin servidor" />}
+            {sesion?.origen === 'backend' && (
+              <Pastilla tono={c.tono} icono={conexion === 'reconectando' ? RefreshCw : Wifi} girar={conexion === 'reconectando'} texto={c.texto} />
+            )}
+            {estado.estadoRun && (
+              <Pastilla tono="neutro" {...(enCurso ? { icono: Loader2, girar: true } : { icono: Activity })} texto={estado.estadoRun} />
             )}
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {sesion?.modo === 'replay' && <InsigniaReplay />}
-          {sesion?.origen === 'local' && <Pastilla tono="neutro" icono={WifiOff} texto="Replay local (sin servidor)" />}
-          {sesion?.origen === 'backend' && (
-            <Pastilla tono={c.tono} icono={conexion === 'reconectando' ? RefreshCw : Wifi} girar={conexion === 'reconectando'} texto={c.texto} />
-          )}
-          {estado.estadoRun && (
-            <Pastilla
-              tono="neutro"
-              {...(['EVALUANDO', 'RESOLVIENDO_CONFLICTO'].includes(estado.estadoRun) ? { icono: Loader2, girar: true } : { icono: Activity })}
-              texto={estado.estadoRun}
-            />
-          )}
+        <div className="min-w-[260px] rounded-[22px] bg-acento-suave px-5 py-4">
+          <div className="text-[13px] font-bold text-acento-texto">Plan (PTW borrador)</div>
+          <div className="mt-1.5 flex items-center gap-2.5">
+            <EstadoSistemaBadge estado={planActual?.estado_sistema ?? estado.estadoSistema} />
+            {planActual && <span className="font-mono text-sm">{planActual.id}</span>}
+          </div>
+          <div className="mt-1.5 text-[13px] text-tinta-2">{ayudaPlan}</div>
         </div>
       </header>
 
       {estado.error && (
-        <div role="alert" className="flex flex-wrap items-center gap-3 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+        <div role="alert" className="flex flex-wrap items-center gap-3 rounded-[28px] bg-mal-fondo px-6 py-4 text-sm text-[#6E1414]">
           <CircleAlert aria-hidden className="size-5" />
           <span className="flex-1">La evaluación falló: {estado.error}. Ningún requisito se dio por cumplido.</span>
-          <Button variant="outline" size="sm" onClick={run.salir}>Volver al inicio</Button>
+          <button type="button" onClick={onNuevaTarea} className="min-h-11 rounded-full bg-white px-4 font-bold">Volver al inicio</button>
         </div>
       )}
 
       {sinEventos && !estado.error ? (
-        <div className="flex items-center justify-center gap-2 rounded-xl border p-12 text-sm text-muted-foreground">
+        <div className="flex items-center justify-center gap-2 rounded-[28px] bg-white p-12 text-sm text-tenue">
           <Loader2 className="size-4 animate-spin" aria-hidden />
           {conexion === 'reconectando' ? 'Reconectando con el servidor…' : 'Esperando los primeros eventos…'}
         </div>
       ) : (
         <>
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-            <Card>
-              <CardHeader>
-                <CardTitle>Agentes</CardTitle>
-              </CardHeader>
-              <CardContent className="grid gap-3">
-                <GrafoAgentes agentes={estado.agentes} />
-                {estado.evaluacion && (
-                  <div className="grid gap-2 text-sm">
-                    <h3 className="font-medium">Peligros detectados por el Agente Riesgo</h3>
-                    <ul className="grid gap-2">
-                      {estado.evaluacion.peligros.map((p) => (
-                        <li key={p.peligro_id} className="rounded-md border p-2">
-                          <b>{nombrePeligro(catalogo, p.peligro_id)}</b>
-                          <p className="text-muted-foreground">{p.justificacion}</p>
-                          {p.incidentes_similares.length > 0 && (
-                            <p className="mt-1 text-xs text-muted-foreground">Incidentes similares: {p.incidentes_similares.join(', ')} (simulados)</p>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+          <ProgresoEvaluacion estado={estado} />
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Controles críticos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Semaforo
-                  filas={filas}
-                  nombrePeligro={(id) => nombrePeligro(catalogo, id)}
-                  onElegir={(control, requisito) => setSeleccion({ control, requisito })}
-                />
-              </CardContent>
-            </Card>
+          <section aria-labelledby="ag" className="rounded-[28px] bg-white px-6 py-6 sm:px-7">
+            <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+              <h2 id="ag" className="text-lg font-extrabold">Agentes</h2>
+              <span className="text-[13px] text-tenue">El Supervisor reparte; Personal y Equipo verifican en paralelo</span>
+            </div>
+            <GrafoAgentes agentes={estado.agentes} />
+          </section>
+
+          <div className="flex flex-wrap items-stretch gap-5">
+            <TablaControles
+              filas={filas}
+              seleccion={seleccion ? claveDe(seleccion) : null}
+              onElegir={(control, requisito) => setClave(claveRequisito({ control_id: control.controlId, requisito_id: requisito.requisito.id }))}
+              comparar={comparar}
+              vista={vista}
+              onVista={setVista}
+              etiquetaElegido={`Plan elegido (${planActual?.id ?? '—'})`}
+            />
+            <PanelEvidencia
+              seleccion={seleccion}
+              incidentes={seleccion ? incidentesDeControl(estado, catalogo, seleccion.control.controlId) : []}
+            />
           </div>
 
           {estado.conflictos.length > 0 && (
@@ -159,8 +179,19 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
               nombreRecurso={recurso}
               ronda={estado.ronda}
               alternativas={estado.alternativas}
+              planes={estado.planesAlternativos}
+              elegido={comparar ? planActual?.id ?? null : null}
+              onElegir={(id) => {
+                setPlanElegido(id)
+                setVista('elegido')
+              }}
+              puedeElegir={!!estado.decisionRequerida && !estado.decision}
               enCurso={estado.estadoRun === 'RESOLVIENDO_CONFLICTO'}
-            />
+            >
+              {comparar && planActual && estado.plan && (
+                <ComparacionPlanes original={estado.plan.asignacion} plan={planActual} nombreRecurso={recurso} />
+              )}
+            </VistaConflicto>
           )}
 
           {estado.estadoRun === 'ESPERANDO_CAMPO' && estado.preguntasCampo.length > 0 && (
@@ -170,45 +201,29 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
           {bloqueado && (
             <EstadoBloqueado
               motivo={estado.plan?.motivo}
-              causas={estado.conflictos.map((c) => c.causa)}
+              causas={estado.conflictos.map((x) => x.causa)}
               alternativas={estado.alternativas}
               escalamiento={estado.plan?.escalamiento}
             />
           )}
 
-          {original && planes.length > 0 && !bloqueado && (estado.planesAlternativos.length > 0 || planes[0].cambios.length > 0) && (
-            <ComparacionPlanes
-              original={original}
-              planes={planes}
-              alternativas={estado.alternativas}
-              nombreRecurso={recurso}
-              elegido={planId}
-              onElegir={setPlanElegido}
-              catalogo={catalogo}
-              puedeElegir={!!estado.decisionRequerida}
+          <div className="flex flex-wrap items-stretch gap-5">
+            <BarraDecision
+              estadoSistema={planActual?.estado_sistema ?? estado.estadoSistema}
+              estadoRun={estado.estadoRun}
+              requerida={estado.decisionRequerida}
+              decision={estado.decision}
+              planElegido={planActual?.id ?? null}
+              resumenPlan={resumenPlan}
+              enviando={run.enviando}
+              error={estado.estadoRun === 'ESPERANDO_CAMPO' ? null : run.errorAccion}
+              onDecidir={(d, comentario) => run.decidir(d, comentario, planActual?.id)}
+              onExportar={() => exportarAuditoria(run)}
             />
-          )}
-
-          <BarraDecision
-            estadoSistema={planActual?.estado_sistema ?? estado.estadoSistema}
-            estadoRun={estado.estadoRun}
-            requerida={estado.decisionRequerida}
-            decision={estado.decision}
-            planElegido={planes.length > 1 ? planId : null}
-            enviando={run.enviando}
-            error={estado.estadoRun === 'ESPERANDO_CAMPO' ? null : run.errorAccion}
-            onDecidir={(d, comentario) => run.decidir(d, comentario, planId || undefined)}
-          />
-
-          <LineaTiempo entradas={estado.lineaTiempo} onExportar={() => exportarAuditoria(run)} />
+            <LineaTiempo entradas={estado.lineaTiempo} />
+          </div>
         </>
       )}
-
-      <CajonEvidencia
-        seleccion={seleccion}
-        incidentes={seleccion ? incidentesDeControl(estado, catalogo, seleccion.control.controlId) : []}
-        onCerrar={() => setSeleccion(null)}
-      />
-    </div>
+    </>
   )
 }

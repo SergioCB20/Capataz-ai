@@ -9,10 +9,10 @@ import { cn } from '@/lib/utils'
 import { NOMBRE_AGENTE } from './insignias'
 
 const ESTADO: Record<EstadoAgente, { texto: string; icono: LucideIcon; clase: string }> = {
-  inactivo: { texto: 'Inactivo', icono: CircleDashed, clase: 'border-border bg-card text-muted-foreground' },
-  trabajando: { texto: 'Trabajando', icono: Loader2, clase: 'border-sky-400 bg-sky-50 text-sky-900 ring-2 ring-sky-300/50 dark:bg-sky-950 dark:text-sky-100' },
-  completado: { texto: 'Completado', icono: CircleCheck, clase: 'border-emerald-400 bg-emerald-50 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100' },
-  error: { texto: 'Error', icono: CircleAlert, clase: 'border-red-400 bg-red-50 text-red-900 dark:bg-red-950 dark:text-red-100' },
+  inactivo: { texto: 'Inactivo', icono: CircleDashed, clase: 'border-linea bg-white text-tenue' },
+  trabajando: { texto: 'Trabajando', icono: Loader2, clase: 'border-acento bg-acento-fondo text-tinta ring-4 ring-acento-suave' },
+  completado: { texto: 'Completado', icono: CircleCheck, clase: 'border-[#3DBE76] bg-[#E9F8EF] text-tinta' },
+  error: { texto: 'Error', icono: CircleAlert, clase: 'border-mal bg-mal-fondo text-mal' },
 }
 
 type DatosNodo = { id: IdAgente; agente: VistaAgente; rol: string }
@@ -23,7 +23,7 @@ function NodoAgente({ data }: NodeProps<Node<DatosNodo>>) {
   const ultimas = agente.herramientas.slice(-3)
   return (
     <motion.div
-      className={cn('w-52 rounded-xl border p-3 text-left shadow-sm transition-colors', e.clase)}
+      className={cn('w-56 rounded-2xl border-[1.5px] p-3.5 text-left transition-colors', e.clase)}
       animate={
         agente.estado === 'trabajando'
           ? { scale: [1, 1.035, 1], transition: { duration: 1.2, repeat: Infinity, ease: 'easeInOut' } }
@@ -80,7 +80,7 @@ export function GrafoAgentes({ agentes }: { agentes: EstadoUI['agentes'] }) {
   }))
 
   return (
-    <div className="h-[340px] w-full" role="img" aria-label={`Agentes: ${(Object.keys(POS) as IdAgente[]).map((id) => `${NOMBRE_AGENTE[id]} ${ESTADO[agentes[id].estado].texto}`).join(', ')}`}>
+    <div className="h-[300px] w-full rounded-[20px] bg-[#FAFAFD]" role="img" aria-label={`Agentes: ${(Object.keys(POS) as IdAgente[]).map((id) => `${NOMBRE_AGENTE[id]} ${ESTADO[agentes[id].estado].texto}`).join(', ')}`}>
       <ReactFlow
         nodes={nodos}
         edges={aristas}
@@ -96,7 +96,7 @@ export function GrafoAgentes({ agentes }: { agentes: EstadoUI['agentes'] }) {
         zoomOnDoubleClick={false}
         preventScrolling={false}
       >
-        <Background gap={20} size={1} />
+        <Background gap={16} size={1} color="#DCD8E8" />
       </ReactFlow>
     </div>
   )
