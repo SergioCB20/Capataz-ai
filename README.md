@@ -60,6 +60,8 @@ cd backend && uv run pytest                                       # pruebas
 
 Las claves viven solo en el backend. Nunca se suben al repositorio.
 
+Sin `data/` el backend arranca con un seed de juguete (escenario E1), y mientras no exista `backend/app/agents/supervisor.py` usa un orquestador *stub*; `GET /api/health` indica cuál está activo. Grabar un replay: `uv run --project backend python scripts/grabar_replay.py <run_id> <escenario_id>`.
+
 ### Despliegue y demo
 
 - **Demo:** frontend y backend **locales**, para no depender de Internet:
