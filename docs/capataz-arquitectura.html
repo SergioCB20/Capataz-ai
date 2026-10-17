@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAPATAZ – Arquitectura y flujos</title>
+<style>
+:root{
+  --bg:#faf8f4; --surface:#ffffff; --band:#f3eee5; --ink:#1f1b16; --muted:#6b6258; --line:#e6dfd3; --line-strong:#b9ad9b;
+  --accent:#c2570c; --accent-soft:#fdeede; --ok:#2f7d4f; --ok-soft:#e5f3ea;
+  --warn:#a15c00; --warn-soft:#fff3d6; --bad:#b3261e; --bad-soft:#fbe7e5;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#17140f; --surface:#211d17; --band:#1d1913; --ink:#f2ece2; --muted:#a79d8f; --line:#383128; --line-strong:#6a5f50;
+    --accent:#f08a3c; --accent-soft:#3a2514; --ok:#6cc58d; --ok-soft:#17301f;
+    --warn:#f0b254; --warn-soft:#38290f; --bad:#f08178; --bad-soft:#3b1b18;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+header.hero{padding:48px 0 32px;border-bottom:1px solid var(--line)}
+.tag{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:999px;font-weight:600}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.05;margin:14px 0 10px;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.lead{font-size:clamp(17px,2.4vw,20px);color:var(--muted);max-width:760px;margin:0}
+nav{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:14px;padding:6px 12px;border-radius:999px}
+nav a:hover{background:var(--accent-soft);color:var(--accent)}
+section{padding:40px 0 6px}
+h2{font-size:25px;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 20px}
+h3{font-size:17px;margin:0 0 6px}
+.diagram{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+.diagram svg{display:block;width:100%;height:auto;min-width:680px}
+.diagram.narrow svg{max-width:760px;margin:0 auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0 4px;font-size:14px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:16px;height:16px;border-radius:4px;border:2px solid;display:inline-block}
+.sw.agent{background:var(--accent-soft);border-color:var(--accent)}
+.sw.human{background:var(--ok-soft);border-color:var(--ok)}
+.sw.dec{background:var(--warn-soft);border-color:var(--warn)}
+.sw.bad{background:var(--bad-soft);border-color:var(--bad)}
+.sw.neutral{background:var(--surface);border-color:var(--line-strong)}
+.callout{border-radius:14px;padding:16px 20px;margin:18px 0}
+.callout.key{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.callout p,.callout ul{margin:6px 0 0}
+.callout ul{padding-left:20px}
+.callout li{margin:4px 0}
+ul.clean{padding-left:20px;margin:8px 0}
+ul.clean li{margin:6px 0}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--accent-soft);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+tr:last-child td{border-bottom:0}
+.scroll{overflow-x:auto}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--accent);color:#fff}
+.chip.no{background:var(--line-strong)}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font-size:13.5px;line-height:1.5;margin:10px 0}
+td code{font-size:13px;background:var(--band);padding:1px 6px;border-radius:5px}
+footer{padding:36px 0 56px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);margin-top:44px}
+
+/* SVG */
+svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:13px;fill:var(--ink);text-anchor:middle}
+svg text.b{font-weight:700}
+svg text.s{font-size:12px;fill:var(--muted)}
+svg text.lbl{font-size:12px;font-weight:700;fill:var(--muted)}
+svg text.lay{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;fill:var(--muted);text-anchor:start}
+svg text.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px}
+svg text.chiptxt{font-size:11px;font-weight:700;fill:#fff}
+.band{fill:var(--band)}
+.node{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.5}
+.n-agent{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
+.n-dec{fill:var(--warn-soft);stroke:var(--warn);stroke-width:1.5}
+.n-human{fill:var(--ok-soft);stroke:var(--ok);stroke-width:1.5}
+.n-bad{fill:var(--bad-soft);stroke:var(--bad);stroke-width:1.5}
+.n-opt{fill:var(--surface);stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4}
+.n-ext{fill:var(--surface);stroke:var(--accent);stroke-width:1.5;stroke-dasharray:6 4}
+.chipbg{fill:var(--accent)}
+.edge{stroke:var(--muted);stroke-width:1.6;fill:none}
+.edge.dash{stroke-dasharray:5 4}
+.bar{fill:var(--muted)}
+.arrow{fill:var(--muted)}
+.sublines{stroke:var(--accent);stroke-width:1.5}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="arrow"/>
+    </marker>
+  </defs>
+</svg>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Arquitectura y flujos · Alto nivel</span>
+    <h1>CAPA<span>TAZ</span></h1>
+    <p class="lead">Cómo se conectan las piezas del sistema y cómo avanza una tarea desde que se ingresa hasta que una persona decide. Es una propuesta de diseño para discutir con el equipo.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#arquitectura">Arquitectura</a>
+    <a href="#componentes">Componentes</a>
+    <a href="#flujo-a">Flujo A · Planificación</a>
+    <a href="#flujo-b">Flujo B · Conflictos</a>
+    <a href="#flujo-c">Flujo C · Verificación</a>
+    <a href="#escenarios">Escenarios</a>
+    <a href="#contrato">Contrato de datos</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ===================== ARQUITECTURA ===================== -->
+<section id="arquitectura">
+  <h2>1. Arquitectura de alto nivel</h2>
+  <p class="sub">Cinco capas. Las flechas muestran quién le pide qué a quién.</p>
+
+  <div class="diagram">
+  <svg viewBox="0 0 1000 600" role="img" aria-label="Diagrama de arquitectura en capas del sistema CAPATAZ">
+    <!-- bandas -->
+    <rect class="band" x="0" y="8" width="810" height="94" rx="10"/>
+    <rect class="band" x="0" y="108" width="810" height="124" rx="10"/>
+    <rect class="band" x="0" y="250" width="810" height="124" rx="10"/>
+    <rect class="band" x="0" y="380" width="810" height="94" rx="10"/>
+    <rect class="band" x="0" y="480" width="810" height="108" rx="10"/>
+    <text class="lay" x="12" y="55">Interfaz</text>
+    <text class="lay" x="12" y="160">Orquestación</text>
+    <text class="lay" x="12" y="307">Agentes</text>
+    <text class="lay" x="12" y="422">Herramientas</text>
+    <text class="lay" x="12" y="522">Datos</text>
+    <text class="s" x="12" y="540" style="text-anchor:start">(simulados)</text>
+
+    <!-- Interfaz -->
+    <rect class="node" x="170" y="20" width="630" height="70" rx="10"/>
+    <text class="b" x="485" y="46">Interfaz web (React)</text>
+    <text class="s" x="485" y="68">Ingreso de la tarea · vista de los agentes · aprobar / rechazar</text>
+
+    <path class="edge" d="M630 90 V120" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+    <!-- Orquestación -->
+    <rect class="node" x="170" y="120" width="270" height="95" rx="10"/>
+    <text class="b" x="305" y="148">Estado compartido y auditoría</text>
+    <text class="s" x="305" y="171">Qué hizo cada agente, con qué dato</text>
+    <text class="s" x="305" y="189">y qué decidió la persona</text>
+
+    <path class="edge" d="M440 167 H460" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+    <rect class="n-agent" x="460" y="120" width="340" height="95" rx="10"/>
+    <rect class="chipbg" x="736" y="126" width="56" height="18" rx="9"/>
+    <text class="chiptxt" x="764" y="136" style="dominant-baseline:middle">LLM</text>
+    <text class="b" x="630" y="150">Supervisor (orquestador)</text>
+    <text class="s" x="630" y="172">Reparte la tarea, detecta conflictos,</text>
+    <text class="s" x="630" y="190">propone alternativas y escala a una persona</text>
+
+    <!-- bus supervisor -> agentes -->
+    <path class="edge" d="M630 215 V240 M242.5 240 H725.5"/>
+    <path class="edge" d="M242.5 240 V262" marker-end="url(#ah)"/>
+    <path class="edge" d="M403.5 240 V262" marker-end="url(#ah)"/>
+    <path class="edge" d="M564.5 240 V262" marker-end="url(#ah)"/>
+    <path class="edge" d="M725.5 240 V262" marker-end="url(#ah)"/>
+
+    <!-- Agentes -->
+    <rect class="n-agent" x="170" y="262" width="145" height="100" rx="10"/>
+    <rect class="chipbg" x="255" y="268" width="52" height="18" rx="9"/>
+    <text class="chiptxt" x="281" y="277" style="dominant-baseline:middle">LLM</text>
+    <text class="b" x="242.5" y="308">Agente Riesgo</text>
+    <text class="s" x="242.5" y="328">Peligros y controles</text>
+    <text class="s" x="242.5" y="344">críticos exigidos</text>
+
+    <rect class="n-agent" x="331" y="262" width="145" height="100" rx="10"/>
+    <rect class="chipbg" x="416" y="268" width="52" height="18" rx="9"/>
+    <text class="chiptxt" x="442" y="277" style="dominant-baseline:middle">LLM</text>
+    <text class="b" x="403.5" y="308">Agente Personal</text>
+    <text class="s" x="403.5" y="328">Competencias y</text>
+    <text class="s" x="403.5" y="344">disponibilidad</text>
+
+    <rect class="n-agent" x="492" y="262" width="145" height="100" rx="10"/>
+    <rect class="chipbg" x="577" y="268" width="52" height="18" rx="9"/>
+    <text class="chiptxt" x="603" y="277" style="dominant-baseline:middle">LLM</text>
+    <text class="b" x="564.5" y="308">Agente Equipo</text>
+    <text class="s" x="564.5" y="328">Estado de mantenimiento</text>
+    <text class="s" x="564.5" y="344">y disponibilidad</text>
+
+    <rect class="n-opt" x="653" y="262" width="145" height="100" rx="10"/>
+    <text class="b" x="725.5" y="308">Agente Costo</text>
+    <text class="s" x="725.5" y="328">Opcional,</text>
+    <text class="s" x="725.5" y="344">no prioritario</text>
+
+    <!-- agentes <-> herramientas -->
+    <path class="edge" d="M242.5 362 V392" marker-start="url(#ah)" marker-end="url(#ah)"/>
+    <path class="edge" d="M403.5 362 V392" marker-start="url(#ah)" marker-end="url(#ah)"/>
+    <path class="edge" d="M564.5 362 V392" marker-start="url(#ah)" marker-end="url(#ah)"/>
+    <path class="edge dash" d="M725.5 362 V392" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+    <!-- Herramientas -->
+    <rect class="node" x="170" y="392" width="145" height="70" rx="10"/>
+    <text class="mono" x="242.5" y="418">consultar_controles()</text>
+    <text class="s" x="242.5" y="440">Busca en el catálogo</text>
+    <rect class="node" x="331" y="392" width="145" height="70" rx="10"/>
+    <text class="mono" x="403.5" y="418">buscar_personal()</text>
+    <text class="s" x="403.5" y="440">Certificación y turno</text>
+    <rect class="node" x="492" y="392" width="145" height="70" rx="10"/>
+    <text class="mono" x="564.5" y="418">estado_equipo()</text>
+    <text class="s" x="564.5" y="440">Mantenimiento y turno</text>
+    <rect class="n-opt" x="653" y="392" width="145" height="70" rx="10"/>
+    <text class="mono" x="725.5" y="418">estimar_costo()</text>
+    <text class="s" x="725.5" y="440">Tarifas simples</text>
+
+    <!-- herramientas <-> datos -->
+    <path class="edge" d="M242.5 462 V492" marker-start="url(#ah)" marker-end="url(#ah)"/>
+    <path class="edge" d="M403.5 462 V492" marker-start="url(#ah)" marker-end="url(#ah)"/>
+    <path class="edge" d="M564.5 462 V492" marker-start="url(#ah)" marker-end="url(#ah)"/>
+    <path class="edge dash" d="M725.5 462 V492" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+    <!-- Datos -->
+    <rect class="node" x="170" y="492" width="145" height="80" rx="10"/>
+    <text class="mono" x="242.5" y="518">controles.json</text>
+    <text class="s" x="242.5" y="540">+ documentos</text>
+    <text class="s" x="242.5" y="556">normativos</text>
+    <rect class="node" x="331" y="492" width="145" height="80" rx="10"/>
+    <text class="mono" x="403.5" y="518">personal.json</text>
+    <text class="s" x="403.5" y="540">Certificaciones</text>
+    <text class="s" x="403.5" y="556">y turnos</text>
+    <rect class="node" x="492" y="492" width="145" height="80" rx="10"/>
+    <text class="mono" x="564.5" y="518">equipos.json</text>
+    <text class="s" x="564.5" y="540">Estado de</text>
+    <text class="s" x="564.5" y="556">mantenimiento</text>
+    <rect class="n-opt" x="653" y="492" width="145" height="80" rx="10"/>
+    <text class="mono" x="725.5" y="518">tarifas.json</text>
+    <text class="s" x="725.5" y="540">(opcional)</text>
+
+    <!-- LLM externo -->
+    <rect class="n-ext" x="830" y="120" width="160" height="242" rx="14"/>
+    <text class="b" x="910" y="190">API de LLM</text>
+    <text class="s" x="910" y="212">(servicio externo)</text>
+    <text class="s" x="910" y="250">Lo usan los</text>
+    <text class="s" x="910" y="268">componentes con la</text>
+    <text class="s" x="910" y="286">etiqueta LLM para</text>
+    <text class="s" x="910" y="304">razonar y explicar</text>
+    <path class="edge dash" d="M830 167 H802" marker-end="url(#ah)"/>
+    <path class="edge dash" d="M830 312 H812"/>
+    <path class="edge dash" d="M806 268 H812 V356 H806"/>
+  </svg>
+  </div>
+
+  <div class="legend">
+    <span><span class="sw agent"></span> Agente o componente con razonamiento</span>
+    <span><span class="sw neutral"></span> Componente de código o datos</span>
+    <span><span class="chip">LLM</span> Usa el modelo de lenguaje</span>
+    <span>Línea punteada: pieza opcional o servicio externo</span>
+  </div>
+
+  <div class="callout key">
+    <p><strong>Cómo leerlo:</strong></p>
+    <ul>
+      <li>Los agentes <strong>no verifican con el LLM</strong>: llaman a funciones (herramientas) que consultan los datos. El LLM interpreta resultados, detecta conflictos y explica.</li>
+      <li>La interfaz habla solo con el Supervisor. Todo lo que ocurre queda en el estado compartido y en el registro de auditoría.</li>
+      <li>Los datos son simulados. Cambiarlos por datos reales de una mina sería una fase posterior, y solo tocaría la capa de datos.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== COMPONENTES ===================== -->
+<section id="componentes">
+  <h2>2. Componentes y responsabilidades</h2>
+  <p class="sub">La tecnología es sugerida; el equipo puede ajustarla según lo que domine.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Componente</th><th>Responsabilidad</th><th>Sugerencia técnica</th><th>LLM</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Interfaz</strong></td><td>Ingresar la tarea, ver el trabajo de cada agente, aprobar o rechazar, consultar la auditoría.</td><td>Vite + React + TypeScript, una sola pantalla de trabajo (ver <em>Stack y contrato</em>)</td><td><span class="chip no">No</span></td></tr>
+      <tr><td><strong>Supervisor</strong></td><td>Interpretar la tarea, repartir trabajo, consolidar estados, detectar conflictos, generar alternativas, escalar a una persona.</td><td>Orquestador en Python (o LangGraph si alguien ya lo domina)</td><td><span class="chip">Sí</span></td></tr>
+      <tr><td><strong>Estado y auditoría</strong></td><td>Guardar el estado de la tarea y registrar cada paso, herramienta usada y decisión.</td><td>Supabase (Postgres) con respaldo en memoria; la auditoría es el flujo de eventos persistido</td><td><span class="chip no">No</span></td></tr>
+      <tr><td><strong>Agente Riesgo</strong></td><td>Determinar peligros y controles críticos exigidos para el tipo de tarea, citando su fuente.</td><td>Consulta al catálogo + documentos en el contexto del modelo</td><td><span class="chip">Sí</span></td></tr>
+      <tr><td><strong>Agente Personal</strong></td><td>Comprobar certificaciones vigentes y disponibilidad en el turno.</td><td>Herramienta <code>buscar_personal()</code> + razonamiento del modelo</td><td><span class="chip">Sí</span></td></tr>
+      <tr><td><strong>Agente Equipo</strong></td><td>Comprobar que el equipo exigido está operativo y libre en el turno.</td><td>Herramienta <code>estado_equipo()</code> + razonamiento del modelo</td><td><span class="chip">Sí</span></td></tr>
+      <tr><td><strong>Agente Costo</strong> (opcional)</td><td>Estimar el costo del plan final.</td><td>Cálculo simple; solo si sobra tiempo</td><td><span class="chip no">Opcional</span></td></tr>
+      <tr><td><strong>Herramientas</strong></td><td>Funciones deterministas que consultan los datos y devuelven resultados estructurados.</td><td>Funciones Python</td><td><span class="chip no">No</span></td></tr>
+      <tr><td><strong>Datos</strong></td><td>Catálogo de controles, personal, equipos y documentos normativos (simulados o resumidos de fuentes públicas).</td><td>Archivos JSON y Markdown</td><td><span class="chip no">No</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ===================== FLUJO A ===================== -->
+<section id="flujo-a">
+  <h2>3. Flujo A · Planificación de una tarea</h2>
+  <p class="sub">El proceso principal, de punta a punta. Los pasos verdes son humanos: el sistema recomienda, la persona decide.</p>
+
+  <div class="diagram">
+  <svg viewBox="0 0 900 1050" role="img" aria-label="Diagrama de flujo de la planificación de una tarea">
+    <!-- N1 -->
+    <rect class="node" x="320" y="10" width="260" height="44" rx="22"/>
+    <text x="450" y="32" style="dominant-baseline:middle">Ingresa la tarea planificada</text>
+    <path class="edge" d="M450 54 V84" marker-end="url(#ah)"/>
+
+    <!-- N2 -->
+    <rect class="node" x="320" y="84" width="260" height="52" rx="10"/>
+    <text x="450" y="106">Supervisor interpreta la tarea</text>
+    <text class="s" x="450" y="124">(tipo, zona, turno)</text>
+    <path class="edge" d="M450 136 V166" marker-end="url(#ah)"/>
+
+    <!-- N3 -->
+    <rect class="n-agent" x="320" y="166" width="260" height="60" rx="10"/>
+    <text x="450" y="184">Riesgo: identifica peligros y</text>
+    <text x="450" y="200">controles críticos exigidos</text>
+    <text class="s" x="450" y="216">(catálogo + normativa)</text>
+    <path class="edge" d="M450 226 V250" marker-end="url(#ah)"/>
+
+    <!-- fork -->
+    <rect class="bar" x="320" y="250" width="260" height="4" rx="2"/>
+    <path class="edge" d="M322 254 V282" marker-end="url(#ah)"/>
+    <path class="edge" d="M578 254 V282" marker-end="url(#ah)"/>
+
+    <!-- N4 -->
+    <rect class="n-agent" x="200" y="282" width="240" height="64" rx="10"/>
+    <text x="320" y="308">Personal: verifica competencias</text>
+    <text x="320" y="326">y disponibilidad</text>
+    <rect class="n-agent" x="460" y="282" width="240" height="64" rx="10"/>
+    <text x="580" y="308">Equipo: verifica estado</text>
+    <text x="580" y="326">y disponibilidad</text>
+
+    <!-- join -->
+    <path class="edge" d="M320 346 V370"/>
+    <path class="edge" d="M580 346 V370"/>
+    <rect class="bar" x="320" y="370" width="260" height="4" rx="2"/>
+    <path class="edge" d="M450 374 V402" marker-end="url(#ah)"/>
+
+    <!-- N5 -->
+    <rect class="node" x="320" y="402" width="260" height="64" rx="10"/>
+    <text x="450" y="420">Supervisor consolida cada control:</text>
+    <text x="450" y="436">CUMPLE · NO CUMPLE ·</text>
+    <text x="450" y="452">NO VERIFICABLE</text>
+    <path class="edge" d="M450 466 V496" marker-end="url(#ah)"/>
+
+    <!-- D1 -->
+    <polygon class="n-dec" points="450,496 580,546 450,596 320,546"/>
+    <text x="450" y="541">¿Control bloqueante</text>
+    <text x="450" y="558">NO CUMPLE?</text>
+
+    <!-- D1 Sí -> sub B -->
+    <path class="edge" d="M580 546 H640" marker-end="url(#ah)"/>
+    <text class="lbl" x="610" y="536">Sí</text>
+    <rect class="n-agent" x="640" y="496" width="240" height="60" rx="10"/>
+    <path class="sublines" d="M652 496 V556 M868 496 V556"/>
+    <text class="b" x="760" y="520">Resolver conflicto</text>
+    <text class="s" x="760" y="540">(ver flujo B)</text>
+    <path class="edge" d="M760 556 V580" marker-end="url(#ah)"/>
+
+    <!-- D3 -->
+    <polygon class="n-dec" points="760,580 870,628 760,676 650,628"/>
+    <text x="760" y="623">¿Plan alternativo</text>
+    <text x="760" y="640">seguro?</text>
+    <path class="edge" d="M650 628 H452" marker-end="url(#ah)"/>
+    <text class="lbl" x="552" y="618">Sí (ya verificado)</text>
+    <path class="edge" d="M760 676 V706" marker-end="url(#ah)"/>
+    <text class="lbl" x="776" y="694">No</text>
+
+    <!-- N-esc -->
+    <rect class="n-bad" x="640" y="706" width="240" height="60" rx="10"/>
+    <text x="760" y="729">Escalar a persona:</text>
+    <text class="b" x="760" y="747">caso BLOQUEADO</text>
+    <path class="edge" d="M760 766 V926 H582" marker-end="url(#ah)"/>
+    <text class="lbl" x="690" y="914">no se recomienda ejecutar</text>
+
+    <!-- D1 No -> D2 -->
+    <path class="edge" d="M450 596 V670" marker-end="url(#ah)"/>
+    <text class="lbl" x="468" y="616">No</text>
+
+    <!-- D2 -->
+    <polygon class="n-dec" points="450,670 580,720 450,770 320,720"/>
+    <text x="450" y="715">¿Hay controles</text>
+    <text x="450" y="732">NO VERIFICABLES?</text>
+    <path class="edge" d="M320 720 H262" marker-end="url(#ah)"/>
+    <text class="lbl" x="292" y="710">Sí</text>
+    <path class="edge" d="M450 770 V800" marker-end="url(#ah)"/>
+    <text class="lbl" x="468" y="788">No</text>
+
+    <!-- campo -->
+    <rect class="n-human" x="40" y="690" width="220" height="60" rx="10"/>
+    <text x="150" y="713">Persona confirma en campo</text>
+    <text class="s" x="150" y="731">(inspección, condiciones)</text>
+    <path class="edge" d="M150 750 V832 H318" marker-end="url(#ah)"/>
+
+    <!-- N6 -->
+    <rect class="node" x="320" y="800" width="260" height="64" rx="10"/>
+    <text x="450" y="818">Supervisor arma el plan propuesto:</text>
+    <text x="450" y="834">personal, equipo, controles,</text>
+    <text x="450" y="850">pendientes y advertencias</text>
+    <path class="edge" d="M450 864 V894" marker-end="url(#ah)"/>
+
+    <!-- N7 -->
+    <rect class="n-human" x="320" y="894" width="260" height="64" rx="10"/>
+    <text x="450" y="918">Persona revisa y decide:</text>
+    <text class="b" x="450" y="937">APROBAR o RECHAZAR</text>
+    <path class="edge" d="M450 958 V988" marker-end="url(#ah)"/>
+
+    <!-- N8 -->
+    <rect class="node" x="320" y="988" width="260" height="52" rx="26"/>
+    <text x="450" y="1008">Registrar decisión y</text>
+    <text x="450" y="1025">trazabilidad (fin)</text>
+  </svg>
+  </div>
+
+  <div class="legend">
+    <span><span class="sw agent"></span> Paso de un agente</span>
+    <span><span class="sw dec"></span> Decisión</span>
+    <span><span class="sw human"></span> Paso humano</span>
+    <span><span class="sw bad"></span> Caso bloqueado</span>
+    <span><span class="sw neutral"></span> Paso del Supervisor o del sistema</span>
+  </div>
+
+  <div class="callout warn">
+    <p><strong>Detalles a tener presentes:</strong></p>
+    <ul>
+      <li>Personal y Equipo trabajan <strong>en paralelo</strong>: no dependen uno del otro.</li>
+      <li>Un control no bloqueante en NO CUMPLE no frena el flujo: aparece como advertencia en el plan propuesto.</li>
+      <li>Aunque el sistema marque todo en verde, la <strong>decisión final siempre es de una persona</strong>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== FLUJO B ===================== -->
+<section id="flujo-b">
+  <h2>4. Flujo B · Resolución de un conflicto</h2>
+  <p class="sub">Es el subproceso que justifica la orquestación: los requisitos chocan y el Supervisor busca una salida segura.</p>
+
+  <div class="diagram narrow">
+  <svg viewBox="0 0 900 620" role="img" aria-label="Diagrama de flujo de la resolución de un conflicto">
+    <rect class="n-bad" x="320" y="10" width="260" height="44" rx="22"/>
+    <text x="450" y="26">Entra: control bloqueante</text>
+    <text class="b" x="450" y="43">NO CUMPLE</text>
+    <path class="edge" d="M450 54 V84" marker-end="url(#ah)"/>
+
+    <rect class="node" x="320" y="84" width="260" height="52" rx="10"/>
+    <text x="450" y="106">Supervisor identifica la causa:</text>
+    <text x="450" y="124">personal, equipo o ambos</text>
+    <path class="edge" d="M450 136 V166" marker-end="url(#ah)"/>
+
+    <rect class="n-agent" x="320" y="166" width="260" height="60" rx="10"/>
+    <rect class="chipbg" x="520" y="171" width="52" height="16" rx="8"/>
+    <text class="chiptxt" x="546" y="179" style="dominant-baseline:middle;font-size:10px">LLM</text>
+    <text x="450" y="192">Propone alternativas: reprogramar,</text>
+    <text x="450" y="208">otro equipo compatible u otra cuadrilla</text>
+    <path class="edge" d="M450 226 V256" marker-end="url(#ah)"/>
+
+    <rect class="node" x="320" y="256" width="260" height="60" rx="10"/>
+    <text x="450" y="274">Las herramientas verifican cada</text>
+    <text x="450" y="290">alternativa con las mismas reglas</text>
+    <text class="s" x="450" y="306">(código, no LLM)</text>
+    <path class="edge" d="M450 316 V346" marker-end="url(#ah)"/>
+
+    <polygon class="n-dec" points="450,346 600,396 450,446 300,396"/>
+    <text x="450" y="381">¿Alguna alternativa cumple</text>
+    <text x="450" y="398">todos los controles</text>
+    <text x="450" y="415">bloqueantes?</text>
+
+    <path class="edge" d="M450 446 V476" marker-end="url(#ah)"/>
+    <text class="lbl" x="468" y="464">Sí</text>
+    <rect class="node" x="320" y="476" width="260" height="52" rx="10"/>
+    <text x="450" y="498">Ordena por seguridad y mínimo</text>
+    <text x="450" y="516">cambio; elige la mejor</text>
+    <path class="edge" d="M450 528 V558" marker-end="url(#ah)"/>
+    <rect class="n-human" x="320" y="558" width="260" height="52" rx="26"/>
+    <text x="450" y="577">Devuelve plan alternativo</text>
+    <text x="450" y="594">(vuelve al flujo A)</text>
+
+    <path class="edge" d="M600 396 H660" marker-end="url(#ah)"/>
+    <text class="lbl" x="630" y="386">No</text>
+    <polygon class="n-dec" points="770,346 880,396 770,446 660,396"/>
+    <text x="770" y="391">¿Quedan rondas?</text>
+    <text class="s" x="770" y="408">(máx. 2)</text>
+
+    <path class="edge" d="M770 346 V196 H582" marker-end="url(#ah)"/>
+    <text class="lbl" x="696" y="184">Sí (otra ronda)</text>
+
+    <path class="edge" d="M770 446 V476" marker-end="url(#ah)"/>
+    <text class="lbl" x="786" y="464">No</text>
+    <rect class="n-bad" x="650" y="476" width="240" height="64" rx="10"/>
+    <text x="770" y="499">Sin alternativa segura:</text>
+    <text class="b" x="770" y="517">devuelve BLOQUEADO</text>
+    <text class="s" x="770" y="533">(escala a persona)</text>
+  </svg>
+  </div>
+
+  <div class="callout key">
+    <p><strong>Por qué esto justifica los agentes:</strong> cada agente ve solo su parte, y ninguno puede resolver el choque por sí solo. El Supervisor combina sus resultados, propone salidas y las vuelve a verificar con código. Limitar a 2 rondas evita bucles y mantiene la demo predecible.</p>
+  </div>
+</section>
+
+<!-- ===================== FLUJO C ===================== -->
+<section id="flujo-c">
+  <h2>5. Flujo C · Verificación de un requisito</h2>
+  <p class="sub">Cómo se llega a los tres estados de un control. El tercero evita que el sistema finja saber lo que no puede saber.</p>
+
+  <div class="diagram">
+  <svg viewBox="0 0 900 560" role="img" aria-label="Diagrama de flujo de la verificación de un requisito">
+    <rect class="node" x="330" y="10" width="240" height="44" rx="22"/>
+    <text x="450" y="32" style="dominant-baseline:middle">Requisito de un control</text>
+    <path class="edge" d="M450 54 V82" marker-end="url(#ah)"/>
+
+    <polygon class="n-dec" points="450,82 560,130 450,178 340,130"/>
+    <text x="450" y="125">¿Tipo de</text>
+    <text x="450" y="142">requisito?</text>
+
+    <path class="edge" d="M340 130 H160 V230" marker-end="url(#ah)"/>
+    <text class="lbl" x="250" y="120">competencia</text>
+    <path class="edge" d="M450 178 V230" marker-end="url(#ah)"/>
+    <text class="lbl" x="484" y="204">equipo</text>
+    <path class="edge" d="M560 130 H740 V230" marker-end="url(#ah)"/>
+    <text class="lbl" x="650" y="120">condición de campo</text>
+
+    <rect class="n-agent" x="40" y="230" width="240" height="72" rx="10"/>
+    <text x="160" y="254">Agente Personal consulta:</text>
+    <text x="160" y="272">certificaciones vigentes y</text>
+    <text x="160" y="290">disponibilidad en el turno</text>
+
+    <rect class="n-agent" x="330" y="230" width="240" height="72" rx="10"/>
+    <text x="450" y="254">Agente Equipo consulta:</text>
+    <text x="450" y="272">estado de mantenimiento y</text>
+    <text x="450" y="290">disponibilidad en el turno</text>
+
+    <rect class="n-human" x="620" y="230" width="240" height="72" rx="10"/>
+    <text x="740" y="254">Condición de campo</text>
+    <text x="740" y="272">(ej. inspección del techo):</text>
+    <text x="740" y="290">ningún dato la confirma</text>
+
+    <path class="edge" d="M160 302 V330 H450 V302"/>
+    <path class="edge" d="M305 330 V356" marker-end="url(#ah)"/>
+
+    <polygon class="n-dec" points="305,356 395,400 305,444 215,400"/>
+    <text x="305" y="396">¿Cumple lo</text>
+    <text x="305" y="412">exigido?</text>
+
+    <path class="edge" d="M215 400 H172" marker-end="url(#ah)"/>
+    <text class="lbl" x="194" y="390">Sí</text>
+    <rect class="n-human" x="20" y="380" width="150" height="40" rx="20"/>
+    <text class="b" x="95" y="400" style="dominant-baseline:middle">CUMPLE</text>
+
+    <path class="edge" d="M395 400 H438" marker-end="url(#ah)"/>
+    <text class="lbl" x="417" y="390">No</text>
+    <rect class="n-bad" x="440" y="380" width="150" height="40" rx="20"/>
+    <text class="b" x="515" y="400" style="dominant-baseline:middle">NO CUMPLE</text>
+
+    <path class="edge" d="M740 302 V380" marker-end="url(#ah)"/>
+    <rect class="n-dec" x="620" y="380" width="240" height="44" rx="22"/>
+    <text class="b" x="740" y="395">NO VERIFICABLE</text>
+    <text class="s" x="740" y="412">(requiere confirmación humana)</text>
+
+    <rect class="node" x="230" y="480" width="440" height="64" rx="10"/>
+    <text class="b" x="450" y="498">Supervisor consolida por control</text>
+    <text x="450" y="516">bloqueante NO CUMPLE → resolver conflicto</text>
+    <text x="450" y="532">NO VERIFICABLE → confirmación en campo</text>
+
+    <path class="edge" d="M95 420 V512 H228" marker-end="url(#ah)"/>
+    <path class="edge" d="M515 420 V478" marker-end="url(#ah)"/>
+    <path class="edge" d="M740 424 V512 H672" marker-end="url(#ah)"/>
+  </svg>
+  </div>
+
+  <div class="legend">
+    <span><span class="sw human"></span> CUMPLE / paso humano</span>
+    <span><span class="sw bad"></span> NO CUMPLE</span>
+    <span><span class="sw dec"></span> NO VERIFICABLE</span>
+  </div>
+</section>
+
+<!-- ===================== ESCENARIOS ===================== -->
+<section id="escenarios">
+  <h2>6. Los escenarios de demo sobre el flujo</h2>
+  <p class="sub">Los tres casos recorren caminos distintos del mismo diagrama.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Escenario</th><th>Camino en el flujo A</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. Caso limpio</strong></td><td>¿Bloqueante NO CUMPLE? No → ¿NO VERIFICABLES? No → plan → persona</td><td>Plan aprobado con controles verificados</td></tr>
+      <tr><td><strong>2. Con conflicto</strong></td><td>¿Bloqueante NO CUMPLE? Sí → flujo B → plan alternativo seguro → plan → persona</td><td>Alternativa propuesta; la persona decide</td></tr>
+      <tr><td><strong>3. Bloqueado</strong></td><td>¿Bloqueante NO CUMPLE? Sí → flujo B sin alternativa → escalar → persona</td><td>El sistema no recomienda ejecutar y lo explica</td></tr>
+      <tr><td><strong>Variante: con confirmación en campo</strong></td><td>¿NO VERIFICABLES? Sí → persona confirma → plan → persona</td><td>Se muestra el tercer estado de un control</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ===================== CONTRATO ===================== -->
+<section id="contrato">
+  <h2>7. Contrato de datos entre agentes</h2>
+  <p class="sub">Ejemplo ilustrativo; el contrato vigente es <code>backend/app/contract.py</code> y los estados reales del caso (<code>EstadoRun</code>, <code>EstadoSistema</code>) están en <em>Stack y contrato</em>. Acordarlo primero permite que cada persona trabaje en paralelo y que la integración no sea una sorpresa.</p>
+
+<pre>// Lo que devuelve cada agente al Supervisor, por control verificado
+{
+  "agente": "equipo",
+  "control_id": "CC-ROCA-01",
+  "estado": "NO_CUMPLE",            // CUMPLE | NO_CUMPLE | NO_VERIFICABLE
+  "bloqueante": true,
+  "detalle": "Perforadora en mantenimiento hasta el jueves",
+  "evidencia": { "fuente": "equipos.json", "registro": "EQ-03" }
+}
+
+// Lo que consolida el Supervisor
+{
+  "tarea_id": "T-001",
+  "controles": [ /* lista de resultados como el de arriba */ ],
+  "conflictos": ["CC-ROCA-01"],
+  "alternativas": [ { "descripcion": "...", "cumple_todo": true } ],
+  "estado_sistema": "RECOMENDADO"   // RECOMENDADO | REQUIERE_CAMPO | BLOQUEADO
+}</pre>
+
+  <div class="callout warn">
+    <p>Los nombres de campos y los identificadores son un punto de partida. Los datos de cada control y su fuente deben marcarse como <strong>simulado</strong> o citar la norma real, para no dar una falsa sensación de rigor.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Documento de trabajo para discusión interna. Los diagramas representan una propuesta de diseño del equipo, no una arquitectura probada.</p>
+  </div>
+</footer>
+
+</body>
+</html>

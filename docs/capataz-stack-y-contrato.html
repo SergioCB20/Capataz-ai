@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAPATAZ – Stack y contrato de datos</title>
+<style>
+:root{
+  --bg:#faf8f4; --surface:#ffffff; --band:#f3eee5; --ink:#1f1b16; --muted:#6b6258; --line:#e6dfd3; --line-strong:#b9ad9b;
+  --accent:#c2570c; --accent-soft:#fdeede; --ok:#2f7d4f; --ok-soft:#e5f3ea;
+  --warn:#a15c00; --warn-soft:#fff3d6; --bad:#b3261e; --bad-soft:#fbe7e5;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#17140f; --surface:#211d17; --band:#1d1913; --ink:#f2ece2; --muted:#a79d8f; --line:#383128; --line-strong:#6a5f50;
+    --accent:#f08a3c; --accent-soft:#3a2514; --ok:#6cc58d; --ok-soft:#17301f;
+    --warn:#f0b254; --warn-soft:#38290f; --bad:#f08178; --bad-soft:#3b1b18;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+header.hero{padding:48px 0 32px;border-bottom:1px solid var(--line)}
+.tag{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:999px;font-weight:600}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.05;margin:14px 0 10px;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.lead{font-size:clamp(17px,2.4vw,20px);color:var(--muted);max-width:780px;margin:0}
+nav{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:14px;padding:6px 12px;border-radius:999px}
+nav a:hover{background:var(--accent-soft);color:var(--accent)}
+section{padding:40px 0 6px}
+h2{font-size:25px;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 20px}
+h3{font-size:17px;margin:22px 0 6px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h3{margin-top:0}
+.card p{margin:6px 0 0;color:var(--muted);font-size:15px}
+.callout{border-radius:14px;padding:16px 20px;margin:18px 0}
+.callout.key{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.callout.ok{background:var(--ok-soft);border:1px solid color-mix(in srgb,var(--ok) 35%,transparent)}
+.callout p,.callout ul{margin:6px 0 0}
+.callout ul{padding-left:20px}
+.callout li{margin:4px 0}
+ul.clean{padding-left:20px;margin:8px 0}
+ul.clean li{margin:6px 0}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--accent-soft);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+tr:last-child td{border-bottom:0}
+.scroll{overflow-x:auto}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font-size:13.5px;line-height:1.5;margin:10px 0}
+td code,li code,p code{font-size:13px;background:var(--band);padding:1px 6px;border-radius:5px}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;margin-right:6px}
+.pill.must{background:var(--ok-soft);color:var(--ok)}
+.pill.should{background:var(--warn-soft);color:var(--warn)}
+.pill.out{background:var(--bad-soft);color:var(--bad)}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0;font-size:14px}
+.chain span.n{background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;padding:4px 10px;font-weight:600}
+.chain span.a{color:var(--muted)}
+footer{padding:36px 0 56px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);margin-top:44px}
+footer a{color:var(--accent)}
+footer ol{padding-left:20px}
+footer li{margin:4px 0}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Stack técnico · Contrato de datos</span>
+    <h1>CAPA<span>TAZ</span></h1>
+    <p class="lead">Qué vamos a usar para construirlo, cómo cada decisión responde a la rúbrica y cuál es el contrato final de datos entre las piezas. El código del contrato está en <code>contract.py</code>.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#rubrica">Rúbrica</a>
+    <a href="#nanda">NANDA</a>
+    <a href="#stack">Stack</a>
+    <a href="#ux">Experiencia de usuario</a>
+    <a href="#modelo">Modelo de datos</a>
+    <a href="#agentes">Contrato entre agentes</a>
+    <a href="#eventos">Eventos y API</a>
+    <a href="#reglas">Reglas</a>
+    <a href="#orden">Orden de trabajo</a>
+    <a href="#pendiente">Qué falta verificar</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ===================== RÚBRICA ===================== -->
+<section id="rubrica">
+  <h2>1. La rúbrica y lo que implica</h2>
+  <p class="sub">Cinco criterios de 20% cada uno. Ninguno pesa más que otro, así que ningún frente se puede descuidar.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Criterio (20%)</th><th>Qué evalúan</th><th>Qué haremos</th><th>Riesgo a evitar</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Ejecución</strong></td><td>El prototipo funciona y muestra el flujo en vivo</td><td>Modo <em>vivo</em> y modo <em>replay</em> (eventos grabados) como respaldo. Los 3 escenarios ensayados. Verificaciones deterministas en código. Pruebas del contrato.</td><td>Que falle la red o la API durante la demo</td></tr>
+      <tr><td><strong>Aplicación práctica</strong></td><td>Responde al reto y aporta valor al sector</td><td>Foco en que los controles críticos se ejecuten de verdad (dato del ICMM: 19 de 26 incidentes fatales con control mal ejecutado). Límites dichos con honestidad.</td><td>Prometer que "reduce accidentes" sin evidencia</td></tr>
+      <tr><td><strong>Experiencia de usuario</strong></td><td>La interacción es clara y facilita resolver la tarea</td><td>Interfaz propia, no Streamlit: grafo de agentes en vivo, semáforos, evidencia a un clic, comparación de alternativas, decisión humana al final.</td><td>Mostrar demasiado a la vez</td></tr>
+      <tr><td><strong>Innovación</strong></td><td>Forma novedosa de resolver el reto</td><td>Tres estados por control (incluido "no verificable"), conflictos resueltos con verificación determinista, descubrimiento de agentes por capacidad inspirado en NANDA.</td><td>Que parezca un chatbot con agentes</td></tr>
+      <tr><td><strong>Propuesta técnica</strong></td><td>Uso de agentes de IA inmerso en la solución</td><td>Supervisor y agentes con herramientas, contrato tipado, auditoría como flujo de eventos, métrica con casos de fallo inyectado.</td><td>Agentes decorativos: el LLM razona, las herramientas verifican</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout key">
+    <p><strong>Sobre el reto.</strong> Un post de LinkedIn sobre una hackatón de hoy (17 de octubre) con Sundai Latam y NTT DATA, dentro del Peru Tech Week, plantea la pregunta "¿cómo rediseñamos flujos con IA en operaciones de alto riesgo?" y anuncia a un representante de Project NANDA. Parece ser esta misma hackatón. Si es así, CAPATAZ encaja muy bien y conviene abrir el pitch con esa frase. <em>Confirmar con los organizadores.</em></p>
+  </div>
+</section>
+
+<!-- ===================== NANDA ===================== -->
+<section id="nanda">
+  <h2>2. NANDA: reconocimiento especial (opcional)</h2>
+  <p class="sub">La rúbrica premia a "la mejor aplicación de NANDA". Qué es y cómo aprovecharlo sin comprometer lo importante.</p>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Qué es</h3>
+      <p>Project NANDA es una iniciativa abierta del MIT Media Lab para una "Internet de agentes": que agentes de distintas organizaciones se descubran, verifiquen su identidad y colaboren. Se apoya en MCP (Anthropic) y A2A (Google). Sus piezas centrales son el <strong>NANDA Index</strong>, un registro tipo "DNS para agentes", y las <strong>AgentFacts</strong>, fichas de metadatos con identidad, capacidades, endpoints, certificación y seguridad.</p>
+    </div>
+    <div class="card">
+      <h3>Por qué encaja con CAPATAZ</h3>
+      <p>Nuestro Supervisor coordina agentes especializados. Si los descubre por <strong>capacidad</strong> en un registro, en lugar de llamarlos por nombre, el sistema se vuelve extensible: sumar un agente nuevo (Costo, Ventilación, lo que sea) es registrar una ficha, sin tocar al Supervisor.</p>
+    </div>
+  </div>
+
+  <h3>Cómo aplicarlo, por niveles</h3>
+  <div class="grid g2">
+    <div class="card"><span class="pill must">Nivel 1 · ~30–40 min</span>
+      <p>Una ficha <code>AgentFacts</code> por agente en <code>registry/</code>, una clase <code>Registry</code> y que el Supervisor pida "quién puede <code>verificar_equipo</code>". La interfaz muestra un panel "Registro de agentes" con las fichas. Está modelado en <code>contract.py</code>.</p></div>
+    <div class="card"><span class="pill should">Nivel 2 · ~1 h, solo con holgura</span>
+      <p>Firmar las fichas y verificar la firma antes de invocar al agente. Permite una demo de "agente con ficha alterada, rechazado". Es una simplificación: sin identificadores descentralizados ni credenciales verificables reales.</p></div>
+    <div class="card"><span class="pill out">Nivel 3 · no ahora</span>
+      <p>Exponer las herramientas por MCP o los agentes por A2A, y publicar en un índice real. Mencionarlo como fase siguiente.</p></div>
+  </div>
+
+  <div class="callout warn">
+    <ul>
+      <li><strong>Cómo decirlo:</strong> "inspirado en el esquema AgentFacts de NANDA", no "implementamos NANDA". El segundo sería exagerado y puede haber un representante de NANDA entre quienes evalúan.</li>
+      <li><strong>Prioridad:</strong> el Nivel 1 se hace <em>después</em> de que el escenario 2 corra de punta a punta. Ejecución y UX suman 40% de la nota y el reconocimiento es opcional.</li>
+      <li><strong>Por verificar:</strong> los nombres de campos siguen la tabla mínima del paper de NANDA. Conviene confirmarlos con la especificación o preguntar al representante presente.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== STACK ===================== -->
+<section id="stack">
+  <h2>3. Stack tecnológico</h2>
+  <p class="sub">Sin Streamlit. Una interfaz propia en React y un backend en Python que comparten un único contrato.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Capa</th><th>Elección</th><th>Por qué</th><th>Costo o riesgo</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Frontend</strong></td><td>Vite + React + TypeScript</td><td>Sin renderizado en servidor, arranque rápido, un solo servidor de desarrollo</td><td>Si nadie del equipo domina React, conviene otra opción que sí dominen (SvelteKit, Vue)</td></tr>
+      <tr><td><strong>Estilos y componentes</strong></td><td>Tailwind CSS + shadcn/ui</td><td>Aspecto cuidado desde el inicio y componentes accesibles</td><td>~15–20 min de configuración inicial</td></tr>
+      <tr><td><strong>Grafo de agentes</strong></td><td>React Flow (<code>@xyflow/react</code>)</td><td>Nodos y aristas con estados en vivo: es lo que hace visible la orquestación</td><td>Usar pocos nodos fijos (Supervisor + 4 agentes); no hace falta un grafo dinámico</td></tr>
+      <tr><td><strong>Animación</strong></td><td>Motion (Framer Motion)</td><td>Transiciones suaves de estado</td><td>Opcional</td></tr>
+      <tr><td><strong>Estado en cliente</strong></td><td>Zustand o <code>useReducer</code></td><td>Un reductor que aplica cada <code>Evento</code> al estado de la pantalla</td><td>Ninguno</td></tr>
+      <tr><td><strong>Tiempo real</strong></td><td>SSE (<code>EventSource</code>)</td><td>Flujo solo de servidor a cliente, reconexión automática, más simple que WebSocket. Las decisiones van por POST.</td><td>Ninguno</td></tr>
+      <tr><td><strong>Backend</strong></td><td>Python 3.11+, FastAPI, Uvicorn, <code>sse-starlette</code></td><td>Asíncrono, OpenAPI automático, integrado con Pydantic</td><td>Ninguno</td></tr>
+      <tr><td><strong>Contrato</strong></td><td>Pydantic v2 (<code>contract.py</code>) → OpenAPI → <code>openapi-typescript</code></td><td>Los tipos del frontend se generan, no se copian a mano</td><td>Los eventos SSE no aparecen solos en OpenAPI: exponer un endpoint de documentación que devuelva <code>Evento</code>, o escribir ese tipo a mano</td></tr>
+      <tr><td><strong>LLM</strong></td><td>SDK <code>anthropic</code> con tool use. <code>claude-sonnet-5-5</code> para Supervisor y agentes; <code>claude-haiku-5-5</code> opcional para pasos simples</td><td>Tool use con esquemas Pydantic para respuestas estructuradas</td><td>Confirmar acceso y créditos en la hackatón. Cada llamada añade latencia.</td></tr>
+      <tr><td><strong>Orquestación</strong></td><td>Orquestador propio con <code>asyncio</code></td><td>Personal y Equipo en paralelo con <code>asyncio.gather</code>; flujo explícito y fácil de depurar</td><td>LangGraph solo si alguien ya lo domina</td></tr>
+      <tr><td><strong>Registro de agentes</strong></td><td>Fichas JSON (AgentFacts) + clase <code>Registry</code></td><td>Descubrimiento por capacidad</td><td>Ninguno</td></tr>
+      <tr><td><strong>Datos</strong></td><td>Catálogo en <code>data/*.json</code> (semillas) y <code>knowledge/*.md</code>, cargados a Supabase (Postgres) o a memoria</td><td>Persistencia real y consultable con SQL; las semillas se pueden recargar de forma idempotente</td><td>Depende de la red: por eso existe <code>MemoryStore</code> y el modo replay</td></tr>
+      <tr><td><strong>Persistencia</strong></td><td>Supabase con <code>supabase-py</code> (cliente async). Interfaz <code>Store</code> con <code>SupabaseStore</code> y <code>MemoryStore</code></td><td>Los objetos del contrato se guardan como <code>jsonb</code>; solo el backend habla con Supabase</td><td>El proyecto en la nube se pausa tras 7 días sin uso. Ver <code>docs/requisitos/90-anexo-supabase.md</code></td></tr>
+      <tr><td><strong>Auditoría</strong></td><td>Eventos guardados en la tabla <code>eventos</code> (PK <code>run_id, seq</code>); <code>MemoryStore</code> los vuelca a JSONL</td><td>La auditoría es el mismo flujo de eventos persistido</td><td>Ninguno</td></tr>
+      <tr><td><strong>Pruebas</strong></td><td><code>pytest</code></td><td>Contrato, herramientas y escenarios. Las 14 pruebas del contrato ya pasan.</td><td>Ninguno</td></tr>
+      <tr><td><strong>Entorno</strong></td><td><code>uv</code> (Python) + <code>pnpm</code>. Proxy de Vite de <code>/api</code> a <code>:8000</code>. Claves en <code>.env</code> (solo backend)</td><td>Sin problemas de CORS y un solo comando para levantar todo. Sin Docker.</td><td>Ninguno</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Estructura del repositorio</h3>
+<pre>capataz/
+├─ backend/
+│  └─ app/
+│     ├─ main.py            # FastAPI: rutas REST y SSE
+│     ├─ contract.py        # fuente única de verdad (este contrato)
+│     ├─ orchestrator.py    # Supervisor, flujo A y B
+│     ├─ agents/            # riesgo.py, personal.py, equipo.py (costo.py opcional)
+│     ├─ tools.py           # buscar_personal(), estado_equipo(), consultar_controles()
+│     ├─ registry.py        # descubrimiento por capacidad
+│     └─ store.py           # interfaz Store: SupabaseStore y MemoryStore (con volcado JSONL)
+├─ supabase/                # migraciones SQL (0001_init.sql)
+├─ docs/requisitos/         # requisitos funcionales por fase
+├─ data/                   # peligros, tipos_tarea, controles, personal, equipos, escenarios, evaluacion (.json)
+├─ knowledge/               # documentos normativos resumidos (.md)
+├─ registry/                # una ficha AgentFacts por agente (.json)
+├─ replays/                 # eventos grabados de cada escenario (.json)
+└─ frontend/                # Vite + React + TypeScript</pre>
+
+  <div class="callout ok">
+    <p><strong>Modo replay, el seguro de la demo.</strong> Cada escenario se graba como una lista de <code>Evento</code> con el mismo formato que el SSE en vivo. La interfaz no distingue uno del otro. Si falla la red o la API, se reproduce el escenario grabado. Además permite que quien hace la interfaz avance desde la primera hora, sin esperar a los agentes.</p>
+  </div>
+</section>
+
+<!-- ===================== UX ===================== -->
+<section id="ux">
+  <h2>4. Experiencia de usuario</h2>
+  <p class="sub">Es 20% de la nota y el motivo para salir de Streamlit. Una pantalla de trabajo con seis piezas.</p>
+  <div class="grid g2">
+    <div class="card"><h3>1. Tarea y escenarios</h3><p>Formulario corto (tipo, zona, turno, texto libre) y tres botones para cargar los escenarios de demo con un clic. Lenguaje de campo, sin jerga técnica.</p></div>
+    <div class="card"><h3>2. Agentes en vivo</h3><p>Grafo con el Supervisor y los agentes. Cada nodo se enciende mientras trabaja, muestra frases cortas ("consultando certificaciones…") tomadas de los eventos de herramienta y termina en verde, ámbar o rojo.</p></div>
+    <div class="card"><h3>3. Controles con semáforo</h3><p>Lista de controles con estado, siempre con icono y texto además del color. Cada uno enseña su fuente con una insignia visible: <em>normativa</em>, <em>guía</em> o <strong>simulado</strong>.</p></div>
+    <div class="card"><h3>4. Evidencia a un clic</h3><p>Etiquetas como "equipos.json · EQ-03" que abren un cajón con el extracto. Es lo que convierte una afirmación en algo comprobable.</p></div>
+    <div class="card"><h3>5. Conflicto y alternativas</h3><p>Plan original frente a alternativas, lado a lado, con los cambios resaltados y la verificación de cada una. Es donde se ve la orquestación resolviendo algo.</p></div>
+    <div class="card"><h3>6. Decisión humana</h3><p>Barra fija con Aprobar y Rechazar (el rechazo pide comentario). En un caso bloqueado solo está disponible Rechazar. Línea de tiempo de auditoría plegable.</p></div>
+  </div>
+  <div class="callout warn">
+    <p>Botones grandes y diseño que se adapte a tableta: es plausible que quien use esto en una mina lo haga desde una. <em>Es una suposición nuestra, no un dato.</em></p>
+  </div>
+</section>
+
+<!-- ===================== MODELO DE DATOS ===================== -->
+<section id="modelo">
+  <h2>5. Modelo de datos</h2>
+  <p class="sub">Todo está definido en <code>contract.py</code>. Aquí, el resumen para leerlo rápido.</p>
+
+  <div class="chain">
+    <span class="n">TipoTarea</span><span class="a">→</span>
+    <span class="n">Peligro</span><span class="a">→</span>
+    <span class="n">Control</span><span class="a">→</span>
+    <span class="n">Requisito</span><span class="a">→</span>
+    <span class="n">Persona / Equipo</span>
+  </div>
+  <p class="sub">Un tipo de tarea tiene peligros; cada peligro, controles críticos; cada control, requisitos verificables; y cada requisito se comprueba contra personal o equipos.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Entidad</th><th>Campos clave</th><th>Dónde vive</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Peligro</strong></td><td><code>id</code>, <code>nombre</code>, <code>categoria</code> (desprendimiento de rocas, equipo móvil, trabajo en altura, aislamiento de energía, irrupción)</td><td><code>data/peligros.json</code></td></tr>
+      <tr><td><strong>TipoTarea</strong></td><td><code>id</code>, <code>nombre</code>, <code>descripcion</code>, <code>peligros[]</code></td><td><code>data/tipos_tarea.json</code></td></tr>
+      <tr><td><strong>Control</strong></td><td><code>id</code>, <code>nombre</code>, <code>peligro_id</code>, <code>aplica_a[]</code>, <code>bloqueante</code>, <code>requisitos[]</code>, <code>fuente</code> (obligatoria)</td><td><code>data/controles.json</code></td></tr>
+      <tr><td><strong>Requisito</strong></td><td>Tres tipos, discriminados por <code>tipo</code>: <code>competencia</code> (certificación, equivalentes, mínimo de personas), <code>equipo</code> (tipo, equivalentes, cantidad) y <code>condicion_campo</code> (descripción)</td><td>Dentro de cada control</td></tr>
+      <tr><td><strong>Persona</strong></td><td><code>id</code>, <code>nombre</code>, <code>rol</code>, <code>certificaciones[]</code> (código y vigencia), <code>ocupado_en[]</code> (turnos)</td><td><code>data/personal.json</code></td></tr>
+      <tr><td><strong>Equipo</strong></td><td><code>id</code>, <code>nombre</code>, <code>tipo</code>, <code>estado</code> (operativo, mantenimiento, fuera de servicio), <code>disponible_desde</code>, <code>ocupado_en[]</code></td><td><code>data/equipos.json</code></td></tr>
+      <tr><td><strong>Escenario</strong> y <strong>CasoEvaluacion</strong></td><td>Tarea de ejemplo y resultado esperado; casos con fallos inyectados para medir el porcentaje de detección</td><td><code>data/escenarios.json</code>, <code>data/evaluacion.json</code></td></tr>
+      <tr><td><strong>Tarea</strong></td><td><code>tipo_id</code>, <code>descripcion</code>, <code>zona</code>, <code>turno</code> (fecha + franja día o noche), <code>solicitado_por</code></td><td>Se crea al ingresar</td></tr>
+      <tr><td><strong>Run</strong>, <strong>Plan</strong>, <strong>Alternativa</strong>, <strong>Evento</strong></td><td>Estado del caso, plan propuesto con sus controles, alternativas ya verificadas y flujo de eventos</td><td>Supabase (<code>jsonb</code>) o memoria</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout key">
+    <p><strong>Decisiones que conviene conocer:</strong></p>
+    <ul>
+      <li>Se quitó la regla de "horas excedidas". Un turno ocupado produce el mismo conflicto sin inventar un límite que no verificamos.</li>
+      <li>La primera pasada es <strong>estricta</strong>: solo cuenta lo que el requisito pide. Las equivalencias (<code>tipos_equivalentes</code>, <code>certificaciones_equivalentes</code>) solo se usan al evaluar alternativas.</li>
+      <li>Toda <code>Fuente</code> es obligatoria. Lo inventado para la demo lleva <code>tipo: "simulado"</code> y la interfaz lo muestra.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== CONTRATO ENTRE AGENTES ===================== -->
+<section id="agentes">
+  <h2>6. Contrato entre agentes</h2>
+  <p class="sub">Todos reciben el mismo sobre y devuelven el mismo sobre. El Supervisor no necesita conocer los detalles de cada agente.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Agente</th><th>Capacidad</th><th>Recibe</th><th>Devuelve</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Riesgo</strong></td><td><code>evaluar_riesgo</code></td><td><code>AgenteSolicitud</code> con la tarea</td><td><code>AgenteRespuesta.evaluacion_riesgo</code>: peligros con justificación y fuente, ids de controles exigidos y lista de afirmaciones <em>no verificadas</em></td></tr>
+      <tr><td><strong>Personal</strong></td><td><code>verificar_competencia</code></td><td><code>AgenteSolicitud</code> con requisitos de tipo competencia y el turno</td><td><code>resultados[]</code>: un <code>ResultadoRequisito</code> por requisito; <code>candidatos</code> lleva los ids de las personas que cumplen</td></tr>
+      <tr><td><strong>Equipo</strong></td><td><code>verificar_equipo</code></td><td><code>AgenteSolicitud</code> con requisitos de tipo equipo y el turno</td><td><code>resultados[]</code>; <code>candidatos</code> lleva los ids de los equipos que cumplen</td></tr>
+      <tr><td><strong>Supervisor</strong></td><td>Consolida</td><td>Todas las respuestas</td><td><code>ResultadoControl</code> por control y un <code>Plan</code>. Marca como <code>NO_VERIFICABLE</code> las condiciones de campo</td></tr>
+      <tr><td><strong>Costo</strong> (opcional)</td><td><code>estimar_costo</code></td><td>—</td><td><em>No está en el contrato actual.</em> Si se implementa, se agrega un modelo de resultado antes de empezar.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Ejemplo de resultado de un requisito</h3>
+<pre>{
+  "control_id": "CC-ROCA-01",
+  "requisito_id": "R2",
+  "estado": "NO_CUMPLE",
+  "detalle": "Jumbo JM-03 en mantenimiento hasta el 22/10; no hay otro jumbo libre en el turno",
+  "evidencia": [{ "fuente_archivo": "equipos.json", "registro_id": "EQ-03" }],
+  "candidatos": [],
+  "verificado_por": "capataz:agente-equipo"
+}</pre>
+
+  <h3>Cómo se consolida</h3>
+  <ul class="clean">
+    <li><strong>El peor estado manda:</strong> <code>NO_CUMPLE</code> &gt; <code>NO_VERIFICABLE</code> &gt; <code>CUMPLE</code> (función <code>peor_estado</code>).</li>
+    <li><strong>Un requisito sin resultado nunca es CUMPLE.</strong> Si a un control le falta la respuesta de algún requisito, queda <code>NO_VERIFICABLE</code> (función <code>consolidar_control</code>).</li>
+    <li><strong>Estado del plan</strong> (<code>calcular_estado_sistema</code>): <code>BLOQUEADO</code> si un control bloqueante no cumple; <code>REQUIERE_CAMPO</code> si hay no verificables; si no, <code>RECOMENDADO</code>.</li>
+  </ul>
+
+  <h3>Cómo se resuelven las alternativas</h3>
+  <p>El LLM del Supervisor propone cambios de tres tipos: <code>reprogramar_turno</code>, <code>equipo_equivalente</code> o <code>certificacion_equivalente</code>. Cada alternativa se verifica <strong>con las mismas herramientas</strong>: se reenvía un <code>AgenteSolicitud</code> con otro <code>turno</code> o usando las equivalencias declaradas en el requisito. El LLM propone y explica; el código decide si cumple. Se ordenan primero las que cumplen los bloqueantes y luego las de menos cambios. Máximo 2 rondas.</p>
+
+  <h3>Ficha de agente (AgentFacts, inspirada en NANDA)</h3>
+<pre>{
+  "id": "capataz:agente-equipo",
+  "agent_name": "Agente Equipo",
+  "version": "0.1.0",
+  "description": "Verifica que el equipo exigido esté operativo y libre en el turno",
+  "endpoints": { "in_process": "app.agents.equipo:verificar" },
+  "usage_format": { "input": "AgenteSolicitud", "output": "AgenteRespuesta" },
+  "certification": { "type": "self-declared", "issuer": "equipo-capataz" },
+  "capabilities": [
+    { "id": "verificar_equipo",
+      "description": "Estado de mantenimiento y disponibilidad por turno",
+      "input_model": "AgenteSolicitud", "output_model": "AgenteRespuesta" }
+  ],
+  "discovery": { "tags": ["equipo", "mantenimiento", "disponibilidad"] },
+  "security": { "reads": ["equipos.json"], "writes": [], "requires_human_approval": true }
+}</pre>
+  <p>El <code>id</code> de la ficha es el que se usa como <code>agente_id</code> en los mensajes, como <code>verificado_por</code> en los resultados y como <code>actor</code> en los eventos.</p>
+</section>
+
+<!-- ===================== EVENTOS Y API ===================== -->
+<section id="eventos">
+  <h2>7. Eventos y API</h2>
+  <p class="sub">Cada evento viaja por SSE a la interfaz y se persiste antes de emitirse (Supabase o memoria): la auditoría es el mismo flujo. El stream se mantiene abierto hasta <code>run.finalizado</code> o <code>run.error</code>, con latidos mientras se espera a la persona.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Tipo de evento</th><th>Actor</th><th>Payload</th><th>Qué hace la interfaz</th></tr></thead>
+    <tbody>
+      <tr><td><code>run.iniciado</code></td><td>sistema</td><td><code>PRunIniciado</code></td><td>Abre la pantalla del caso</td></tr>
+      <tr><td><code>agente.iniciado</code></td><td>agente</td><td><code>PAgenteIniciado</code></td><td>Enciende el nodo en el grafo</td></tr>
+      <tr><td><code>agente.herramienta</code></td><td>agente</td><td><code>PAgenteHerramienta</code></td><td>Muestra la frase de progreso bajo el nodo</td></tr>
+      <tr><td><code>agente.completado</code></td><td>agente</td><td><code>AgenteRespuesta</code></td><td>Colorea el nodo y muestra el resumen</td></tr>
+      <tr><td><code>supervisor.consolidado</code></td><td>supervisor</td><td><code>PConsolidado</code></td><td>Rellena la lista de controles</td></tr>
+      <tr><td><code>conflicto.detectado</code></td><td>supervisor</td><td><code>PConflicto</code></td><td>Resalta los controles en conflicto</td></tr>
+      <tr><td><code>conflicto.alternativas</code></td><td>supervisor</td><td><code>PAlternativas</code></td><td>Muestra las tarjetas de alternativas de la ronda</td></tr>
+      <tr><td><code>conflicto.alternativa_verificada</code></td><td>supervisor</td><td><code>PAlternativaVerificada</code></td><td>Marca cada alternativa con su verificación</td></tr>
+      <tr><td><code>humano.campo_requerido</code></td><td>supervisor</td><td><code>PCampoRequerido</code></td><td>Pide confirmaciones en campo</td></tr>
+      <tr><td><code>humano.campo_confirmado</code></td><td>persona</td><td><code>PCampoConfirmado</code></td><td>Actualiza los controles pendientes</td></tr>
+      <tr><td><code>plan.listo</code></td><td>supervisor</td><td><code>PPlanListo</code></td><td>Muestra el plan propuesto</td></tr>
+      <tr><td><code>humano.decision_requerida</code></td><td>supervisor</td><td><code>PDecisionRequerida</code></td><td>Activa la barra de decisión</td></tr>
+      <tr><td><code>humano.decision_tomada</code></td><td>persona</td><td><code>PDecisionTomada</code></td><td>Registra la decisión en la línea de tiempo</td></tr>
+      <tr><td><code>run.finalizado</code></td><td>sistema</td><td><code>PRunFinalizado</code></td><td>Muestra el estado final</td></tr>
+      <tr><td><code>run.error</code></td><td>sistema</td><td><code>PError</code></td><td>Muestra el error y ofrece reproducir el escenario grabado</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Todos comparten el sobre <code>Evento</code> (<code>seq</code>, <code>run_id</code>, <code>ts</code>, <code>tipo</code>, <code>actor</code>, <code>payload</code>). El método <code>validar_payload()</code> comprueba el payload contra el modelo de su tipo, y una prueba garantiza que todos los tipos tengan modelo.</p>
+
+  <h3>API REST</h3>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Método y ruta</th><th>Cuerpo</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr><td><code>GET /api/catalogo</code></td><td>—</td><td><code>Catalogo</code> (todo lo que la interfaz necesita al arrancar)</td></tr>
+      <tr><td><code>GET /api/registro?capacidad=…</code></td><td>—</td><td>Lista de <code>AgentFacts</code></td></tr>
+      <tr><td><code>POST /api/runs</code></td><td><code>RunCrear</code> (tarea, modo <em>vivo</em> o <em>replay</em>, escenario)</td><td><code>RunCreado</code></td></tr>
+      <tr><td><code>GET /api/runs/{id}</code></td><td>—</td><td><code>Run</code> (instantánea)</td></tr>
+      <tr><td><code>GET /api/runs/{id}/eventos</code></td><td>—</td><td>SSE de <code>Evento</code></td></tr>
+      <tr><td><code>POST /api/runs/{id}/campo</code></td><td><code>ConfirmacionesCampo</code></td><td><code>Run</code></td></tr>
+      <tr><td><code>POST /api/runs/{id}/decision</code></td><td><code>DecisionHumana</code></td><td><code>Run</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Estados de un caso</h3>
+  <ul class="clean">
+    <li><code>EVALUANDO</code> → si un bloqueante no cumple: <code>RESOLVIENDO_CONFLICTO</code>.</li>
+    <li>Con alternativa segura o sin conflicto → si hay no verificables: <code>ESPERANDO_CAMPO</code> → <code>ESPERANDO_DECISION</code> → <code>APROBADA</code> o <code>RECHAZADA</code>.</li>
+    <li>Sin alternativa segura → <code>ESPERANDO_DECISION</code> con plan <code>BLOQUEADO</code> → solo se puede rechazar → <code>BLOQUEADA</code>.</li>
+    <li>Cualquier falla inesperada → <code>ERROR</code>.</li>
+  </ul>
+</section>
+
+<!-- ===================== REGLAS ===================== -->
+<section id="reglas">
+  <h2>8. Reglas que el sistema debe cumplir siempre</h2>
+  <p class="sub">Las primeras seis están protegidas por código o por pruebas del contrato. Las dos últimas hay que aplicarlas en el backend.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Peor estado manda</h3><p>Un control con un requisito en <code>NO_CUMPLE</code> es <code>NO_CUMPLE</code>, aunque los demás cumplan.</p></div>
+    <div class="card"><h3>Sin respuesta no es CUMPLE</h3><p>Si falta el resultado de un requisito, el control queda <code>NO_VERIFICABLE</code>.</p></div>
+    <div class="card"><h3>Rechazar exige comentario</h3><p>El modelo <code>DecisionHumana</code> lo valida. Así queda constancia del motivo.</p></div>
+    <div class="card"><h3>Máximo 2 rondas</h3><p><code>Alternativa.ronda</code> solo admite 1 o 2. Evita bucles y hace predecible la demo.</p></div>
+    <div class="card"><h3>Fuente obligatoria</h3><p>Todo <code>Control</code> declara su <code>Fuente</code>. Lo inventado se marca como <code>simulado</code>.</p></div>
+    <div class="card"><h3>Replay con escenario</h3><p>Un <code>RunCrear</code> en modo replay sin <code>escenario_id</code> es inválido.</p></div>
+    <div class="card"><h3>Plan bloqueado: sin aprobar</h3><p>Si el plan está <code>BLOQUEADO</code>, el backend debe rechazar un <code>aprobar</code>. Sin anulación en el MVP: es una decisión de seguridad deliberada.</p></div>
+    <div class="card"><h3>Riesgo con respaldo</h3><p>El agente de Riesgo solo exige controles que existan en el catálogo. Lo que afirme sin respaldo va en <code>no_verificado</code>.</p></div>
+  </div>
+</section>
+
+<!-- ===================== ORDEN ===================== -->
+<section id="orden">
+  <h2>9. Orden de trabajo para desbloquear al equipo</h2>
+  <p class="sub">El contrato permite trabajar en paralelo desde el primer minuto.</p>
+  <ul class="clean">
+    <li><strong>Primeros 20 minutos:</strong> todos leen <code>contract.py</code> y acuerdan cualquier cambio. Después, el archivo no se toca sin avisar.</li>
+    <li><strong>Interfaz:</strong> arranca con un replay escrito a mano (una lista corta de <code>Evento</code>) y no depende de los agentes.</li>
+    <li><strong>Datos y herramientas:</strong> los JSON de <code>data/</code> y las funciones de consulta, con pruebas por escenario.</li>
+    <li><strong>Agentes y orquestador:</strong> contra las mismas herramientas. Cuando el escenario 2 corra de punta a punta, se graban los replays reales.</li>
+    <li><strong>Registro NANDA (Nivel 1):</strong> solo después del punto anterior.</li>
+  </ul>
+</section>
+
+<!-- ===================== PENDIENTE ===================== -->
+<section id="pendiente">
+  <h2>10. Qué falta verificar</h2>
+  <div class="callout warn">
+    <ul>
+      <li>Solo se probó el <strong>contrato</strong> (14 pruebas pasan). El frontend, el backend y las llamadas al LLM no se han construido ni ejecutado.</li>
+      <li>Las versiones de las librerías no están fijadas: verificar la instalación y la configuración de shadcn/ui y de React Flow al empezar.</li>
+      <li><code>claude-sonnet-5-5</code> y <code>claude-haiku-5-5</code> son los identificadores de modelo que conozco. Confirmar que la hackatón da acceso y créditos.</li>
+      <li>Los nombres de campos de AgentFacts se tomaron de la tabla mínima del paper. No se contrastaron con la especificación completa.</li>
+      <li>El agente de Costo no está en el contrato.</li>
+      <li>Este documento reemplaza la sugerencia de Streamlit de <code>capataz-arquitectura.html</code>. Los diagramas de ese archivo siguen vigentes.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h3>Fuentes sobre NANDA y el evento</h3>
+    <ol>
+      <li><a href="https://arxiv.org/abs/2507.14263v1">Beyond DNS: Unlocking the Internet of AI Agents via the NANDA Index and Verified AgentFacts (arXiv)</a></li>
+      <li><a href="https://www.media.mit.edu/publications/beyond-dns-unlocking-the-internet-of-ai-agents-via-the-nanda-index-and-verified-agentfacts/">MIT Media Lab – ficha de la publicación</a></li>
+      <li><a href="https://thenewstack.io/how-mits-project-nanda-aims-to-decentralize-ai-agents/">The New Stack – How MIT's Project NANDA aims to decentralize AI agents</a></li>
+      <li><a href="https://pe.linkedin.com/in/ihhiguchi">Post de LinkedIn sobre la hackatón del 17 de octubre (Sundai Latam, NTT DATA, Peru Tech Week)</a></li>
+    </ol>
+    <p>Documento de trabajo para discusión interna. El stack y el contrato son una propuesta del equipo.</p>
+  </div>
+</footer>
+
+</body>
+</html>

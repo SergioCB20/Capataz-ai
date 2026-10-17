@@ -23,17 +23,18 @@ Principio central: **el código verifica; el LLM razona y explica.**
 
 | Capa | Tecnología |
 |---|---|
-| Frontend | Vite, React, TypeScript, Tailwind, shadcn/ui, React Flow |
-| Tiempo real | SSE (`EventSource`) |
-| Backend | Python 3.11+, FastAPI, Pydantic v2, asyncio |
-| LLM | API de Anthropic con *tool use* |
-| Persistencia | Supabase (Postgres), con `MemoryStore` como respaldo |
+| Frontend | Vite, React, TypeScript, Tailwind, shadcn/ui, React Flow, Motion, Zustand o `useReducer` |
+| Tiempo real | SSE (`EventSource` en el front, `sse-starlette` en el backend); el stream queda abierto hasta `run.finalizado`/`run.error` |
+| Backend | Python 3.11+, FastAPI, Uvicorn, Pydantic v2, asyncio |
+| Contrato → front | Pydantic → OpenAPI → `openapi-typescript` (`frontend/src/api/types.ts`) |
+| LLM | SDK `anthropic` con *tool use* (`claude-sonnet-5-5`; `claude-haiku-5-5` opcional) |
+| Persistencia | Supabase (Postgres) vía `supabase-py` async, con `MemoryStore` como respaldo |
 | Pruebas | pytest |
 
 ## Estructura
 
 ```
-capataz/
+capataz-project/
 ├─ backend/        FastAPI, contrato (contract.py), orquestador, agentes, herramientas
 ├─ frontend/       Vite + React + TS
 ├─ data/           Catálogo y escenarios (JSON, simulados)
