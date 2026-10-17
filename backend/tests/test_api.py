@@ -24,7 +24,12 @@ def settings(tmp_path):
 
 
 @pytest.fixture
-async def client(settings):
+async def client(settings, monkeypatch):
+    # Estas pruebas cubren la API y el runtime, no la orquestación: se fijan al stub de P1.
+    import app.runtime as runtime
+    from app.orquestador import confirmar_campo_stub, ejecutar_run_stub
+
+    monkeypatch.setattr(runtime, "obtener_orquestador", lambda: (ejecutar_run_stub, confirmar_campo_stub, "stub"))
     app = create_app(settings, MemoryStore(data_dir=settings.data_dir, dump_dir=settings.memory_dump_dir))
     transport = httpx.ASGITransport(app=app)
     async with httpx.AsyncClient(transport=transport, base_url="http://test") as c:

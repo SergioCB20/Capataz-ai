@@ -1,11 +1,14 @@
 import asyncio
-from datetime import date, datetime
+from datetime import date
 
 import pytest
+from pydantic_core import to_jsonable_python
 
 from app.agents._contrato import (
-    Catalogo, Control, Evento, Fuente, Incidente, Peligro, Requisito, Tarea, TipoEvento, TipoTarea, TurnoRef,
+    ACTOR_RIESGO, Catalogo, Control, Evento, Fuente, Incidente, Peligro, Requisito, Tarea, TipoEvento, TipoTarea,
+    TurnoRef, validar_payload,
 )
+from app.seed_juguete import catalogo_juguete
 from app.agents.riesgo import cargar_conocimiento, controles_exigidos, evaluar_riesgo
 from app.llm import ClienteLLM, registrar_fake
 
@@ -20,16 +23,16 @@ def control(id_, peligro, aplica):
 @pytest.fixture
 def catalogo():
     return Catalogo(
-        peligros=[Peligro(id="P1", nombre="Caída de rocas", categoria="desprendimiento_rocas"),
-                  Peligro(id="P2", nombre="Equipo móvil", categoria="equipo_movil"),
-                  Peligro(id="P3", nombre="Altura", categoria="trabajo_en_altura")],
-        tipos_tarea=[TipoTarea(id="T1", nombre="Sostenimiento", peligros=["P1", "P2"]),
-                     TipoTarea(id="T2", nombre="Mantenimiento en altura", peligros=["P3"])],
+        peligros=[Peligro(id="P1", nombre="Caída de rocas"),
+                  Peligro(id="P2", nombre="Equipo móvil"),
+                  Peligro(id="P3", nombre="Trabajo en altura")],
+        tipos_tarea=[TipoTarea(id="T1", nombre="Sostenimiento"),
+                     TipoTarea(id="T2", nombre="Mantenimiento en altura")],
         controles=[control("C1", "P1", ["T1"]), control("C2", "P2", ["T1"]), control("C3", "P3", ["T2"])],
-        incidentes=[Incidente(id="I1", riesgo_critico="desprendimiento_rocas", nivel_potencial="alto",
-                              descripcion="Caída de roca en galería", control_fallido="C3"),
-                    Incidente(id="I2", riesgo_critico="equipo_movil", nivel_potencial="medio",
-                              descripcion="Colisión de equipo")],
+        incidentes=[Incidente(id="I1", fecha=date(2025, 5, 4), riesgo_critico="caída de rocas",
+                              nivel_potencial="alto", descripcion="Caída de roca en galería", control_fallido="C3"),
+                    Incidente(id="I2", fecha=date(2025, 6, 1), riesgo_critico="equipo móvil",
+                              nivel_potencial="medio", descripcion="Colisión de equipo")],
     )
 
 
@@ -45,7 +48,10 @@ class Emisor:
 
     async def __call__(self, tipo, actor, payload):
         self.eventos.append((tipo, actor, payload))
-        return Evento(run_id="r", seq=len(self.eventos), ts=datetime.now(), tipo=tipo, actor=actor, payload=payload)
+        evento = Evento(run_id="r", seq=len(self.eventos), tipo=tipo, actor=actor,
+                        payload=to_jsonable_python(payload))
+        validar_payload(evento)  # igual que el runtime de P1: un payload inválido es un bug
+        return evento
 
     @property
     def tipos(self):
@@ -78,7 +84,7 @@ def test_fake_exige_los_controles_del_tipo_de_tarea_y_emite_los_eventos_del_agen
     assert emisor.tipos[0] == TipoEvento.AGENTE_INICIADO
     assert emisor.tipos[-1] == TipoEvento.AGENTE_COMPLETADO
     assert TipoEvento.AGENTE_HERRAMIENTA in emisor.tipos
-    assert {a for _, a, _ in emisor.eventos} == {"capataz:agente-riesgo"}
+    assert {a for _, a, _ in emisor.eventos} == {ACTOR_RIESGO}
 
 
 def test_las_trazas_describen_la_herramienta_usada(tarea, catalogo):
@@ -97,6 +103,15 @@ def test_con_el_stub_de_p3_no_hay_incidentes_pero_si_controles(tarea, catalogo):
     evaluacion, _ = evaluar(tarea, catalogo)
     assert controles_exigidos(evaluacion) == ["C1", "C2"]
     assert all(p.incidentes_similares == [] for p in evaluacion.peligros)
+
+
+def test_funciona_con_el_catalogo_real_de_p1_y_sus_eventos_validan_contra_el_contrato():
+    cat = catalogo_juguete()
+    evaluacion, emisor = evaluar(cat.escenarios[0].tarea, cat, buscar=buscar_de(cat, "INC-JUG-01"))
+    assert controles_exigidos(evaluacion) == ["CTL-JUG-01", "CTL-JUG-02"]
+    assert [p.peligro_id for p in evaluacion.peligros] == ["PEL-JUG-01"]
+    assert evaluacion.peligros[0].incidentes_similares == ["INC-JUG-01"]
+    assert emisor.tipos == [TipoEvento.AGENTE_INICIADO, TipoEvento.AGENTE_HERRAMIENTA, TipoEvento.AGENTE_COMPLETADO]
 
 
 # -- filtro post-LLM -------------------------------------------------------------------

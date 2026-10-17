@@ -15,14 +15,14 @@ from typing import Any, Callable
 
 from app.agents import _stubs
 from app.agents._contrato import (
-    Catalogo, Emitir, EvaluacionRiesgo, Incidente, PeligroDetectado, Tarea, TipoEvento,
+    ACTOR_RIESGO, Catalogo, Emitir, EvaluacionRiesgo, Incidente, PeligroDetectado, Tarea, TipoEvento,
     TraceHerramienta,
 )
 from app.llm import ClienteLLM, Herramienta, LLMError, get_cliente
 
 log = logging.getLogger("capataz.riesgo")
 
-ACTOR = "capataz:agente-riesgo"
+ACTOR = ACTOR_RIESGO
 NOMBRE_LLM = "riesgo"
 MAX_CONOCIMIENTO = 12_000
 LIMITE_INCIDENTES = 5
@@ -140,13 +140,16 @@ def _resumen_incidente(i: Incidente) -> dict[str, Any]:
 
 def _prompt_usuario(tarea: Tarea, catalogo: Catalogo, conocimiento: str) -> str:
     tipo = next((t for t in catalogo.tipos_tarea if t.id == tarea.tipo_tarea), None)
+    # El tipo de tarea no declara peligros: salen de los controles que le aplican.
+    del_tipo = {c.peligro_id for c in catalogo.controles if tarea.tipo_tarea in c.aplica_a}
     datos = {
-        "tarea": {"tipo": tarea.tipo_tarea, "descripcion": tarea.descripcion, "zona": tarea.zona,
+        "tarea": {"tipo": tarea.tipo_tarea, "nombre_del_tipo": tipo.nombre if tipo else None,
+                  "descripcion": tarea.descripcion, "zona": tarea.zona,
                   "turno": tarea.turno.model_dump(mode="json")},
         "peligros_del_tipo_de_tarea": [
-            {"id": p.id, "nombre": p.nombre} for p in catalogo.peligros if tipo and p.id in tipo.peligros],
+            {"id": p.id, "nombre": p.nombre} for p in catalogo.peligros if p.id in del_tipo],
         "otros_peligros_del_catalogo": [
-            {"id": p.id, "nombre": p.nombre} for p in catalogo.peligros if not tipo or p.id not in tipo.peligros],
+            {"id": p.id, "nombre": p.nombre} for p in catalogo.peligros if p.id not in del_tipo],
         "controles_del_catalogo": [
             {"id": c.id, "nombre": c.nombre, "peligro_id": c.peligro_id,
              "aplica_al_tipo_de_tarea": tarea.tipo_tarea in c.aplica_a}

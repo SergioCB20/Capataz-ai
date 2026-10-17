@@ -24,22 +24,26 @@ def buscar_fake(agente: str, escenario_id: str | None) -> FakeFn | None:
 
 
 async def _riesgo_por_defecto(ctx: ContextoFake) -> dict[str, Any]:
-    """Peligros del tipo de tarea, sus controles aplicables e incidentes de `buscar_incidentes`."""
+    """Peligros de los controles que aplican al tipo de tarea, e incidentes de `buscar_incidentes`."""
     catalogo = ctx.contexto["catalogo"]
     tarea = ctx.contexto["tarea"]
-    tipo = next(t for t in catalogo.tipos_tarea if t.id == tarea.tipo_tarea)
+    tipo = next((t for t in catalogo.tipos_tarea if t.id == tarea.tipo_tarea), None)
+    actividad = tipo.nombre if tipo else tarea.tipo_tarea
+    controles_por_peligro: dict[str, list[str]] = {}
+    for control in catalogo.controles:
+        if tarea.tipo_tarea in control.aplica_a:
+            controles_por_peligro.setdefault(control.peligro_id, []).append(control.id)
+
     peligros = []
-    for peligro_id in tipo.peligros:
+    for peligro_id, controles in controles_por_peligro.items():
         peligro = next((p for p in catalogo.peligros if p.id == peligro_id), None)
         if peligro is None:
             continue
-        controles = [c.id for c in catalogo.controles
-                     if c.peligro_id == peligro_id and tarea.tipo_tarea in c.aplica_a]
         encontrados = json.loads(await ctx.llamar(
-            "buscar_incidentes", actividad=tipo.nombre, riesgo_critico=peligro.categoria))
+            "buscar_incidentes", actividad=actividad, riesgo_critico=peligro.nombre))
         peligros.append({
             "peligro_id": peligro_id,
-            "justificacion": f"{peligro.nombre}: peligro asociado al tipo de tarea «{tipo.nombre}».",
+            "justificacion": f"{peligro.nombre}: peligro asociado a «{actividad}».",
             "controles": controles,
             "incidentes_similares": [i["id"] for i in encontrados[:2]],
         })
