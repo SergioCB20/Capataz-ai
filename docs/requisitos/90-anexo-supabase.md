@@ -7,7 +7,7 @@ Supabase (Postgres) es la **persistencia** de catálogo, runs, eventos (auditor�
 | Función | Tecnología | Motivo |
 |---|---|---|
 | Datos de catálogo, runs, auditoría, decisiones | **Supabase / Postgres** | Persistencia real, consultable con SQL, base para historial y métricas. |
-| Flujo en vivo hacia la UI | **SSE desde FastAPI** | El contrato de eventos ya está definido; el backend es la única fuente de `seq`. |
+| Flujo en vivo hacia la UI | **SSE desde FastAPI** (local) | El contrato de eventos ya está definido; el backend es la única fuente de `seq`. Corre en local, así que no depende de los límites de Vercel. |
 | Demo sin red | **Replay + `MemoryStore`** | RT-08: la demo no puede depender de Internet ni de un proyecto en la nube. |
 | Historial en vivo (opcional) | Supabase Realtime | Solo `RF-F3-32`; no es necesario para el núcleo. |
 

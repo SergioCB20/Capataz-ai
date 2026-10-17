@@ -40,11 +40,11 @@
 
 | Fase | Total | Debe (M) | Debería (S) | Podría (C) |
 |---|---|---|---|---|
-| F0 Fundaciones | 18 | 14 | 3 | 1 |
+| F0 Fundaciones | 19 | 14 | 4 | 1 |
 | F1 Núcleo | 26 | 24 | 2 | 0 |
 | F2 Conflicto y decisión | 21 | 18 | 3 | 0 |
 | F3 UX, evaluación, demo | 26 | 13 | 7 | 6 |
 | F4 NANDA (opcional) | 11 | 7 | 0 | 4 |
-| **Total** | **102** | **76** | **15** | **11** |
+| **Total** | **103** | **76** | **16** | **11** |
 
 Las reglas transversales (RT-01 a RT-10) se cuentan aparte.

@@ -49,7 +49,7 @@ capataz/
 ## Arranque rápido
 
 ```bash
-cp .env.example .env          # OPENROUTER_API_KEY, LLM_MODEL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+cp .env.example .env          # OPENROUTER_API_KEY, LLM_MODEL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, CORS_ORIGINS
 # Sin credenciales: STORE_BACKEND=memory y LLM_MODE=fake
 
 cd backend && uv sync && uv run uvicorn app.main:app --reload     # :8000
@@ -66,7 +66,8 @@ Las claves viven solo en el backend. Nunca se suben al repositorio.
   cd frontend && VITE_API_URL=http://localhost:8000 pnpm build && pnpm preview
   ```
   El backend debe incluir ese origen en `CORS_ORIGINS`.
-- **Vercel:** solo vitrina pública del frontend; no se usa para presentar.
+- **Vercel:** solo vitrina pública del frontend (`VITE_API_URL` apunta al backend local); no se usa para presentar. Una página HTTPS que llama a `http://localhost` puede ser bloqueada por el navegador: verificar antes de la demo.
+- **SSE:** sale del backend local, no pasa por Vercel.
 
 ## Escenarios de demo
 
