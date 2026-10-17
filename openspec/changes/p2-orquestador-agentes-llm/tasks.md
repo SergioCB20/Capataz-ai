@@ -1,14 +1,14 @@
 ## 1. Arranque sin dependencias (desde el minuto 0)
 
-- [ ] 1.1 `backend/app/llm/client.py`: OpenRouter con `LLM_MODEL`, tiempo límite, un reintento y registro de uso (RF-F0-11)
-- [ ] 1.2 Modo `fake` con respuestas fijas por agente y escenario (E1, E2, E2c, E3) (RF-F0-11)
-- [ ] 1.3 `agents/_stubs.py` con `verificar_personal`, `verificar_equipo` y `buscar_incidentes` según las firmas acordadas
+- [x] 1.1 `backend/app/llm/client.py`: OpenRouter con `LLM_MODEL`, tiempo límite, un reintento y registro de uso (RF-F0-11)
+- [x] 1.2 Modo `fake` con respuestas fijas por agente y escenario (E1, E2, E2c, E3) (RF-F0-11)
+- [x] 1.3 `agents/_stubs.py` con `verificar_personal`, `verificar_equipo` y `buscar_incidentes` según las firmas acordadas
 
 ## 2. Agente Riesgo
 
-- [ ] 2.1 Prompt y *function calling* con `buscar_incidentes` como herramienta (RF-F1-10, RF-F1-19)
-- [ ] 2.2 Filtro post-LLM: controles e incidentes solo del catálogo (RF-F1-10)
-- [ ] 2.3 Test: descripción ambigua no produce controles inexistentes (RF-F1-10)
+- [x] 2.1 Prompt y *function calling* con `buscar_incidentes` como herramienta (RF-F1-10, RF-F1-19)
+- [x] 2.2 Filtro post-LLM: controles e incidentes solo del catálogo (RF-F1-10)
+- [x] 2.3 Test: descripción ambigua no produce controles inexistentes (RF-F1-10)
 
 ## 3. Supervisor (hito 15:45: E1 de punta a punta)
 
