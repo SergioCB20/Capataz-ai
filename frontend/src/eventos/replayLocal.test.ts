@@ -21,7 +21,7 @@ describe('crearReplayLocal', () => {
   it('aprobar E1 termina el run en APROBADA', () => {
     const { replay, estado } = correr(eventosE1)
     expect(estado().estadoRun).toBe('ESPERANDO_DECISION')
-    replay.decidir({ plan_id: 'plan-e1', decision: 'aprobar', usuario: 'supervisor' }, false)
+    replay.decidir({ plan_id: 'plan-e1', decision: 'aprobar', comentario: null, usuario: 'supervisor' }, false)
     expect(estado().estadoRun).toBe('APROBADA')
     expect(estado().decision?.decision).toBe('aprobar')
     expect(estado().ultimoSeq).toBe(16)
@@ -43,7 +43,7 @@ describe('crearReplayLocal', () => {
     ]
     const { replay, estado } = correr(grabados)
     expect(estado().ultimoSeq).toBe(14) // se detuvo antes de la decisión grabada
-    replay.decidir({ plan_id: 'plan-e1', decision: 'aprobar', usuario: 'supervisor' }, false)
+    replay.decidir({ plan_id: 'plan-e1', decision: 'aprobar', comentario: null, usuario: 'supervisor' }, false)
     expect(estado().estadoRun).toBe('APROBADA')
     expect(estado().decision?.usuario).toBe('supervisor')
   })

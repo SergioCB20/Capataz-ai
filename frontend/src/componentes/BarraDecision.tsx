@@ -1,12 +1,10 @@
-// Barra de decisión (RF-F1-34, RF-F2-33, RT-04): Aprobar / Rechazar (comentario obligatorio).
+// Tu decisión (RF-F1-34, RF-F2-33, RT-04): Aprobar / Rechazar (comentario obligatorio).
 // Solo se aprueba un plan RECOMENDADO; si el backend pide `solo_rechazo` (plan BLOQUEADO, o requisitos
 // que quedaron NO_VERIFICABLE sin preguntas de campo), solo se puede rechazar. El backend lo fuerza igual (409).
 import { useState } from 'react'
 import { Check, Loader2, X } from 'lucide-react'
 import type { DecisionHumana, EstadoRun, EstadoSistema } from '@/api/types'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import { EstadoSistemaBadge, nombreActor } from './insignias'
+import { nombreActor } from './insignias'
 
 const FINAL: Partial<Record<EstadoRun, string>> = {
   APROBADA: 'Plan aprobado',
@@ -15,16 +13,21 @@ const FINAL: Partial<Record<EstadoRun, string>> = {
   ERROR: 'La evaluación terminó con error',
 }
 
-export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, planElegido, enviando, error, onDecidir }: {
+const btn = 'min-h-[52px] rounded-full px-6 text-[15px] font-extrabold transition-opacity focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-50'
+
+export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, planElegido, resumenPlan, enviando, error, onDecidir, onExportar }: {
   estadoSistema: EstadoSistema | null
   estadoRun: EstadoRun | null
   requerida: { plan_id: string; solo_rechazo: boolean } | null
   decision: DecisionHumana | null
-  /** Plan elegido cuando hay varias alternativas verificadas (se muestra para que quede claro qué se aprueba). */
-  planElegido?: string | null
+  /** Plan sobre el que se decide (el elegido entre las alternativas verificadas). */
+  planElegido: string | null
+  /** Una línea que describe el plan elegido. */
+  resumenPlan: string | null
   enviando: boolean
   error: string | null
   onDecidir: (d: 'aprobar' | 'rechazar', comentario?: string) => void
+  onExportar?: () => void
 }) {
   const [rechazando, setRechazando] = useState(false)
   const [comentario, setComentario] = useState('')
@@ -39,70 +42,96 @@ export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, p
     if (!comentario.trim()) return setFaltaComentario(true)
     onDecidir('rechazar', comentario.trim())
   }
+  const aprobado = decision?.decision === 'aprobar'
 
   return (
-    <div className="grid gap-3 rounded-xl border bg-card p-4" aria-live="polite">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span className="font-medium">Plan (PTW borrador)</span>
-          <EstadoSistemaBadge estado={estadoSistema} />
-          {planElegido && <span className="font-mono text-xs">{planElegido}</span>}
-          <span className="text-xs text-muted-foreground">Borrador: CAPATAZ no firma ni autoriza; la persona responsable decide.</span>
-        </div>
-
-        {decision ? (
-          <div className="text-sm">
-            <b>{(estadoRun && FINAL[estadoRun]) ?? (decision.decision === 'aprobar' ? 'Aprobado' : 'Rechazado')}</b> <span className="font-mono text-xs">({decision.plan_id})</span> por {nombreActor(`humano:${decision.usuario}`)}
-            {decision.comentario && <span className="text-muted-foreground"> — «{decision.comentario}»</span>}
-          </div>
-        ) : requerida ? (
-          <div className="flex flex-wrap items-center gap-2">
-            <Button
-              onClick={() => onDecidir('aprobar')}
-              disabled={enviando || soloRechazo}
-              title={soloRechazo ? motivoSoloRechazo : undefined}
-            >
-              {enviando ? <Loader2 className="animate-spin" aria-hidden /> : <Check aria-hidden />}
-              Aprobar
-            </Button>
-            <Button variant="destructive" onClick={() => setRechazando(true)} disabled={enviando}>
-              <X aria-hidden /> Rechazar
-            </Button>
-          </div>
-        ) : (
-          <span className="text-sm text-muted-foreground">
-            {estadoRun && FINAL[estadoRun] ? FINAL[estadoRun] : 'La decisión se habilita cuando el plan esté listo.'}
-          </span>
-        )}
+    <section aria-labelledby="dec" aria-live="polite" className="flex min-w-0 flex-[2_1_520px] flex-col gap-4 rounded-[28px] bg-tinta px-7 py-6 text-white">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 id="dec" className="text-xl font-extrabold">Tu decisión</h2>
+        <span className="text-xs text-[#BDB8CC]">Plan (PTW borrador): CAPATAZ no firma ni autoriza.</span>
       </div>
 
-      {soloRechazo && requerida && !decision && (
-        <p className="text-sm text-red-800 dark:text-red-200">{motivoSoloRechazo}</p>
-      )}
-
-      {rechazando && requerida && !decision && (
-        <div className="grid gap-2">
-          <label className="grid gap-1 text-sm">
-            Motivo del rechazo (obligatorio)
-            <Textarea
-              value={comentario}
-              aria-invalid={faltaComentario}
-              onChange={(e) => {
-                setComentario(e.target.value)
-                setFaltaComentario(false)
-              }}
-              placeholder="Por qué no se aprueba este plan"
-            />
-          </label>
-          {faltaComentario && <p className="text-xs text-red-700 dark:text-red-300">Escribe el motivo antes de rechazar.</p>}
-          <div className="flex gap-2">
-            <Button variant="destructive" onClick={enviarRechazo} disabled={enviando}>Confirmar rechazo</Button>
-            <Button variant="ghost" onClick={() => setRechazando(false)}>Cancelar</Button>
+      {decision ? (
+        <>
+          <div className="flex items-start gap-3.5">
+            <span aria-hidden className={'grid size-11 flex-none place-items-center rounded-full ' + (aprobado ? 'bg-[#A7EBC2] text-[#0B3D20]' : 'bg-[#FFB4AB] text-[#3B0A06]')}>
+              {aprobado ? <Check className="size-[22px]" strokeWidth={3} /> : <X className="size-[22px]" strokeWidth={3} />}
+            </span>
+            <div>
+              <div className="text-lg font-extrabold">
+                {(estadoRun && FINAL[estadoRun]) ?? (aprobado ? 'Plan aprobado' : 'Plan rechazado')} <span className="font-mono text-sm font-medium">({decision.plan_id})</span>
+              </div>
+              <p className="mt-1.5 text-sm leading-relaxed text-[#D9D5E6]">
+                Por {nombreActor(`humano:${decision.usuario}`)}.{' '}
+                {decision.comentario ? `Motivo: «${decision.comentario}». ` : ''}
+                Quedó registrado en la auditoría con usuario y hora.
+              </p>
+            </div>
           </div>
-        </div>
+          {onExportar && (
+            <div>
+              <button type="button" onClick={onExportar} className={btn + ' bg-white text-tinta'}>Exportar auditoría (JSON)</button>
+            </div>
+          )}
+        </>
+      ) : requerida ? (
+        <>
+          <p className="m-0 text-[15px] leading-relaxed text-[#D9D5E6]">
+            Vas a decidir sobre el plan <b className="font-mono text-white">{planElegido ?? requerida.plan_id}</b>
+            {resumenPlan ? `: ${resumenPlan}` : '.'}
+          </p>
+          {soloRechazo && <p className="m-0 rounded-2xl bg-[#3A1B1F] px-4 py-3 text-sm font-semibold text-[#FFB4AB]">{motivoSoloRechazo}</p>}
+          {!rechazando ? (
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => onDecidir('aprobar')}
+                disabled={enviando || soloRechazo}
+                title={soloRechazo ? motivoSoloRechazo : undefined}
+                className={btn + ' inline-flex items-center gap-2 bg-[#8F75FF] text-tinta'}
+              >
+                {enviando && <Loader2 aria-hidden className="size-4 animate-spin" />}
+                Aprobar plan
+              </button>
+              <button type="button" onClick={() => setRechazando(true)} disabled={enviando} className={btn + ' border-[1.5px] border-[#6E6A7C] bg-transparent text-white'}>
+                Rechazar
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <label className="flex flex-col gap-2 text-sm font-bold">
+                Motivo del rechazo (obligatorio)
+                <textarea
+                  rows={3}
+                  value={comentario}
+                  aria-invalid={faltaComentario}
+                  onChange={(e) => {
+                    setComentario(e.target.value)
+                    setFaltaComentario(false)
+                  }}
+                  placeholder="Por qué no se aprueba este plan"
+                  className="resize-y rounded-[14px] border-[1.5px] border-[#4A4659] bg-[#24212F] px-3.5 py-3 text-[15px] font-medium text-white placeholder:text-[#9A95AB] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-white"
+                />
+              </label>
+              {faltaComentario && <p className="m-0 text-[13px] font-bold text-[#FFB4AB]">Escribe el motivo antes de confirmar el rechazo.</p>}
+              <div className="flex flex-wrap gap-3">
+                <button type="button" onClick={enviarRechazo} disabled={enviando} className={btn + ' bg-[#FFB4AB] text-[#3B0A06]'}>Confirmar rechazo</button>
+                <button type="button" onClick={() => setRechazando(false)} className={btn + ' bg-transparent text-[#D9D5E6]'}>Cancelar</button>
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <p className="m-0 text-[15px] text-[#D9D5E6]">
+          {estadoRun && FINAL[estadoRun]
+            ? FINAL[estadoRun]
+            : estadoRun === 'ESPERANDO_CAMPO'
+              ? 'Primero confirma los requisitos de campo; después podrás decidir.'
+              : 'La decisión se habilita cuando el plan esté listo.'}
+        </p>
       )}
 
-      {error && <p role="alert" className="text-sm text-red-700 dark:text-red-300">{error}</p>}
-    </div>
+      {error && <p role="alert" className="m-0 text-sm font-semibold text-[#FFB4AB]">{error}</p>}
+    </section>
   )
 }

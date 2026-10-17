@@ -1,4 +1,5 @@
 // Insignias de estado: SIEMPRE icono + texto, nunca solo color (RF-F1-32, RF-F3-13).
+import { motion } from 'motion/react'
 import { CircleCheck, CircleHelp, CircleX, FlaskConical, Loader2, Play, type LucideIcon } from 'lucide-react'
 import type { EstadoControl, EstadoSistema, Fuente } from '@/api/types'
 import { cn } from '@/lib/utils'
@@ -6,20 +7,25 @@ import { cn } from '@/lib/utils'
 type Tono = 'ok' | 'aviso' | 'peligro' | 'neutro'
 
 const TONOS: Record<Tono, string> = {
-  ok: 'border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200',
-  aviso: 'border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200',
-  peligro: 'border-red-300 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-200',
-  neutro: 'border-border bg-muted text-muted-foreground',
+  ok: 'bg-ok-fondo text-ok',
+  aviso: 'bg-aviso-fondo text-aviso',
+  peligro: 'bg-mal-fondo text-mal',
+  neutro: 'bg-segmento text-tinta-2',
 }
 
 export function Pastilla({ tono, icono: Icono, texto, girar, className }: {
   tono: Tono; icono: LucideIcon; texto: string; girar?: boolean; className?: string
 }) {
   return (
-    <span className={cn('inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap', TONOS[tono], className)}>
+    <motion.span
+      key={texto}
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className={cn('inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-extrabold whitespace-nowrap', TONOS[tono], className)}
+    >
       <Icono aria-hidden className={cn('size-3.5', girar && 'animate-spin')} />
       {texto}
-    </span>
+    </motion.span>
   )
 }
 

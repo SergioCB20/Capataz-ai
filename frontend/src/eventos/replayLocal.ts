@@ -64,7 +64,7 @@ export function crearReplayLocal(eventos: Evento[], opciones: OpcionesArchivo = 
       })
       // El resto del archivo asume que todo se confirmó. Sin backend no se recalcula el estado
       // (esa lógica es del backend, RT-02), así que con algún «No» el replay se detiene.
-      const todoSi = c.respuestas.every((r) => r.cumple)
+      const todoSi = (c.respuestas ?? []).every((r) => r.cumple)
       if (enArchivo && todoSi) {
         reproducirDesde(cursor + 1)
         return true

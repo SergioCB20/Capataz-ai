@@ -1,0 +1,1443 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CAPATAZ API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Api Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/catalogo": {
+      "get": {
+        "summary": "Catalogo",
+        "operationId": "catalogo_api_catalogo_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Catalogo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs": {
+      "post": {
+        "summary": "Crear Run",
+        "operationId": "crear_run_api_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunCrear"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunCreado"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/{run_id}": {
+      "get": {
+        "summary": "Leer Run",
+        "operationId": "leer_run_api_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Run"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/{run_id}/auditoria": {
+      "get": {
+        "summary": "Auditoria",
+        "description": "Todos los eventos del run en orden (exportar auditoría, grabar replays).",
+        "operationId": "auditoria_api_runs__run_id__auditoria_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Evento"
+                  },
+                  "title": "Response Auditoria Api Runs  Run Id  Auditoria Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/{run_id}/eventos": {
+      "get": {
+        "summary": "Eventos",
+        "operationId": "eventos_api_runs__run_id__eventos_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "desde",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Desde"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/{run_id}/decision": {
+      "post": {
+        "summary": "Decision",
+        "operationId": "decision_api_runs__run_id__decision_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionHumana"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Run"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/{run_id}/campo": {
+      "post": {
+        "summary": "Campo",
+        "operationId": "campo_api_runs__run_id__campo_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmacionesCampo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Run"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Asignacion": {
+        "properties": {
+          "personas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Personas"
+          },
+          "equipos": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Equipos"
+          }
+        },
+        "type": "object",
+        "title": "Asignacion"
+      },
+      "Cambio": {
+        "properties": {
+          "tipo": {
+            "$ref": "#/components/schemas/TipoCambio"
+          },
+          "desde": {
+            "type": "string",
+            "title": "Desde"
+          },
+          "hacia": {
+            "type": "string",
+            "title": "Hacia"
+          },
+          "motivo": {
+            "type": "string",
+            "title": "Motivo",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "tipo",
+          "desde",
+          "hacia"
+        ],
+        "title": "Cambio"
+      },
+      "Catalogo": {
+        "properties": {
+          "peligros": {
+            "items": {
+              "$ref": "#/components/schemas/Peligro"
+            },
+            "type": "array",
+            "title": "Peligros"
+          },
+          "tipos_tarea": {
+            "items": {
+              "$ref": "#/components/schemas/TipoTarea"
+            },
+            "type": "array",
+            "title": "Tipos Tarea"
+          },
+          "controles": {
+            "items": {
+              "$ref": "#/components/schemas/Control"
+            },
+            "type": "array",
+            "title": "Controles"
+          },
+          "personas": {
+            "items": {
+              "$ref": "#/components/schemas/Persona"
+            },
+            "type": "array",
+            "title": "Personas"
+          },
+          "equipos": {
+            "items": {
+              "$ref": "#/components/schemas/Equipo"
+            },
+            "type": "array",
+            "title": "Equipos"
+          },
+          "incidentes": {
+            "items": {
+              "$ref": "#/components/schemas/Incidente"
+            },
+            "type": "array",
+            "title": "Incidentes"
+          },
+          "escenarios": {
+            "items": {
+              "$ref": "#/components/schemas/Escenario"
+            },
+            "type": "array",
+            "title": "Escenarios"
+          }
+        },
+        "type": "object",
+        "title": "Catalogo"
+      },
+      "Certificacion": {
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "title": "Codigo"
+          },
+          "vence": {
+            "type": "string",
+            "format": "date",
+            "title": "Vence"
+          },
+          "nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nombre"
+          }
+        },
+        "type": "object",
+        "required": [
+          "codigo",
+          "vence"
+        ],
+        "title": "Certificacion"
+      },
+      "ConfirmacionesCampo": {
+        "properties": {
+          "usuario": {
+            "type": "string",
+            "title": "Usuario",
+            "default": "supervisor"
+          },
+          "ts": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Ts"
+          },
+          "respuestas": {
+            "items": {
+              "$ref": "#/components/schemas/RespuestaCampo"
+            },
+            "type": "array",
+            "title": "Respuestas"
+          }
+        },
+        "type": "object",
+        "title": "ConfirmacionesCampo"
+      },
+      "Control": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "peligro_id": {
+            "type": "string",
+            "title": "Peligro Id"
+          },
+          "bloqueante": {
+            "type": "boolean",
+            "title": "Bloqueante",
+            "default": true
+          },
+          "aplica_a": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Aplica A"
+          },
+          "requisitos": {
+            "items": {
+              "$ref": "#/components/schemas/Requisito"
+            },
+            "type": "array",
+            "title": "Requisitos"
+          },
+          "fuente": {
+            "$ref": "#/components/schemas/Fuente"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nombre",
+          "peligro_id"
+        ],
+        "title": "Control"
+      },
+      "DecisionHumana": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "aprobar",
+              "rechazar"
+            ],
+            "title": "Decision"
+          },
+          "comentario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comentario"
+          },
+          "usuario": {
+            "type": "string",
+            "title": "Usuario",
+            "default": "supervisor"
+          }
+        },
+        "type": "object",
+        "required": [
+          "plan_id",
+          "decision"
+        ],
+        "title": "DecisionHumana"
+      },
+      "Equipo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "tipo_equipo": {
+            "type": "string",
+            "title": "Tipo Equipo"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EstadoEquipo",
+            "default": "operativo"
+          },
+          "tipos_equivalentes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tipos Equivalentes"
+          },
+          "mantenimiento": {
+            "items": {
+              "$ref": "#/components/schemas/TurnoRef"
+            },
+            "type": "array",
+            "title": "Mantenimiento"
+          },
+          "fuente": {
+            "$ref": "#/components/schemas/Fuente"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nombre",
+          "tipo_equipo"
+        ],
+        "title": "Equipo"
+      },
+      "Escenario": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "tarea": {
+            "$ref": "#/components/schemas/Tarea"
+          },
+          "resultado_esperado": {
+            "$ref": "#/components/schemas/EstadoSistema"
+          },
+          "escalamiento": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Escalamiento"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nombre",
+          "tarea",
+          "resultado_esperado"
+        ],
+        "title": "Escenario"
+      },
+      "EstadoControl": {
+        "type": "string",
+        "enum": [
+          "CUMPLE",
+          "NO_VERIFICABLE",
+          "NO_CUMPLE"
+        ],
+        "title": "EstadoControl",
+        "description": "Orden de gravedad creciente: gana el peor (RT-02)."
+      },
+      "EstadoEquipo": {
+        "type": "string",
+        "enum": [
+          "operativo",
+          "mantenimiento",
+          "fuera_servicio"
+        ],
+        "title": "EstadoEquipo"
+      },
+      "EstadoRun": {
+        "type": "string",
+        "enum": [
+          "EVALUANDO",
+          "RESOLVIENDO_CONFLICTO",
+          "ESPERANDO_CAMPO",
+          "ESPERANDO_DECISION",
+          "APROBADA",
+          "RECHAZADA",
+          "BLOQUEADA",
+          "ERROR"
+        ],
+        "title": "EstadoRun"
+      },
+      "EstadoSistema": {
+        "type": "string",
+        "enum": [
+          "RECOMENDADO",
+          "REQUIERE_CAMPO",
+          "BLOQUEADO"
+        ],
+        "title": "EstadoSistema"
+      },
+      "Evento": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "seq": {
+            "type": "integer",
+            "title": "Seq"
+          },
+          "ts": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Ts"
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoEvento"
+          },
+          "actor": {
+            "type": "string",
+            "title": "Actor"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "seq",
+          "tipo",
+          "actor"
+        ],
+        "title": "Evento"
+      },
+      "Evidencia": {
+        "properties": {
+          "registro": {
+            "type": "string",
+            "title": "Registro"
+          },
+          "campo": {
+            "type": "string",
+            "title": "Campo"
+          },
+          "valor": {
+            "title": "Valor"
+          },
+          "fuente": {
+            "$ref": "#/components/schemas/Fuente"
+          }
+        },
+        "type": "object",
+        "required": [
+          "registro",
+          "campo",
+          "valor"
+        ],
+        "title": "Evidencia"
+      },
+      "Fuente": {
+        "properties": {
+          "tipo": {
+            "$ref": "#/components/schemas/TipoFuente",
+            "default": "simulado"
+          },
+          "referencia": {
+            "type": "string",
+            "title": "Referencia",
+            "default": "Dato simulado"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "title": "Fuente"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Incidente": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date",
+            "title": "Fecha"
+          },
+          "planta": {
+            "type": "string",
+            "title": "Planta",
+            "default": ""
+          },
+          "nivel_real": {
+            "type": "string",
+            "title": "Nivel Real",
+            "default": ""
+          },
+          "nivel_potencial": {
+            "type": "string",
+            "title": "Nivel Potencial",
+            "default": ""
+          },
+          "riesgo_critico": {
+            "type": "string",
+            "title": "Riesgo Critico",
+            "default": ""
+          },
+          "descripcion": {
+            "type": "string",
+            "title": "Descripcion",
+            "default": ""
+          },
+          "equipo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Equipo"
+          },
+          "actividad": {
+            "type": "string",
+            "title": "Actividad",
+            "default": ""
+          },
+          "tipo_tarea": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tipo Tarea"
+          },
+          "causa_raiz": {
+            "type": "string",
+            "title": "Causa Raiz",
+            "default": ""
+          },
+          "control_fallido": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Control Fallido"
+          },
+          "fuente": {
+            "$ref": "#/components/schemas/Fuente"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "fecha"
+        ],
+        "title": "Incidente",
+        "description": "Incidente sintético; estructura inspirada en Kaggle (columnas POR VERIFICAR)."
+      },
+      "Peligro": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "descripcion": {
+            "type": "string",
+            "title": "Descripcion",
+            "default": ""
+          },
+          "fuente": {
+            "$ref": "#/components/schemas/Fuente"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nombre"
+        ],
+        "title": "Peligro"
+      },
+      "Persona": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "rol": {
+            "type": "string",
+            "title": "Rol",
+            "default": ""
+          },
+          "certificaciones": {
+            "items": {
+              "$ref": "#/components/schemas/Certificacion"
+            },
+            "type": "array",
+            "title": "Certificaciones"
+          },
+          "turnos": {
+            "items": {
+              "$ref": "#/components/schemas/TurnoRef"
+            },
+            "type": "array",
+            "title": "Turnos"
+          },
+          "fuente": {
+            "$ref": "#/components/schemas/Fuente"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nombre"
+        ],
+        "title": "Persona"
+      },
+      "Plan": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "estado_sistema": {
+            "$ref": "#/components/schemas/EstadoSistema"
+          },
+          "asignacion": {
+            "$ref": "#/components/schemas/Asignacion"
+          },
+          "cambios": {
+            "items": {
+              "$ref": "#/components/schemas/Cambio"
+            },
+            "type": "array",
+            "title": "Cambios"
+          },
+          "resultados": {
+            "items": {
+              "$ref": "#/components/schemas/ResultadoControl"
+            },
+            "type": "array",
+            "title": "Resultados"
+          },
+          "escalamiento": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Escalamiento"
+          },
+          "motivo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Motivo"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "estado_sistema"
+        ],
+        "title": "Plan"
+      },
+      "Requisito": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoRequisito"
+          },
+          "descripcion": {
+            "type": "string",
+            "title": "Descripcion"
+          },
+          "certificacion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Certificacion"
+          },
+          "certificaciones_equivalentes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Certificaciones Equivalentes"
+          },
+          "tipo_equipo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tipo Equipo"
+          },
+          "pregunta_campo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pregunta Campo"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tipo",
+          "descripcion"
+        ],
+        "title": "Requisito"
+      },
+      "RespuestaCampo": {
+        "properties": {
+          "requisito_id": {
+            "type": "string",
+            "title": "Requisito Id"
+          },
+          "cumple": {
+            "type": "boolean",
+            "title": "Cumple"
+          },
+          "nota": {
+            "type": "string",
+            "title": "Nota",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "requisito_id",
+          "cumple"
+        ],
+        "title": "RespuestaCampo"
+      },
+      "ResultadoControl": {
+        "properties": {
+          "control_id": {
+            "type": "string",
+            "title": "Control Id"
+          },
+          "bloqueante": {
+            "type": "boolean",
+            "title": "Bloqueante"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EstadoControl"
+          },
+          "requisitos": {
+            "items": {
+              "$ref": "#/components/schemas/ResultadoRequisito"
+            },
+            "type": "array",
+            "title": "Requisitos"
+          }
+        },
+        "type": "object",
+        "required": [
+          "control_id",
+          "bloqueante",
+          "estado"
+        ],
+        "title": "ResultadoControl"
+      },
+      "ResultadoRequisito": {
+        "properties": {
+          "control_id": {
+            "type": "string",
+            "title": "Control Id"
+          },
+          "requisito_id": {
+            "type": "string",
+            "title": "Requisito Id"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EstadoControl"
+          },
+          "evidencia": {
+            "items": {
+              "$ref": "#/components/schemas/Evidencia"
+            },
+            "type": "array",
+            "title": "Evidencia"
+          },
+          "verificado_por": {
+            "type": "string",
+            "title": "Verificado Por"
+          },
+          "detalle": {
+            "type": "string",
+            "title": "Detalle",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "control_id",
+          "requisito_id",
+          "estado",
+          "verificado_por"
+        ],
+        "title": "ResultadoRequisito"
+      },
+      "Run": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EstadoRun",
+            "default": "EVALUANDO"
+          },
+          "modo": {
+            "type": "string",
+            "enum": [
+              "vivo",
+              "replay"
+            ],
+            "title": "Modo",
+            "default": "vivo"
+          },
+          "escenario_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Escenario Id"
+          },
+          "tarea": {
+            "$ref": "#/components/schemas/Tarea"
+          },
+          "plan": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Plan"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "planes_alternativos": {
+            "items": {
+              "$ref": "#/components/schemas/Plan"
+            },
+            "type": "array",
+            "title": "Planes Alternativos"
+          },
+          "decision": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecisionHumana"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "creado_en": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creado En"
+          },
+          "actualizado_en": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Actualizado En"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tarea"
+        ],
+        "title": "Run"
+      },
+      "RunCreado": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id"
+        ],
+        "title": "RunCreado"
+      },
+      "RunCrear": {
+        "properties": {
+          "modo": {
+            "type": "string",
+            "enum": [
+              "vivo",
+              "replay"
+            ],
+            "title": "Modo",
+            "default": "vivo"
+          },
+          "escenario_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Escenario Id"
+          },
+          "tarea": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Tarea"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "RunCrear"
+      },
+      "Tarea": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "tipo_tarea": {
+            "type": "string",
+            "title": "Tipo Tarea"
+          },
+          "descripcion": {
+            "type": "string",
+            "title": "Descripcion",
+            "default": ""
+          },
+          "zona": {
+            "type": "string",
+            "title": "Zona",
+            "default": ""
+          },
+          "turno": {
+            "$ref": "#/components/schemas/TurnoRef"
+          },
+          "asignacion": {
+            "$ref": "#/components/schemas/Asignacion"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tipo_tarea",
+          "turno"
+        ],
+        "title": "Tarea"
+      },
+      "TipoCambio": {
+        "type": "string",
+        "enum": [
+          "reprogramar_turno",
+          "equipo_equivalente",
+          "certificacion_equivalente"
+        ],
+        "title": "TipoCambio"
+      },
+      "TipoEvento": {
+        "type": "string",
+        "enum": [
+          "run.iniciado",
+          "agente.iniciado",
+          "agente.herramienta",
+          "agente.completado",
+          "supervisor.consolidado",
+          "conflicto.detectado",
+          "conflicto.alternativas",
+          "conflicto.alternativa_verificada",
+          "plan.listo",
+          "humano.campo_requerido",
+          "humano.campo_confirmado",
+          "humano.decision_requerida",
+          "humano.decision_tomada",
+          "run.finalizado",
+          "run.error"
+        ],
+        "title": "TipoEvento"
+      },
+      "TipoFuente": {
+        "type": "string",
+        "enum": [
+          "normativa",
+          "guia",
+          "simulado"
+        ],
+        "title": "TipoFuente"
+      },
+      "TipoRequisito": {
+        "type": "string",
+        "enum": [
+          "competencia",
+          "equipo",
+          "condicion_campo"
+        ],
+        "title": "TipoRequisito"
+      },
+      "TipoTarea": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "descripcion": {
+            "type": "string",
+            "title": "Descripcion",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nombre"
+        ],
+        "title": "TipoTarea"
+      },
+      "TurnoRef": {
+        "properties": {
+          "fecha": {
+            "type": "string",
+            "format": "date",
+            "title": "Fecha"
+          },
+          "turno": {
+            "type": "string",
+            "enum": [
+              "dia",
+              "noche"
+            ],
+            "title": "Turno"
+          }
+        },
+        "type": "object",
+        "required": [
+          "fecha",
+          "turno"
+        ],
+        "title": "TurnoRef"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

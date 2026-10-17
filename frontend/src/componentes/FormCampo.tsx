@@ -24,7 +24,7 @@ export function FormCampo({ preguntas, enviando, error, onEnviar }: {
   }
 
   return (
-    <Card className="border-amber-300 dark:border-amber-800">
+    <Card className="gap-4 rounded-[28px] border-2 border-[#F2C76B] bg-white py-6 ring-0">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <ClipboardCheck aria-hidden className="size-5 text-amber-600" /> Confirmación en campo requerida
@@ -59,7 +59,7 @@ export function FormCampo({ preguntas, enviando, error, onEnviar }: {
         {faltan && <p className="text-sm text-red-700 dark:text-red-300">Responde Sí o No en cada pregunta antes de enviar.</p>}
         {error && <p role="alert" className="text-sm text-amber-800 dark:text-amber-200">{error}</p>}
         <div>
-          <Button onClick={enviar} disabled={enviando}>
+          <Button onClick={enviar} disabled={enviando} className="min-h-12 rounded-full bg-acento px-6 text-[15px] font-extrabold text-white hover:bg-acento/90">
             {enviando && <Loader2 className="animate-spin" aria-hidden />}
             Enviar confirmación
           </Button>

@@ -13,7 +13,7 @@ export function EstadoBloqueado({ motivo, causas, alternativas, escalamiento }: 
   const fallidas = alternativas.filter((a) => a.cumple_bloqueantes === false)
   const rondas = new Set(alternativas.map((a) => a.ronda)).size
   return (
-    <section role="alert" className="grid gap-3 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-sm text-red-900 dark:border-red-700 dark:bg-red-950 dark:text-red-100">
+    <section role="alert" className="grid gap-3 rounded-[28px] border-2 border-[#E9A3A0] bg-mal-fondo px-7 py-6 text-sm text-[#6E1414]">
       <h2 className="flex items-center gap-2 text-base font-semibold">
         <OctagonX aria-hidden className="size-5" /> Plan BLOQUEADO: no hay una alternativa segura
       </h2>

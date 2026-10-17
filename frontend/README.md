@@ -10,7 +10,12 @@ pnpm dev        # http://localhost:5173 ; proxy /api -> http://localhost:8000
 pnpm test       # vitest
 pnpm build      # tsc + build a dist/
 pnpm preview    # sirve dist/ en http://localhost:4173 (también con proxy /api)
+pnpm gen:types  # regenera src/api/schema.d.ts desde el OpenAPI de FastAPI (no necesita el backend arrancado)
 ```
+
+**Tipos (RF-F0-03):** `src/api/schema.d.ts` y `openapi.json` son generados; no editarlos a mano. Si el contrato
+(`backend/app/contract.py`) cambia, correr `pnpm gen:types && pnpm typecheck`: el compilador marca lo que hay que ajustar.
+`src/api/types.ts` solo añade los payloads de eventos por tipo (el OpenAPI los declara como diccionario genérico).
 
 Node ≥ 20.18 (Vite 6). `VITE_API_URL` (ver `.env.example`): vacío = mismo origen + proxy; si no, la URL del backend. No lleva secretos.
 

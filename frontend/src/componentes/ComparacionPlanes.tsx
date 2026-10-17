@@ -1,112 +1,42 @@
-// Comparación de la asignación original vs. el «Plan (PTW borrador)» (RF-F2-31) y elección
-// del plan cuando hay varias alternativas verificadas (RF-F2-21).
-import { ArrowRight, Minus, Plus } from 'lucide-react'
-import type { Alternativa, Asignacion, Catalogo, Plan } from '@/api/types'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+// «Qué cambia» (RF-F2-31): asignación original frente al plan elegido, campo a campo.
+import type { Asignacion, Plan } from '@/api/types'
 import { cn } from '@/lib/utils'
-import { EstadoSistemaBadge } from './insignias'
-import { TIPO_CAMBIO } from './VistaConflicto'
 
-function Diferencia({ titulo, antes, despues, nombre }: {
-  titulo: string; antes: string[]; despues: string[]; nombre: (id: string) => string
-}) {
-  const quitados = antes.filter((x) => !despues.includes(x))
-  const agregados = despues.filter((x) => !antes.includes(x))
-  const iguales = antes.filter((x) => despues.includes(x))
+function Campo({ titulo, antes, despues }: { titulo: string; antes: string; despues: string }) {
+  const cambia = antes !== despues
   return (
-    <div className="grid grid-cols-[6rem_minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-2 text-sm">
-      <span className="text-muted-foreground">{titulo}</span>
-      <ul>
-        {antes.length === 0 && <li className="text-muted-foreground">—</li>}
-        {antes.map((id) => (
-          <li key={id} className={cn('flex items-center gap-1', quitados.includes(id) && 'text-red-700 line-through dark:text-red-300')}>
-            {quitados.includes(id) && <Minus aria-label="se quita" className="size-3.5 shrink-0" />}
-            {nombre(id)}
-          </li>
-        ))}
-      </ul>
-      <ArrowRight aria-hidden className="mt-0.5 size-4 text-muted-foreground" />
-      <ul>
-        {despues.length === 0 && <li className="text-muted-foreground">—</li>}
-        {[...iguales, ...agregados].map((id) => (
-          <li key={id} className={cn('flex items-center gap-1', agregados.includes(id) && 'font-medium text-emerald-700 dark:text-emerald-300')}>
-            {agregados.includes(id) && <Plus aria-label="se agrega" className="size-3.5 shrink-0" />}
-            {nombre(id)}
-          </li>
-        ))}
-      </ul>
+    <div className="rounded-2xl bg-white px-3.5 py-3">
+      <div className="text-xs font-bold text-tenue">{titulo}</div>
+      <div className={cn('mt-1 text-sm text-[#6E6A7C]', cambia && 'line-through')}>{antes || '—'}</div>
+      <div className="mt-0.5 text-[15px] font-extrabold">{cambia ? despues || '—' : 'Sin cambio'}</div>
     </div>
   )
 }
 
-export function ComparacionPlanes({ original, planes, alternativas, elegido, onElegir, catalogo, nombreRecurso, puedeElegir }: {
-  /** Asignación «antes»: la del plan original (P2) o, si no hay alternativas, la de la tarea. */
+export function ComparacionPlanes({ original, plan, nombreRecurso }: {
   original: Asignacion
-  /** Candidatos a aprobar, el mejor primero. */
-  planes: Plan[]
-  alternativas: Alternativa[]
+  plan: Plan
   nombreRecurso: (valor: string) => string
-  elegido: string
-  onElegir: (planId: string) => void
-  catalogo: Catalogo
-  puedeElegir: boolean
 }) {
-  const plan = planes.find((p) => p.id === elegido) ?? planes[0]
-  if (!plan) return null
-  const persona = (id: string) => catalogo.personas.find((p) => p.id === id)?.nombre ?? id
-  const equipo = (id: string) => catalogo.equipos.find((e) => e.id === id)?.nombre ?? id
-
+  const lista = (ids: string[]) => ids.map(nombreRecurso).join(', ')
+  const turno = plan.cambios.find((c) => c.tipo === 'reprogramar_turno')
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Plan (PTW borrador) frente a la asignación original</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        {planes.length > 1 && (
-          <fieldset>
-            <legend className="mb-2 text-sm">Hay {planes.length} alternativas verificadas. Elige cuál aprobar:</legend>
-            <RadioGroup value={plan.id} onValueChange={onElegir} className="grid gap-2 sm:grid-cols-2" disabled={!puedeElegir}>
-              {planes.map((p) => (
-                <label key={p.id} className={cn('flex cursor-pointer items-start gap-2 rounded-md border p-2 text-sm', p.id === plan.id && 'border-primary')}>
-                  <RadioGroupItem value={p.id} className="mt-0.5" />
-                  <span className="grid gap-1">
-                    <span className="flex flex-wrap items-center gap-2 font-mono text-xs">{p.id} <EstadoSistemaBadge estado={p.estado_sistema} /></span>
-                    <span className="text-muted-foreground">{p.cambios.map((c) => TIPO_CAMBIO[c.tipo]).join(' + ') || 'Sin cambios'}</span>
-                    {alternativas.find((a) => a.id === p.id)?.explicacion && (
-                      <span className="text-xs text-muted-foreground">{alternativas.find((a) => a.id === p.id)?.explicacion}</span>
-                    )}
-                  </span>
-                </label>
-              ))}
-            </RadioGroup>
-          </fieldset>
-        )}
-
-        <div className="grid gap-2 rounded-md border p-3">
-          <div className="grid grid-cols-[6rem_minmax(0,1fr)_auto_minmax(0,1fr)] gap-2 text-xs font-medium text-muted-foreground">
-            <span />
-            <span>Original</span>
-            <span />
-            <span>Plan {plan.id}</span>
-          </div>
-          <Diferencia titulo="Personas" antes={original.personas} despues={plan.asignacion.personas} nombre={persona} />
-          <Diferencia titulo="Equipos" antes={original.equipos} despues={plan.asignacion.equipos} nombre={equipo} />
-        </div>
-
-        {plan.cambios.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Sin cambios frente a la asignación original.</p>
-        ) : (
-          <ul className="grid gap-2 text-sm">
-            {plan.cambios.map((c, i) => (
-              <li key={i} className="rounded-md bg-muted p-2">
-                <b>{TIPO_CAMBIO[c.tipo]}:</b> {nombreRecurso(c.desde)} → {nombreRecurso(c.hacia)}
-                <div className="text-xs text-muted-foreground">Por qué: {c.motivo}</div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </CardContent>
-    </Card>
+    <div className="rounded-[20px] bg-campo px-5 py-[18px]">
+      <div className="mb-3 text-[15px] font-extrabold">
+        Qué cambia con <span className="font-mono">{plan.id}</span>
+      </div>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3">
+        {turno && <Campo titulo="Turno" antes={nombreRecurso(turno.desde)} despues={nombreRecurso(turno.hacia)} />}
+        <Campo titulo="Personas" antes={lista(original.personas)} despues={lista(plan.asignacion.personas)} />
+        <Campo titulo="Equipos" antes={lista(original.equipos)} despues={lista(plan.asignacion.equipos)} />
+      </div>
+      {plan.cambios.length > 0 && (
+        <ul className="mt-3 grid gap-1.5 p-0 text-xs text-tenue">
+          {plan.cambios.map((c, i) => (
+            <li key={i} className="list-none">Por qué: {c.motivo}</li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }

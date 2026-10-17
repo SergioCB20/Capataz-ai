@@ -1,142 +1,65 @@
-// Tipos escritos a mano según los «Acuerdos de interfaz» de
-// openspec/changes/p1-contrato-api-runtime/design.md.
-// PROVISIONAL: cuando el backend exponga el OpenAPI, este archivo se reemplaza por el
-// generado con openapi-typescript (RF-F0-03). No agregar lógica aquí.
+// Tipos del frontend a partir del contrato (RF-F0-03).
+// Fuente: src/api/schema.d.ts, GENERADO desde el OpenAPI de FastAPI con `pnpm gen:types`.
+// No editar schema.d.ts a mano: si el contrato cambia, regenerar y correr `pnpm typecheck`.
+//
+// Aquí solo se añaden: (1) `Salida<T>` para respuestas, porque el backend siempre envía los campos
+// con valor por defecto aunque el OpenAPI los marque opcionales, y (2) los payloads de eventos
+// por tipo, que el OpenAPI declara como diccionario genérico (`PAYLOAD_POR_TIPO` vive en contract.py).
+import type { components } from './schema'
 
-export type EstadoControl = 'CUMPLE' | 'NO_VERIFICABLE' | 'NO_CUMPLE'
-export type EstadoSistema = 'RECOMENDADO' | 'REQUIERE_CAMPO' | 'BLOQUEADO'
-export type EstadoRun =
-  | 'EVALUANDO'
-  | 'RESOLVIENDO_CONFLICTO'
-  | 'ESPERANDO_CAMPO'
-  | 'ESPERANDO_DECISION'
-  | 'APROBADA'
-  | 'RECHAZADA'
-  | 'BLOQUEADA'
-  | 'ERROR'
-export type TipoRequisito = 'competencia' | 'equipo' | 'condicion_campo'
-export type EstadoEquipo = 'operativo' | 'mantenimiento' | 'fuera_servicio'
-export type TipoFuente = 'normativa' | 'guia' | 'simulado'
-export type TipoCambio = 'reprogramar_turno' | 'equipo_equivalente' | 'certificacion_equivalente'
+type S = components['schemas']
+
+/** Respuesta del backend: todos los campos presentes (recursivo). */
+export type Salida<T> = T extends (infer U)[]
+  ? Salida<U>[]
+  : T extends object
+    ? { [K in keyof T]-?: Salida<T[K]> }
+    : T
+
+// ---- Enums (generados) ----
+export type EstadoControl = S['EstadoControl']
+export type EstadoSistema = S['EstadoSistema']
+export type EstadoRun = S['EstadoRun']
+export type TipoRequisito = S['TipoRequisito']
+export type EstadoEquipo = S['EstadoEquipo']
+export type TipoFuente = S['TipoFuente']
+export type TipoCambio = S['TipoCambio']
+export type TipoEvento = S['TipoEvento']
+export type ModoRun = S['RunCrear']['modo']
 
 export const ESTADOS_RUN_TERMINALES: readonly EstadoRun[] = ['APROBADA', 'RECHAZADA', 'BLOQUEADA', 'ERROR']
 
-export interface Fuente {
-  tipo: TipoFuente
-  referencia: string
-  url?: string | null
-}
+// ---- Modelos que llegan del backend (generados + Salida) ----
+export type Fuente = Salida<S['Fuente']>
+export type TurnoRef = Salida<S['TurnoRef']>
+export type Requisito = Salida<S['Requisito']>
+export type Control = Salida<S['Control']>
+export type Certificacion = Salida<S['Certificacion']>
+export type Persona = Salida<S['Persona']>
+export type Equipo = Salida<S['Equipo']>
+export type Incidente = Salida<S['Incidente']>
+export type Asignacion = Salida<S['Asignacion']>
+export type Tarea = Salida<S['Tarea']>
+export type Escenario = Salida<S['Escenario']>
+export type Peligro = Salida<S['Peligro']>
+export type TipoTarea = Salida<S['TipoTarea']>
+export type Catalogo = Salida<S['Catalogo']>
+export type Evidencia = Salida<S['Evidencia']>
+export type ResultadoRequisito = Salida<S['ResultadoRequisito']>
+export type ResultadoControl = Salida<S['ResultadoControl']>
+export type Cambio = Salida<S['Cambio']>
+export type Plan = Salida<S['Plan']>
+export type Run = Salida<S['Run']>
+export type RunCreado = Salida<S['RunCreado']>
 
-export interface TurnoRef {
-  fecha: string // date ISO
-  turno: 'dia' | 'noche'
-}
+// ---- Lo que envía el frontend (entradas, tal cual el OpenAPI) ----
+export type RunCrear = S['RunCrear']
+export type DecisionHumana = Salida<S['DecisionHumana']>
+export type RespuestaCampo = S['RespuestaCampo']
+export type ConfirmacionesCampo = S['ConfirmacionesCampo']
 
-export interface Requisito {
-  id: string
-  tipo: TipoRequisito
-  descripcion: string
-  certificacion?: string | null
-  tipo_equipo?: string | null
-  pregunta_campo?: string | null
-  certificaciones_equivalentes?: string[]
-}
-
-export interface Control {
-  id: string
-  nombre: string
-  peligro_id: string
-  bloqueante: boolean
-  aplica_a: string[]
-  requisitos: Requisito[]
-  fuente: Fuente
-}
-
-export interface Certificacion {
-  codigo: string
-  vence: string
-}
-
-export interface Persona {
-  id: string
-  nombre: string
-  rol: string
-  certificaciones: Certificacion[]
-  turnos: TurnoRef[]
-  fuente: Fuente
-}
-
-export interface Equipo {
-  id: string
-  nombre: string
-  tipo_equipo: string
-  estado: EstadoEquipo
-  tipos_equivalentes: string[]
-  /** Turnos en que el equipo NO está disponible. */
-  mantenimiento?: TurnoRef[]
-  fuente: Fuente
-}
-
-export interface Incidente {
-  id: string
-  fecha: string
-  planta: string
-  nivel_real: string
-  nivel_potencial: string
-  riesgo_critico: string
-  descripcion: string
-  equipo: string
-  actividad: string
-  tipo_tarea: string
-  causa_raiz: string
-  control_fallido: string
-  fuente: Fuente
-}
-
-export interface Asignacion {
-  personas: string[]
-  equipos: string[]
-}
-
-export interface Tarea {
-  id: string
-  tipo_tarea: string
-  descripcion: string
-  zona: string
-  turno: TurnoRef
-  asignacion: Asignacion
-}
-
-export interface Escenario {
-  id: string
-  nombre: string
-  tarea: Tarea
-  resultado_esperado: EstadoSistema
-  escalamiento: string | null
-}
-
-// Peligros y tipos de tarea no tienen campos fijados en los acuerdos: mínimo común.
-export interface Peligro {
-  id: string
-  nombre?: string
-  [k: string]: unknown
-}
-export interface TipoTarea {
-  id: string
-  nombre?: string
-  [k: string]: unknown
-}
-
-export interface Catalogo {
-  peligros: Peligro[]
-  tipos_tarea: TipoTarea[]
-  controles: Control[]
-  personas: Persona[]
-  equipos: Equipo[]
-  incidentes: Incidente[]
-  escenarios: Escenario[]
-}
-
+// ---- Modelos que solo viajan dentro de eventos (no están en el OpenAPI) ----
+// Según los acuerdos de interfaz de P1 (openspec/changes/p1-contrato-api-runtime/design.md).
 export interface PeligroDetectado {
   peligro_id: string
   justificacion: string
@@ -148,41 +71,11 @@ export interface EvaluacionRiesgo {
   peligros: PeligroDetectado[]
 }
 
-export interface Evidencia {
-  registro: string
-  campo: string
-  valor: string
-  fuente: Fuente
-}
-
-export interface ResultadoRequisito {
-  control_id: string
-  requisito_id: string
-  estado: EstadoControl
-  evidencia: Evidencia[]
-  verificado_por: string
-  detalle: string
-}
-
-export interface ResultadoControl {
-  control_id: string
-  bloqueante: boolean
-  estado: EstadoControl
-  requisitos: ResultadoRequisito[]
-}
-
 export interface TraceHerramienta {
   nombre: string
   entrada: Record<string, unknown>
   salida_resumen: string
   duracion_ms: number
-}
-
-export interface Cambio {
-  tipo: TipoCambio
-  desde: string
-  hacia: string
-  motivo: string
 }
 
 export interface Alternativa {
@@ -194,60 +87,7 @@ export interface Alternativa {
   motivo_fallo?: string | null
 }
 
-export interface Plan {
-  id: string
-  run_id: string
-  estado_sistema: EstadoSistema
-  asignacion: Asignacion
-  cambios: Cambio[]
-  resultados: ResultadoControl[]
-  escalamiento?: string | null
-  /** Por qué el plan quedó en su estado (P2: explica el bloqueo del plan original). */
-  motivo?: string | null
-}
-
-export interface DecisionHumana {
-  plan_id: string
-  decision: 'aprobar' | 'rechazar'
-  comentario?: string | null
-  usuario: string
-}
-
-export interface RespuestaCampo {
-  requisito_id: string
-  cumple: boolean
-  nota: string
-}
-
-export interface ConfirmacionesCampo {
-  usuario: string
-  ts: string
-  respuestas: RespuestaCampo[]
-}
-
-export type ModoRun = 'vivo' | 'replay'
-
-export interface RunCrear {
-  modo: ModoRun
-  escenario_id?: string | null
-  tarea?: Tarea | null
-}
-
-export interface RunCreado {
-  run_id: string
-}
-
-export interface Run {
-  id: string
-  estado: EstadoRun
-  modo: ModoRun
-  tarea: Tarea
-  plan?: Plan | null
-  decision?: DecisionHumana | null
-}
-
 // ---- Eventos ----
-
 export type IdAgente = 'supervisor' | 'riesgo' | 'personal' | 'equipo'
 
 export interface PayloadPorTipo {
@@ -265,7 +105,7 @@ export interface PayloadPorTipo {
   'conflicto.alternativas': { ronda: 1 | 2; alternativas: Alternativa[] }
   'conflicto.alternativa_verificada': { alternativa: Alternativa }
   'plan.listo': { plan: Plan; planes_alternativos?: Plan[] }
-  'humano.campo_requerido': { preguntas: { requisito_id: string; pregunta: string }[] }
+  'humano.campo_requerido': { preguntas: { requisito_id: string; pregunta: string; control_id?: string }[] }
   'humano.campo_confirmado': { confirmaciones: ConfirmacionesCampo }
   'humano.decision_requerida': { plan_id: string; solo_rechazo: boolean }
   'humano.decision_tomada': { decision: DecisionHumana }
@@ -273,7 +113,10 @@ export interface PayloadPorTipo {
   'run.error': { mensaje: string }
 }
 
-export type TipoEvento = keyof PayloadPorTipo
+// Falla la compilación si el backend agrega o quita un TipoEvento y aquí no se refleja.
+type Igual<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false
+const _tiposEventoAlDia: Igual<keyof PayloadPorTipo, TipoEvento> = true
+void _tiposEventoAlDia
 
 export type Evento = {
   [T in TipoEvento]: {
@@ -286,7 +129,9 @@ export type Evento = {
   }
 }[TipoEvento]
 
+/** GET /api/health devuelve un dict sin modelo en el OpenAPI. */
 export interface Health {
   store: string
   llm_mode: string
+  orquestador?: string
 }
