@@ -1,4 +1,4 @@
-# Fase 0 — Fundaciones (0:00 – 0:40)
+# Fase 0 — Fundaciones (14:30 – 15:00)
 
 **Objetivo:** que cuatro personas puedan trabajar en paralelo sin bloquearse: contrato integrado, base de datos con datos semilla, backend y frontend arrancando, y un *stub* del LLM.
 
@@ -19,7 +19,7 @@
 | RF-F0-09 | Datos semilla mínimos: ≥ 3 peligros, ≥ 4 tipos de tarea, ≥ 6 controles (con `bloqueante`, `aplica_a`, `fuente`), ≥ 8 personas con certificaciones y vigencias, ≥ 8 equipos con estado, ≥ 50 incidentes (RF-F0-16), y los 3 escenarios (E1, E2, E3) + E2c. Todo con `Fuente.tipo = simulado` salvo lo que cite normativa real. | M | AP | Cargar seeds termina sin errores; cada escenario referencia IDs existentes. |
 | RF-F0-10 | `GET /api/catalogo` devuelve el `Catalogo` completo (peligros, tipos de tarea, controles, personal, equipos, incidentes, escenarios). | M | EJ | Respuesta valida contra `Catalogo.model_json_schema()`. |
 | RF-F0-11 | Cliente LLM (OpenRouter, API compatible con OpenAI y *function calling*; modelo según `LLM_MODEL`) envuelto en un módulo propio con: tiempo límite, reintento acotado, registro de uso y **modo `fake`** que devuelve respuestas fijas por agente (para desarrollar sin créditos y para tests). Es un módulo aislado: los detalles concretos de GPT-6 Luna (parámetros, límites, formato exacto de las llamadas a funciones) **no se suponen**; se fijan al leer la documentación del evento y de OpenRouter, y el resto del sistema solo depende de la interfaz del módulo. | M | PT | Con `LLM_MODE=fake` el orquestador completa E1 sin red. |
-| RF-F0-12 | Base de conocimiento normativa: `knowledge/*.md` (resúmenes con cita y marca de fuente), cargada en el contexto del Agente Riesgo. Sin vector DB. | S | AP, PT | Cada documento tiene `fuente` y referencia; ninguno inventa citas (RT-10). |
+| RF-F0-12 | Base de conocimiento normativa: `knowledge/*.md`, **un archivo por PDF oficial** (ver lista abajo), con *front-matter* (`fuente`, `url`, `pagina`), un resumen corto y solo artículos/páginas **verificados** en el texto del PDF. Se carga en el contexto del Agente Riesgo. Sin vector DB. | S | AP, PT | Cada documento tiene `fuente`, `url` y `pagina`; ninguno cita artículos que no estén en el texto (RT-10). |
 | RF-F0-13 | Esqueleto del frontend: Vite + React + TS, Tailwind + shadcn/ui, *proxy* `/api` → `:8000`, página que lista el catálogo. | M | UX | `pnpm dev` muestra escenarios desde el backend. |
 | RF-F0-14 | Seguridad de base de datos: RLS activada en todas las tablas, sin políticas para `anon`; el backend usa `service_role`. | S | PT | Una consulta con la clave `anon` a `runs` devuelve 0 filas / error. |
 | RF-F0-15 | CI mínimo local: `make test` (o equivalente) corre pytest y el *typecheck* del front. | C | EJ | Un comando ejecuta ambos. |
@@ -27,6 +27,23 @@
 | RF-F0-17 | **Generador sintético** (`scripts/gen_sintetico.py`, con el LLM): produce **borradores** de personas, equipos, incidentes y tareas de evaluación. Es **reproducible** (semilla fija y temperatura baja) y guarda el resultado en `data/`. Una persona del equipo revisa la salida y la versiona en `data/*.json`; el sistema nunca la regenera al arrancar ni durante la demo. No genera citas normativas (RT-10) ni el resultado esperado de los casos de evaluación (RF-F3-20). Todo lo generado es `Fuente.tipo = simulado`. | S | AP | Los JSON generados pasan el cargador de *seeds* (RF-F0-08); el diff queda revisado en Git. |
 | RF-F0-18 | **URL de la API configurable y CORS.** El frontend lee la base de la API de `VITE_API_URL` (vacía en desarrollo ⇒ usa el *proxy* `/api` → `:8000`). FastAPI permite solo los orígenes de `CORS_ORIGINS` (localhost de Vite y el dominio de Vercel). | M | EJ | El build con `VITE_API_URL=http://localhost:8000` funciona servido fuera de Vite; un origen no listado es rechazado. |
 | RF-F0-19 | **Despliegue del frontend en Vercel como vitrina pública** (no se usa para presentar; ver RF-F3-45). `VITE_API_URL` apunta al backend local de la máquina del presentador. | S | EJ | La página en Vercel carga; en la máquina del presentador lista el catálogo desde el backend local **si el navegador lo permite** (verificar antes de la demo). |
+
+### Nota: documentos oficiales de la base de conocimiento (RF-F0-12)
+
+Los documentos oficiales son la **única** fuente no simulada del proyecto. PDFs previstos:
+
+| Documento | URL |
+|---|---|
+| Guía ICMM de gestión de controles críticos 2026 (español) | <https://www.icmm.com/website/publications/es/health%20and%20safety/es-critical-control-management-guidance.pdf?cb=139964> |
+| Gold Fields SSYMA-P04.10 Permiso escrito para trabajo de alto riesgo V13 | <https://goldfields.com.pe/wp-content/uploads/2024/09/SSYMA-P04.10-Permiso-escrito-para-trabajo-de-alto-riesgo-V13.pdf> |
+| DS 023-2017-EM (extracto) | <https://faolex.fao.org/docs/pdf/per173452.pdf> |
+| DS 024-2016-EM (extracto) | <https://faolex.fao.org/docs/pdf/per160277.pdf> |
+| ICMM Safety Performance Insights 2020–2024 | <https://pimcore.icmm.com/website/publications/pdfs/innovation/2025/2020%E2%80%932024-ICMM-Safety-Performance-Insights.pdf?cb=112292> |
+
+Reglas del proceso:
+
+- Los dos DS son **extractos truncados**: el DS 024-2016-EM llega hasta el art. 44 y el DS 023-2017-EM hasta el art. 394. Solo se citan artículos que aparezcan en el texto.
+- Cada PDF debe tener **texto seleccionable**. Si es una imagen escaneada, no se puede resumir con `pypdf`.
 
 ### Nota: estructura del dataset de Kaggle (RF-F0-16)
 

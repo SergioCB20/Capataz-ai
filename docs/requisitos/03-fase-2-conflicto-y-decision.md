@@ -1,4 +1,4 @@
-# Fase 2 — Conflicto, alternativas, campo y decisión humana (1:50 – 2:50)
+# Fase 2 — Conflicto, alternativas, campo y decisión humana (15:45 – 16:20)
 
 **Objetivo:** completar los escenarios **E2** (la estrella de la demo), **E2c** y **E3**. Aquí está el valor diferencial: el sistema no solo dice «no», propone alternativas **verificadas** y se detiene cuando no hay una segura.
 
@@ -13,7 +13,7 @@
 | RF-F2-03 | **Verificación de cada alternativa con herramientas** (no con el LLM): se re-ejecutan Personal y Equipo sobre el plan modificado, ahora **permitiendo equivalencias**. Se emite `conflicto.alternativa_verificada` por alternativa con `cumple_bloqueantes`. | M | PT | Una alternativa que el LLM «cree» válida pero que falla la herramienta queda con `cumple_bloqueantes = false`. |
 | RF-F2-04 | Máximo **2 rondas** (`Alternativa.ronda` ∈ {1, 2}). En la ronda 2 se informa al LLM de por qué fallaron las de la ronda 1. Tras la ronda 2 no se genera más. | M | PT | Test: ronda 3 imposible (validación del contrato + lógica del orquestador). |
 | RF-F2-05 | Se descartan alternativas que eliminen un control o bajen su exigencia: una alternativa **no puede** quitar requisitos del catálogo. | M | AP | Test: alternativa con `Cambio` que omite un requisito ⇒ rechazada. |
-| RF-F2-06 | Al menos una alternativa verificada ⇒ se arma el `Plan` con `estado_sistema` recalculado (`RECOMENDADO` o `REQUIERE_CAMPO`) y los `Cambio` aplicados, visibles. | M | AP, UX | E2 termina con plan `RECOMENDADO` que lista cada cambio frente al plan original. |
+| RF-F2-06 | Al menos una alternativa verificada ⇒ se arma el `Plan` (en la UI, «Plan (PTW borrador)») con `estado_sistema` recalculado (`RECOMENDADO` o `REQUIERE_CAMPO`) y los `Cambio` aplicados, visibles. | M | AP, UX | E2 termina con plan `RECOMENDADO` que lista cada cambio frente al plan original. |
 | RF-F2-07 | Ninguna alternativa verificada tras 2 rondas ⇒ plan `BLOQUEADO`, con motivo y **recomendación de escalamiento** (a quién avisar según el seed). Emite `plan.listo` y `humano.decision_requerida`. | M | AP, PT | E3 termina `BLOQUEADO` sin alternativas válidas. |
 | RF-F2-08 | Cada alternativa lleva explicación en lenguaje claro generada por el LLM (por qué es razonable, qué se sacrifica), **separada** del veredicto determinista. | S | UX, IN | La UI muestra explicación y veredicto en campos distintos. |
 

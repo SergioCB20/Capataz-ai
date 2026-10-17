@@ -15,7 +15,7 @@ Muchos incidentes graves no ocurren porque falte un control, sino porque el cont
 3. El **Supervisor** reparte los requisitos al **Agente Personal** y al **Agente Equipo**, que trabajan en paralelo con herramientas deterministas.
 4. Cada control queda en `CUMPLE`, `NO_VERIFICABLE` o `NO_CUMPLE` (gana el peor), y el plan en `RECOMENDADO`, `REQUIERE_CAMPO` o `BLOQUEADO`.
 5. Si hay conflicto, se proponen alternativas (máx. 2 rondas) y **cada una se re-verifica con herramientas**.
-6. La persona responsable aprueba o rechaza. Un plan bloqueado solo admite rechazo.
+6. El resultado se presenta como **«Plan (PTW borrador)»**. La persona responsable aprueba o rechaza; un plan bloqueado solo admite rechazo. CAPATAZ entrega un borrador: la persona lo firma, el código no firma ni autoriza.
 
 Principio central: **el código verifica; el LLM razona y explica.**
 

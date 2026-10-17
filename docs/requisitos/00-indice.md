@@ -2,22 +2,24 @@
 
 Sistema multiagente que verifica, antes de ejecutar una tarea minera, que los controles críticos de seguridad pueden ejecutarse de verdad (personal competente, equipo disponible y en buen estado, condiciones de campo). Propone la asignación más segura; **un humano siempre decide**.
 
-> Alcance: hackathon de ~5 horas. Los datos son **simulados**; el MVP demuestra la arquitectura, no una reducción real de accidentes.
+> Contexto: hackathon Sundai LATAM x NTT Data (Perú Tech Week, 17 oct 2026), sector Minería, reto M1 (PTW dinámico). Cierre del equipo a las **17:00**; el jurado evalúa hacia las **17:30**. Los datos son **sintéticos** (la única excepción son los documentos oficiales en PDF); el MVP demuestra la arquitectura, no una reducción real de accidentes.
 
 ## Archivos
 
-| Archivo | Contenido | Ventana (hh:mm desde el inicio) |
+| Archivo | Contenido | Ventana (hora real, 17 oct) |
 |---|---|---|
 | `00-indice.md` | Este índice, convenciones, escenarios y reglas transversales | — |
-| `01-fase-0-fundaciones.md` | Repo, contrato, Supabase, seeds, esqueleto front/back | 0:00 – 0:40 |
-| `02-fase-1-nucleo-verificacion.md` | Escenario 1 (caso limpio) de punta a punta | 0:40 – 1:50 |
-| `03-fase-2-conflicto-y-decision.md` | Escenarios 2 y 3, alternativas, campo, decisión humana | 1:50 – 2:50 |
-| `04-fase-3-ux-evaluacion-demo.md` | Pulido de UX, replay, evaluación, guion de demo | 2:50 – 3:30 (**congelamiento de funcionalidades**) |
+| `01-fase-0-fundaciones.md` | Repo, contrato, Supabase, seeds, esqueleto front/back | 14:30 – 15:00 |
+| `02-fase-1-nucleo-verificacion.md` | Escenario 1 (caso limpio) de punta a punta | 15:00 – 15:45 |
+| `03-fase-2-conflicto-y-decision.md` | Escenarios 2 y 3, alternativas, campo, decisión humana | 15:45 – 16:20 |
+| `04-fase-3-ux-evaluacion-demo.md` | Pulido de UX, replay, evaluación, guion de demo | 16:20 – 16:45 (**congelamiento de funcionalidades a las 16:45**) |
 | `05-hoja-de-ruta-nanda.md` | Registro de agentes inspirado en NANDA — **hoja de ruta (no se implementa)** | — |
 | `90-anexo-supabase.md` | Esquema SQL, rol de Supabase, seguridad, decisiones | — |
 | `91-matriz-trazabilidad.md` | Requisito ↔ criterio de la rúbrica ↔ escenario | — |
 
-De 3:30 a 5:00: ensayo, correcciones, pitch. **No se agregan funcionalidades.**
+De 16:45 a 17:00: ensayo, correcciones, pitch. **No se agregan funcionalidades.**
+
+> Las horas son una referencia tomando como inicio las 14:30. **El equipo debe ajustarlas a la hora real de arranque.** Si el tiempo no alcanza, priorizar **E1 + E2 + replay + evaluación base**.
 
 ## Convenciones
 
@@ -27,6 +29,10 @@ De 3:30 a 5:00: ensayo, correcciones, pitch. **No se agregan funcionalidades.**
 - **Escenarios**: `E1` caso limpio · `E2` conflicto (el principal de la demo) · `E3` bloqueo sin alternativa segura. Variante de campo: `E2c` (requisito `condicion_campo` por confirmar).
 - **Contrato**: `backend/app/contract.py` es la **única fuente de verdad** de los datos. Los requisitos nombran modelos y eventos de ese archivo (`TipoEvento`, `EstadoControl`, `EstadoSistema`, `EstadoRun`, etc.). Si un requisito choca con el contrato, se cambia el contrato primero y se corren sus tests.
 - **Criterios de aceptación**: formato *Dado / Cuando / Entonces* solo donde aporta; el resto son verificables por inspección.
+
+## Glosario
+
+- **PTW** = permiso de trabajo (en Perú, **PETAR**). CAPATAZ entrega un **borrador** («Plan (PTW borrador)»); la persona lo firma. El código no firma ni autoriza.
 
 ## Reglas transversales (aplican a todas las fases)
 
@@ -58,6 +64,8 @@ Agente de Costo · autenticación de usuarios finales · *override* de planes bl
 
 ## Preguntas abiertas (confirmar con organizadores)
 
-1. Tema exacto del hackathon y formato de entrega/demo.
+1. Formato de entrega/demo.
 2. Créditos de OpenRouter durante el evento y límites de uso de GPT-6 Luna.
-3. Si hay Internet estable en la sala (determina si Supabase en la nube es seguro durante la demo; ver RT-08).
+3. Si hay Internet estable en la sala: Supabase y el LLM en vivo la necesitan; el replay es el respaldo (RT-08).
+
+**Resueltas:** modelo → GPT-6 Luna vía OpenRouter · backend → local (`uvicorn :8000`), frontend en Vercel solo como vitrina.

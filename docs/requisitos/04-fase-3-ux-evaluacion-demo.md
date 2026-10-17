@@ -1,6 +1,6 @@
-# Fase 3 — UX, replay, evaluación y demo (2:50 – 3:30)
+# Fase 3 — UX, replay, evaluación y demo (16:20 – 16:45)
 
-**Objetivo:** convertir un sistema que funciona en una demo que convence. **A las 3:30 se congelan las funcionalidades.** Entre 3:30 y 5:00 solo se corrigen errores, se ensaya y se prepara el pitch.
+**Objetivo:** convertir un sistema que funciona en una demo que convence. **A las 16:45 se congelan las funcionalidades.** Entre 16:45 y 17:00 solo se corrigen errores, se ensaya y se prepara el pitch. (Horas de referencia; ajustarlas a la hora real de arranque.)
 
 ## A. Modo replay (red de seguridad)
 
@@ -20,7 +20,7 @@
 | RF-F3-11 | **Resumen ejecutivo** arriba del resultado: estado del plan, qué cambió, qué requiere acción humana, en ≤ 3 líneas, redactado por el LLM a partir de datos ya verificados. | S | UX, IN | El texto no afirma nada que no esté en los `ResultadoControl`. |
 | RF-F3-12 | Diseño responsivo usable en tableta (supuesto de uso en campo; no es un dato validado). | S | UX | Pantalla de 1024 px sin desplazamiento horizontal. |
 | RF-F3-13 | Accesibilidad básica: contraste suficiente, estado nunca solo por color, navegación con teclado en tarjetas y botones. | S | UX | Revisión manual con teclado. |
-| RF-F3-14 | Textos y etiquetas en español, coherentes con el vocabulario del contrato y del sector (control crítico, bloqueante, turno, certificación). | M | UX, AP | Sin textos en inglés visibles para el usuario. |
+| RF-F3-14 | Textos y etiquetas en español, coherentes con el vocabulario del contrato y del sector (control crítico, bloqueante, turno, certificación). El plan se rotula «Plan (PTW borrador)» (ver glosario en `00-indice.md`). | M | UX, AP | Sin textos en inglés visibles para el usuario. |
 | RF-F3-15 | Pantalla «Acerca del sistema»: qué verifica, qué **no** garantiza (datos simulados), principio de decisión humana. | C | AP | Visible desde el encabezado. |
 | RF-F3-16 | Historial: lista de runs previos con estado y enlace para reabrirlos (usa persistencia). | C | UX, EJ | Reabrir un run reconstruye la vista desde sus eventos. |
 
@@ -66,4 +66,5 @@
 2. RF-F3-15/16 (acerca, historial) → fuera.
 3. RF-F3-10/11 (animaciones, resumen LLM) → versión simple.
 4. RF-F3-23 (evaluación con LLM real) → fuera.
-5. **Nunca** recortar: replay (RF-F3-01–04), evaluación base (RF-F3-20–22), plan B (RF-F3-42), frontend local para la demo (RF-F3-45).
+5. Si el tiempo no alcanza, priorizar **E1 + E2 + replay + evaluación base**.
+6. **Nunca** recortar: replay (RF-F3-01–04), evaluación base (RF-F3-20–22), plan B (RF-F3-42), frontend local para la demo (RF-F3-45).

@@ -1,4 +1,4 @@
-# Fase 1 — Núcleo de verificación: Escenario 1 de punta a punta (0:40 – 1:50)
+# Fase 1 — Núcleo de verificación: Escenario 1 de punta a punta (15:00 – 15:45)
 
 **Objetivo:** ejecutar el caso limpio (E1) desde el formulario hasta la aprobación, con agentes reales, eventos en vivo y evidencia. Al terminar existe el **esqueleto vertical completo**; las fases siguientes agregan casos, no capas.
 
@@ -28,7 +28,7 @@
 | RF-F1-15 | Cada llamada a herramienta genera `TraceHerramienta` (nombre, entrada, salida resumida, duración) y un evento `agente.herramienta`. | M | UX, PT | La UI puede listar las herramientas usadas por cada agente. |
 | RF-F1-16 | Cada `ResultadoRequisito` lleva `Evidencia` (registro consultado, campo, valor) y `verificado_por`. Sin evidencia ⇒ no puede ser `CUMPLE`. | M | AP, PT | Test: resultado `CUMPLE` sin evidencia es rechazado por la capa de agentes. |
 | RF-F1-17 | Consolidación con `consolidar_control` y `calcular_estado_sistema` del contrato; evento `supervisor.consolidado` con los `ResultadoControl`. | M | PT | No existe lógica duplicada de «peor estado» fuera del contrato. |
-| RF-F1-18 | Generación del `Plan` (`Asignacion` de personas y equipos) con `estado_sistema`. Si es `RECOMENDADO`, emite `plan.listo` y `humano.decision_requerida`. | M | AP | E1 produce un plan sin cambios (`Cambio` vacío). |
+| RF-F1-18 | Generación del `Plan` (`Asignacion` de personas y equipos) con `estado_sistema`. En la UI se presenta como **«Plan (PTW borrador)»**: la persona lo firma; el código no firma ni autoriza. Si es `RECOMENDADO`, emite `plan.listo` y `humano.decision_requerida`. | M | AP | E1 produce un plan sin cambios (`Cambio` vacío). |
 | RF-F1-19 | **Herramienta de Riesgo `buscar_incidentes(equipo, actividad, riesgo_critico)`** (determinista) sobre los incidentes del catálogo (RF-F0-16): devuelve ≤ 5 incidentes ordenados por `nivel_potencial`. Los incidentes **no van al contexto** del LLM; se consultan con esta herramienta. El Agente Riesgo solo cita IDs devueltos por ella. | M | PT, AP | Para sostenimiento en roca inestable devuelve primero incidentes de caída de rocas; IDs citados ⊆ resultado de la herramienta. |
 
 ## C. Decisión humana (camino feliz)
