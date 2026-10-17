@@ -7,12 +7,12 @@
 
 ## 2. Vista de E1 (hito 15:45 con el backend real)
 
-- [ ] 2.1 Pantalla de inicio con presets, modo libre y selector vivo/replay (RF-F1-30)
-- [ ] 2.2 Grafo de agentes con React Flow y herramientas invocadas (RF-F1-31)
-- [ ] 2.3 Semáforo con icono + texto, bloqueante e insignia «simulado» (RF-F1-32, RT-07)
-- [ ] 2.4 Cajón de evidencia con agente, fuente e incidentes similares (RF-F1-33)
-- [ ] 2.5 Barra de decisión con comentario obligatorio al rechazar; rótulo «Plan (PTW borrador)» (RF-F1-34)
-- [ ] 2.6 Fuente SSE con reconexión y estados vacío/cargando/error; conectar al backend de P1 (RF-F1-36)
+- [x] 2.1 Pantalla de inicio con presets, modo libre y selector vivo/replay (RF-F1-30)
+- [x] 2.2 Grafo de agentes con React Flow y herramientas invocadas (RF-F1-31)
+- [x] 2.3 Semáforo con icono + texto, bloqueante e insignia «simulado» (RF-F1-32, RT-07)
+- [x] 2.4 Cajón de evidencia con agente, fuente e incidentes similares (RF-F1-33)
+- [x] 2.5 Barra de decisión con comentario obligatorio al rechazar; rótulo «Plan (PTW borrador)» (RF-F1-34)
+- [x] 2.6 Fuente SSE con reconexión y estados vacío/cargando/error; conectar al backend de P1 (RF-F1-36)
 
 ## 3. E2, E2c y E3 (hito 16:20)
 
