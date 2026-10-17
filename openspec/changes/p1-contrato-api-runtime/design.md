@@ -29,7 +29,11 @@ Cinco personas trabajan en paralelo durante ~2 h. El contrato (`contract.py`) es
 
 ```
 backend/app/contract.py            P1
-backend/app/api/main.py            P1  (FastAPI, rutas, SSE, CORS)
+backend/app/main.py                P1  (FastAPI, rutas, SSE, CORS)
+backend/app/runtime.py             P1  (emitir, estados, decisión, campo)
+backend/app/replay.py              P1
+backend/app/orquestador.py         P1  (usa app.agents.supervisor si existe; si no, stub)
+backend/app/catalogo.py            P1  (lee data/<campo>.json)
 backend/app/store/base.py          P1  (Protocol Store)
 backend/app/store/memory.py        P1
 backend/app/store/supabase_store.py P4
@@ -144,13 +148,25 @@ class Store(Protocol):
 
 | Método y ruta | Entrada → salida |
 |---|---|
-| `GET /api/health` | → `{store, llm_mode}` |
+| `GET /api/health` | → `{store, llm_mode, orquestador: "p2"\|"stub"}` |
 | `GET /api/catalogo` | → `Catalogo` |
 | `POST /api/runs` | `RunCrear` → `RunCreado` |
 | `GET /api/runs/{id}` | → `Run` |
 | `GET /api/runs/{id}/eventos` | SSE de `Evento` (`id:` = `seq`) |
+| `GET /api/runs/{id}/auditoria` | → `list[Evento]` en orden (exportar auditoría, grabar replays) |
 | `POST /api/runs/{id}/decision` | `DecisionHumana` → `Run` (409 / 422 según reglas) |
 | `POST /api/runs/{id}/campo` | `ConfirmacionesCampo` → `Run` |
+
+### Detalles fijados al implementar (P1)
+
+- **SSE:** cada mensaje lleva `id: <seq>` y `data: <Evento en JSON>`, **sin** campo `event:`; en el front basta `EventSource.onmessage`. Reenvía desde `Last-Event-ID` (o `?desde=<seq>`) y queda abierto, con latidos cada 15 s, hasta `run.finalizado` o `run.error`; **no** se cierra al esperar a una persona.
+- **`emitir`** acepta `dict` o modelos Pydantic (también anidados) y valida el payload contra `PAYLOAD_POR_TIPO`; un payload inválido lanza error y el run termina en `run.error`.
+- **Quién emite qué:** P2 emite desde `run.iniciado` hasta `humano.campo_requerido` o `humano.decision_requerida`. P1 emite `humano.campo_confirmado`, `humano.decision_tomada` y `run.finalizado`, y `run.error` si `ejecutar_run` o `confirmar_campo` lanzan una excepción o superan el tiempo límite.
+- **Estados finales:** `aprobar` ⇒ `APROBADA`; `rechazar` un plan viable ⇒ `RECHAZADA`; `rechazar` un plan `BLOQUEADO` ⇒ `BLOQUEADA`. Solo se aprueba un plan `RECOMENDADO`.
+- **`listar_eventos(run_id, desde_seq)`** devuelve los eventos con `seq > desde_seq`.
+- **Catálogo (P4):** un archivo por campo de `Catalogo` en `data/`: `peligros.json`, `tipos_tarea.json`, `controles.json`, `personas.json`, `equipos.json`, `incidentes.json`, `escenarios.json`, cada uno con un arreglo. Sin ninguno, se usa `app/seed_juguete.py`.
+- **`SupabaseStore` (P4):** clase en `app/store/supabase_store.py` con `nombre = "supabase"` y un constructor `SupabaseStore.desde_entorno()`; si falla al iniciar, el backend cae a `MemoryStore` y lo informa en `/api/health`.
+- **Replay:** `replays/<escenario_id>.json` es un arreglo de `Evento`. Se reproduce hasta cada pausa humana; la confirmación de campo y la decisión las hace el usuario en vivo.
 
 ## Risks / Trade-offs
 

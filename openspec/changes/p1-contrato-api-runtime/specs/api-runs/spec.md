@@ -22,7 +22,7 @@ El backend SHALL arrancar con `STORE_BACKEND=memory` y `LLM_MODE=fake` sin clave
 - **THEN** se devuelve un `run_id` y el run existe en el `Store`
 
 ### Requirement: Eventos en vivo por SSE
-`GET /api/runs/{id}/eventos` SHALL reenviar primero los eventos persistidos desde `Last-Event-ID` y luego los nuevos, y cerrar tras `run.finalizado`, `run.error` o al quedar esperando a una persona (RF-F1-03).
+`GET /api/runs/{id}/eventos` SHALL reenviar primero los eventos persistidos desde `Last-Event-ID` y luego los nuevos, y SHALL quedar abierto con latidos hasta `run.finalizado` o `run.error`, también mientras espera a una persona (RF-F1-03).
 
 #### Scenario: Recarga a mitad del run
 - **WHEN** el cliente se reconecta con `Last-Event-ID = 5`
