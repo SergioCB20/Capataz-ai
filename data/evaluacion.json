@@ -1,0 +1,490 @@
+[
+  {
+    "id": "CE-01",
+    "tarea": {
+      "id": "TAR-CE-01",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Sostenimiento con operadora y supervisora certificadas",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-01",
+          "PER-02"
+        ],
+        "equipos": [
+          "EQ-EMP-02"
+        ]
+      }
+    },
+    "falla_inyectada": null,
+    "detectable_por": null,
+    "resultado_esperado": "RECOMENDADO"
+  },
+  {
+    "id": "CE-02",
+    "tarea": {
+      "id": "TAR-CE-02",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Sostenimiento con otro equipo de trabajo certificado",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-09",
+          "PER-10"
+        ],
+        "equipos": [
+          "EQ-EMP-01"
+        ]
+      }
+    },
+    "falla_inyectada": null,
+    "detectable_por": null,
+    "resultado_esperado": "RECOMENDADO"
+  },
+  {
+    "id": "CE-03",
+    "tarea": {
+      "id": "TAR-CE-03",
+      "tipo_tarea": "TT-PERF",
+      "descripcion": "Perforación con operador certificado y jumbo operativo",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-04"
+        ],
+        "equipos": [
+          "EQ-JUM-02"
+        ]
+      }
+    },
+    "falla_inyectada": null,
+    "detectable_por": null,
+    "resultado_esperado": "RECOMENDADO"
+  },
+  {
+    "id": "CE-04",
+    "tarea": {
+      "id": "TAR-CE-04",
+      "tipo_tarea": "TT-ALT",
+      "descripcion": "Trabajo en altura con técnico certificado y plataforma operativa",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-11"
+        ],
+        "equipos": [
+          "EQ-PLA-02"
+        ]
+      }
+    },
+    "falla_inyectada": null,
+    "detectable_por": null,
+    "resultado_esperado": "RECOMENDADO"
+  },
+  {
+    "id": "CE-05",
+    "tarea": {
+      "id": "TAR-CE-05",
+      "tipo_tarea": "TT-PERF",
+      "descripcion": "Operadora de jumbo con la certificación vencida",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-03"
+        ],
+        "equipos": [
+          "EQ-JUM-02"
+        ]
+      }
+    },
+    "falla_inyectada": "certificacion_vencida",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-06",
+    "tarea": {
+      "id": "TAR-CE-06",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Operador de sostenimiento con la certificación vencida",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-15",
+          "PER-02"
+        ],
+        "equipos": [
+          "EQ-EMP-01"
+        ]
+      }
+    },
+    "falla_inyectada": "certificacion_vencida",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-07",
+    "tarea": {
+      "id": "TAR-CE-07",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Empernador asignado en mantenimiento",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-01",
+          "PER-02"
+        ],
+        "equipos": [
+          "EQ-EMP-03"
+        ]
+      }
+    },
+    "falla_inyectada": "equipo_en_mantenimiento",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-08",
+    "tarea": {
+      "id": "TAR-CE-08",
+      "tipo_tarea": "TT-PERF",
+      "descripcion": "Jumbo asignado en mantenimiento",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-04"
+        ],
+        "equipos": [
+          "EQ-JUM-01"
+        ]
+      }
+    },
+    "falla_inyectada": "equipo_en_mantenimiento",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-09",
+    "tarea": {
+      "id": "TAR-CE-09",
+      "tipo_tarea": "TT-ALT",
+      "descripcion": "Plataforma asignada fuera de servicio",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-11"
+        ],
+        "equipos": [
+          "EQ-PLA-01"
+        ]
+      }
+    },
+    "falla_inyectada": "equipo_fuera_de_servicio",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-10",
+    "tarea": {
+      "id": "TAR-CE-10",
+      "tipo_tarea": "TT-ALT",
+      "descripcion": "Plataforma con mantenimiento programado ese turno",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-16"
+        ],
+        "equipos": [
+          "EQ-PLA-02"
+        ]
+      }
+    },
+    "falla_inyectada": "equipo_con_mantenimiento_programado",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-11",
+    "tarea": {
+      "id": "TAR-CE-11",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Mismo personal que el escenario E1 en el mismo turno",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-20",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-01",
+          "PER-02"
+        ],
+        "equipos": [
+          "EQ-EMP-02"
+        ]
+      }
+    },
+    "falla_inyectada": "doble_asignacion",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-12",
+    "tarea": {
+      "id": "TAR-CE-12",
+      "tipo_tarea": "TT-LOTO",
+      "descripcion": "Mismo electricista que el escenario E2c en el mismo turno",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-21",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-06"
+        ],
+        "equipos": [
+          "EQ-KIT-01"
+        ]
+      }
+    },
+    "falla_inyectada": "doble_asignacion",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-13",
+    "tarea": {
+      "id": "TAR-CE-13",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Personal sin turno disponible ese día",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-23",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-01",
+          "PER-02"
+        ],
+        "equipos": [
+          "EQ-EMP-02"
+        ]
+      }
+    },
+    "falla_inyectada": "persona_no_disponible_en_el_turno",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-14",
+    "tarea": {
+      "id": "TAR-CE-14",
+      "tipo_tarea": "TT-PERF",
+      "descripcion": "Perforación sin ningún operador asignado",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [],
+        "equipos": [
+          "EQ-JUM-02"
+        ]
+      }
+    },
+    "falla_inyectada": "sin_personal_asignado",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-15",
+    "tarea": {
+      "id": "TAR-CE-15",
+      "tipo_tarea": "TT-PERF",
+      "descripcion": "Equipo equivalente asignado: en la primera pasada no vale",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-04"
+        ],
+        "equipos": [
+          "EQ-JEM-01"
+        ]
+      }
+    },
+    "falla_inyectada": "tipo_de_equipo_incorrecto",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-16",
+    "tarea": {
+      "id": "TAR-CE-16",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Operadora con certificación equivalente: en la primera pasada no vale",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-12",
+          "PER-02"
+        ],
+        "equipos": [
+          "EQ-EMP-01"
+        ]
+      }
+    },
+    "falla_inyectada": "certificacion_equivalente_en_primera_pasada",
+    "detectable_por": "checklist",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-17",
+    "tarea": {
+      "id": "TAR-CE-17",
+      "tipo_tarea": "TT-LOTO",
+      "descripcion": "Bloqueo y etiquetado pendiente de verificar en campo",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-06"
+        ],
+        "equipos": [
+          "EQ-KIT-01"
+        ]
+      }
+    },
+    "falla_inyectada": "condicion_de_campo_sin_verificar",
+    "detectable_por": "checklist",
+    "resultado_esperado": "REQUIERE_CAMPO"
+  },
+  {
+    "id": "CE-18",
+    "tarea": {
+      "id": "TAR-CE-18",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Sostenimiento sin supervisor de seguridad certificado",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-01",
+          "PER-14"
+        ],
+        "equipos": [
+          "EQ-EMP-02"
+        ]
+      }
+    },
+    "falla_inyectada": "supervisor_sin_certificacion",
+    "detectable_por": "incidentes",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-19",
+    "tarea": {
+      "id": "TAR-CE-19",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Sostenimiento con supervisor de seguridad de certificación vencida",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-09",
+          "PER-13"
+        ],
+        "equipos": [
+          "EQ-EMP-01"
+        ]
+      }
+    },
+    "falla_inyectada": "supervisor_con_certificacion_vencida",
+    "detectable_por": "incidentes",
+    "resultado_esperado": "BLOQUEADO"
+  },
+  {
+    "id": "CE-20",
+    "tarea": {
+      "id": "TAR-CE-20",
+      "tipo_tarea": "TT-SOST",
+      "descripcion": "Sostenimiento nocturno sin el supervisor de seguridad disponible",
+      "zona": "Zona de evaluación",
+      "turno": {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      },
+      "asignacion": {
+        "personas": [
+          "PER-01",
+          "PER-02"
+        ],
+        "equipos": [
+          "EQ-EMP-02"
+        ]
+      }
+    },
+    "falla_inyectada": "supervisor_no_disponible_en_el_turno",
+    "detectable_por": "incidentes",
+    "resultado_esperado": "BLOQUEADO"
+  }
+]

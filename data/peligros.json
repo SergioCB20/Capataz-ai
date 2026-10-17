@@ -1,0 +1,38 @@
+[
+  {
+    "id": "PEL-ROCA",
+    "nombre": "Caída de rocas",
+    "descripcion": "Desprendimiento de rocas del techo o las paredes de una labor subterránea.",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "PEL-MOV",
+    "nombre": "Colisión con equipo móvil",
+    "descripcion": "Atropello o choque entre equipos móviles, vehículos o personas a pie.",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "PEL-ALT",
+    "nombre": "Caída desde altura",
+    "descripcion": "Caída de una persona desde una plataforma, estructura o escalera.",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "PEL-ENE",
+    "nombre": "Energía peligrosa no aislada",
+    "descripcion": "Arranque o liberación inesperada de energía eléctrica, hidráulica o mecánica durante un mantenimiento.",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  }
+]

@@ -127,11 +127,13 @@ def formatear_tabla(reporte: dict) -> str:
               f"    no detectadas: {r['no_detectadas']}",
               f"  Falsos positivos: {r['falsos_positivos']} de {r['limpios']} limpios ({_pct(r['tasa_falsos_positivos'])})",
               f"  Coinciden con lo declarado en el caso: {r['coinciden_con_lo_declarado']} de {r['con_falla_inyectada']}",
-              "", "FALLAS POR TIPO", f"  {'tipo':<38}{'casos':>6}{'detect.':>9}{'checklist':>11}{'incidentes':>12}"]
+              ""]
+    ancho = max([len(t) for t in reporte["por_tipo_de_falla"]] + [len("(limpio)"), 4]) + 2
+    lineas += ["FALLAS POR TIPO", f"  {'tipo':<{ancho}}{'casos':>6}{'detect.':>9}{'checklist':>11}{'incidentes':>12}"]
     for tipo, t in reporte["por_tipo_de_falla"].items():
-        lineas.append(f"  {tipo:<38}{t['casos']:>6}{t['detectadas']:>9}{t['por_checklist']:>11}{t['por_incidentes']:>12}")
-    lineas += ["", "CASOS", f"  {'id':<8}{'falla':<36}{'esperado':<16}{'base':<16}{'completa':<16}resultado"]
+        lineas.append(f"  {tipo:<{ancho}}{t['casos']:>6}{t['detectadas']:>9}{t['por_checklist']:>11}{t['por_incidentes']:>12}")
+    lineas += ["", "CASOS", f"  {'id':<8}{'falla':<{ancho}}{'esperado':<16}{'base':<16}{'completa':<16}resultado"]
     for f in reporte["casos"]:
-        lineas.append(f"  {f['id']:<8}{(f['falla_inyectada'] or '(limpio)'):<36}{f['esperado']:<16}"
+        lineas.append(f"  {f['id']:<8}{(f['falla_inyectada'] or '(limpio)'):<{ancho}}{f['esperado']:<16}"
                       f"{f['primera_pasada_checklist_base']:<16}{f['primera_pasada_completa']:<16}{f['resultado']}")
     return "\n".join(lineas)

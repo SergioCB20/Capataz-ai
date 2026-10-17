@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "INC-001",
+    "fecha": "2024-07-28",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "VI",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Un bloque de roca cayó sobre la cabina del empernador mientras se instalaban pernos; el operador salió ileso gracias a la cabina protegida.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Falla del sistema de empuje del empernador sin inspección previa al turno",
+    "control_fallido": "C-SOST-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-002",
+    "fecha": "2025-06-15",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "V",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Desprendimiento de roca en la corona durante el sostenimiento; no había supervisor de seguridad en la labor y el desatado quedó incompleto.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Sostenimiento iniciado sin supervisor de seguridad presente",
+    "control_fallido": "C-SSO-PRESENTE",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-003",
+    "fecha": "2023-09-06",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Pernos instalados con longitud menor a la especificada por un operador sin certificación vigente; se detectó en la inspección.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Certificación del operador vencida y no revisada",
+    "control_fallido": "C-SOST-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-004",
+    "fecha": "2025-12-08",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Un operador sin entrenamiento actualizado instaló la malla sin ajustar las placas y cayeron fragmentos de roca, sin heridos.",
+    "equipo": "jumbo empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Entrenamiento de actualización pendiente",
+    "control_fallido": "C-SOST-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-005",
+    "fecha": "2025-12-04",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Con el supervisor de seguridad ausente se sostuvo una zona fracturada y al día siguiente se halló un perno sin tensar.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Supervisor de seguridad ausente durante el empernado",
+    "control_fallido": "C-SSO-PRESENTE",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-006",
+    "fecha": "2026-02-07",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Mangueras hidráulicas deterioradas del empernador derramaron aceite en el piso de la labor; riesgo de resbalón para la cuadrilla.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Mantenimiento preventivo vencido del empernador",
+    "control_fallido": "C-SOST-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-007",
+    "fecha": "2026-04-17",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "La cuadrilla continuó el sostenimiento tras una voladura sin esperar la revisión del supervisor de seguridad.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Presión por producción y falta de supervisión",
+    "control_fallido": "C-SSO-PRESENTE",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-008",
+    "fecha": "2025-09-05",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "El empernador quedó inoperativo a mitad del turno por una falla eléctrica y se continuó con sostenimiento manual improvisado.",
+    "equipo": "jumbo empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Sin equipo de reemplazo disponible",
+    "control_fallido": "C-SOST-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-009",
+    "fecha": "2025-03-23",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Un fragmento pequeño de roca golpeó el casco de un ayudante; el desatado se había hecho con una barretilla en mal estado.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Herramienta de desatado en mal estado",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-010",
+    "fecha": "2026-02-27",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "El operador omitió el registro de pernos instalados y hubo que reinspeccionar la labor.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Falta de registro del sostenimiento",
+    "control_fallido": "C-SOST-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-011",
+    "fecha": "2024-01-01",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Cayeron trozos pequeños de roca al cambiar una broca; nadie estaba bajo el área expuesta.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Cambio de broca sin retirarse de la zona de caída",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-012",
+    "fecha": "2024-01-15",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Desprendimiento menor de roca durante el pintado de la labor; sin lesiones.",
+    "equipo": "empernador",
+    "actividad": "Sostenimiento con pernos de roca",
+    "tipo_tarea": "TT-SOST",
+    "causa_raiz": "Roca suelta no detectada en la inspección visual",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-013",
+    "fecha": "2024-06-01",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "V",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Desprendimiento de roca del frente durante la perforación; el operador del jumbo no tenía vigente su certificación y no reconoció el aviso de roca suelta.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Operador sin certificación vigente",
+    "control_fallido": "C-PERF-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-014",
+    "fecha": "2025-07-09",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "El brazo del jumbo con holgura excesiva desvió el barreno y aflojó la cara del frente.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Holgura en el brazo del jumbo por mantenimiento atrasado",
+    "control_fallido": "C-PERF-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-015",
+    "fecha": "2023-10-07",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Un operador nuevo perforó fuera del diseño y dejó una cara irregular que luego soltó roca.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Falta de acompañamiento al operador en su primera semana",
+    "control_fallido": "C-PERF-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-016",
+    "fecha": "2023-01-09",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Caída de bloques pequeños al terminar la perforación, antes del desatado; sin personas en el área.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Desatado postergado",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-017",
+    "fecha": "2023-12-31",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Se perforó un taladro adicional sin autorización; se corrigió en la revisión del turno.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Instrucción de perforación poco clara",
+    "control_fallido": "C-PERF-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-018",
+    "fecha": "2026-02-10",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Caída de rocas",
+    "descripcion": "Pequeño desprendimiento de roca en la caja izquierda mientras se posicionaba el equipo.",
+    "equipo": "jumbo empernador",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Posicionamiento del equipo sin inspección de la caja",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-019",
+    "fecha": "2025-01-08",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "III",
+    "nivel_potencial": "VI",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "Un jumbo con frenos defectuosos golpeó un vehículo auxiliar en la rampa; hubo daños materiales y un lesionado leve.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Frenos del jumbo fuera de especificación",
+    "control_fallido": "C-PERF-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-020",
+    "fecha": "2025-02-20",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "V",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "Un operador sin certificación vigente maniobró el jumbo cerca de personal a pie y lo rozó.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Certificación vencida y maniobra sin señalero",
+    "control_fallido": "C-PERF-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-021",
+    "fecha": "2024-12-02",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "La alarma de retroceso del jumbo no sonaba y casi atropella a un ayudante.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Alarma de retroceso sin verificar al inicio del turno",
+    "control_fallido": "C-PERF-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-022",
+    "fecha": "2025-02-15",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "El operador del jumbo no respetó la prioridad de paso en una intersección.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Capacitación de tránsito subterráneo incompleta",
+    "control_fallido": "C-PERF-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-023",
+    "fecha": "2024-05-07",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "Un jumbo quedó estacionado sin calzas en la rampa y se desplazó unos metros.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Procedimiento de estacionamiento omitido",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-024",
+    "fecha": "2024-10-22",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "Roce leve del jumbo con la pared de la galería al girar.",
+    "equipo": "jumbo",
+    "actividad": "Perforación de frentes con jumbo",
+    "tipo_tarea": "TT-PERF",
+    "causa_raiz": "Visibilidad reducida por polvo",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-025",
+    "fecha": "2025-04-01",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "III",
+    "nivel_potencial": "VI",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Un técnico inició el mantenimiento de una bomba sin comprobar energía cero; el equipo arrancó y le causó una amputación parcial.",
+    "equipo": "bomba de achique",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "No se verificó la energía cero antes de intervenir",
+    "control_fallido": "C-LOTO-APLICADO",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-026",
+    "fecha": "2025-05-28",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "V",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Mantenimiento eléctrico a cargo de personal sin certificación de bloqueo y etiquetado; aislaron el interruptor equivocado.",
+    "equipo": "tablero eléctrico",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Personal no certificado en bloqueo y etiquetado",
+    "control_fallido": "C-LOTO-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-027",
+    "fecha": "2025-01-19",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Faltaban candados en el kit de bloqueo y se usó un candado compartido sin identificación.",
+    "equipo": "faja transportadora",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Kit de bloqueo incompleto",
+    "control_fallido": "C-LOTO-KIT",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-028",
+    "fecha": "2023-10-11",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Otro equipo de trabajo retiró una etiqueta de bloqueo antes de que terminara el mantenimiento.",
+    "equipo": "faja transportadora",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Etiqueta sin nombre ni fecha del responsable",
+    "control_fallido": "C-LOTO-APLICADO",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-029",
+    "fecha": "2023-12-22",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Un ayudante sin certificación colocó los candados sin supervisión del electricista.",
+    "equipo": "bomba de achique",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Delegación del bloqueo a personal no certificado",
+    "control_fallido": "C-LOTO-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-030",
+    "fecha": "2024-12-22",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "El kit de bloqueo no tenía detector de tensión y se confió en la desconexión visual.",
+    "equipo": "tablero eléctrico",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Kit sin detector de tensión",
+    "control_fallido": "C-LOTO-KIT",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-031",
+    "fecha": "2025-02-12",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Un compresor se presurizó durante la limpieza porque no se liberó la energía residual.",
+    "equipo": "compresor",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Energía residual no liberada",
+    "control_fallido": "C-LOTO-APLICADO",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-032",
+    "fecha": "2024-08-14",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Se encontró un candado sin etiqueta durante la inspección de rutina.",
+    "equipo": "bomba de achique",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Control de candados deficiente",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-033",
+    "fecha": "2024-08-25",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "El electricista realizó el bloqueo con una certificación próxima a vencer y sin registrar la renovación.",
+    "equipo": "faja transportadora",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Seguimiento de vigencias deficiente",
+    "control_fallido": "C-LOTO-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-034",
+    "fecha": "2023-11-21",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "No se registró la hora de retiro del bloqueo y la reenergización tardó más de lo previsto.",
+    "equipo": "tablero eléctrico",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Registro de bloqueo incompleto",
+    "control_fallido": "C-LOTO-APLICADO",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-035",
+    "fecha": "2025-05-24",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Etiqueta de bloqueo ilegible por humedad; se reemplazó antes de intervenir.",
+    "equipo": "compresor",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Etiquetas no resistentes a la humedad",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-036",
+    "fecha": "2025-08-06",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Energía peligrosa no aislada",
+    "descripcion": "Demora en conseguir el kit de bloqueo; no hubo intervención sin bloqueo.",
+    "equipo": "bomba de achique",
+    "actividad": "Mantenimiento con bloqueo y etiquetado de energía",
+    "tipo_tarea": "TT-LOTO",
+    "causa_raiz": "Kit compartido entre varias áreas",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-037",
+    "fecha": "2023-11-10",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "III",
+    "nivel_potencial": "VI",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "Una plataforma elevadora con el sistema de nivelación averiado se inclinó durante el trabajo y el técnico quedó colgado de su línea de vida.",
+    "equipo": "plataforma elevadora",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Sistema de nivelación sin inspección previa",
+    "control_fallido": "C-ALT-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-038",
+    "fecha": "2025-05-06",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "V",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "Un técnico sin certificación vigente de trabajo en altura ancló su arnés a un punto no certificado.",
+    "equipo": "plataforma elevadora",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Certificación vencida y punto de anclaje sin verificar",
+    "control_fallido": "C-ALT-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-039",
+    "fecha": "2024-08-16",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "Un trabajador sin entrenamiento en rescate en altura se retrasó en auxiliar a un compañero suspendido.",
+    "equipo": "andamio",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Entrenamiento de rescate pendiente",
+    "control_fallido": "C-ALT-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-040",
+    "fecha": "2025-10-03",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "La canasta de la plataforma no tenía la compuerta de seguridad bien trabada.",
+    "equipo": "plataforma elevadora",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Inspección diaria incompleta",
+    "control_fallido": "C-ALT-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-041",
+    "fecha": "2023-09-19",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "Cayó una herramienta desde una estructura; el área inferior no estaba delimitada.",
+    "equipo": "andamio",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Falta de delimitación del área inferior",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-042",
+    "fecha": "2023-09-12",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "El trabajador usó el arnés con la línea de vida enredada y casi pierde el equilibrio.",
+    "equipo": "plataforma elevadora",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Uso incorrecto del arnés",
+    "control_fallido": "C-ALT-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-043",
+    "fecha": "2023-12-27",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "Una escalera portátil resbaló en el piso húmedo; el trabajador logró sujetarse.",
+    "equipo": "andamio",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Piso húmedo sin señalizar",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-044",
+    "fecha": "2023-07-11",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "El freno de la plataforma elevadora se soltó al detenerse en pendiente.",
+    "equipo": "plataforma elevadora",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Mantenimiento de frenos postergado",
+    "control_fallido": "C-ALT-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-045",
+    "fecha": "2025-09-25",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "Tropiezo en una plataforma de acceso sin barandas completas; sin lesiones.",
+    "equipo": "andamio",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Barandas desmontadas y no repuestas",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-046",
+    "fecha": "2023-04-29",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "El supervisor autorizó el trabajo sin revisar las certificaciones del personal.",
+    "equipo": "andamio",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Revisión de certificaciones omitida",
+    "control_fallido": "C-ALT-OPER",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-047",
+    "fecha": "2025-10-14",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "La plataforma no tenía el registro de inspección del día y se usó igual.",
+    "equipo": "plataforma elevadora",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Registro de inspección ausente",
+    "control_fallido": "C-ALT-EQ",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-048",
+    "fecha": "2023-04-08",
+    "planta": "Mina Cerro Alto (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Caída desde altura",
+    "descripcion": "Casco mal ajustado cayó desde una plataforma elevada; sin personas debajo.",
+    "equipo": "andamio",
+    "actividad": "Trabajo en altura en estructura de mina",
+    "tipo_tarea": "TT-ALT",
+    "causa_raiz": "Barbiquejo sin usar",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-049",
+    "fecha": "2023-05-30",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "II",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "Un volquete cargado perdió el control en una curva de la rampa y rozó la pared.",
+    "equipo": "volquete",
+    "actividad": "Transporte de mineral en rampa",
+    "tipo_tarea": null,
+    "causa_raiz": "Exceso de velocidad en curva",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-050",
+    "fecha": "2023-06-04",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Colisión con equipo móvil",
+    "descripcion": "Dos volquetes se cruzaron en una zona de una sola vía sin comunicación por radio.",
+    "equipo": "volquete",
+    "actividad": "Transporte de mineral en rampa",
+    "tipo_tarea": null,
+    "causa_raiz": "Falta de radio en uno de los equipos",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-051",
+    "fecha": "2025-07-15",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "IV",
+    "riesgo_critico": "Atmósfera deficiente",
+    "descripcion": "Lectura baja de oxígeno en un fondo de saco; el personal fue evacuado a tiempo.",
+    "equipo": "detector de gases",
+    "actividad": "Ventilación de labores",
+    "tipo_tarea": null,
+    "causa_raiz": "Ventilación auxiliar apagada",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-052",
+    "fecha": "2025-03-23",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Atmósfera deficiente",
+    "descripcion": "El detector de gases del supervisor estaba sin calibrar.",
+    "equipo": "detector de gases",
+    "actividad": "Ventilación de labores",
+    "tipo_tarea": null,
+    "causa_raiz": "Calibración vencida",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-053",
+    "fecha": "2023-06-08",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "V",
+    "riesgo_critico": "Explosión no planificada",
+    "descripcion": "Se detectó un taladro fallado sin señalizar antes del siguiente turno.",
+    "equipo": "camión fábrica",
+    "actividad": "Carguío de explosivos",
+    "tipo_tarea": null,
+    "causa_raiz": "Registro de taladros fallados incompleto",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-054",
+    "fecha": "2024-04-02",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "II",
+    "riesgo_critico": "Atrapamiento",
+    "descripcion": "Pellizco de dedos al sujetar una pieza en la prensa.",
+    "equipo": "prensa hidráulica",
+    "actividad": "Mantenimiento mecánico en taller",
+    "tipo_tarea": null,
+    "causa_raiz": "Falta de herramienta para sujetar piezas",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-055",
+    "fecha": "2024-08-30",
+    "planta": "Mina Las Lomas (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "I",
+    "riesgo_critico": "Ruido",
+    "descripcion": "Exposición a ruido sin protección auditiva en la sala de compresores.",
+    "equipo": "compresor",
+    "actividad": "Operación de compresores",
+    "tipo_tarea": null,
+    "causa_raiz": "Señalización de uso de tapones ausente",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  },
+  {
+    "id": "INC-056",
+    "fecha": "2025-12-29",
+    "planta": "Mina Santa Rosa (simulada)",
+    "nivel_real": "I",
+    "nivel_potencial": "III",
+    "riesgo_critico": "Incendio",
+    "descripcion": "Aerosoles almacenados junto a una fuente de calor; se reubicaron.",
+    "equipo": "almacén",
+    "actividad": "Almacenamiento de insumos",
+    "tipo_tarea": null,
+    "causa_raiz": "Almacenamiento sin clasificar",
+    "control_fallido": null,
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Incidente sintético para la demo; no corresponde a un evento real"
+    }
+  }
+]

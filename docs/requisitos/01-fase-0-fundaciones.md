@@ -42,7 +42,7 @@ Los documentos oficiales son la **única** fuente no simulada del proyecto. PDFs
 
 Reglas del proceso:
 
-- Los dos DS son **extractos truncados**: el DS 024-2016-EM llega hasta el art. 44 y el DS 023-2017-EM hasta el art. 394. Solo se citan artículos que aparezcan en el texto.
+- Solo se citan artículos que aparezcan en el texto del PDF. **Verificado el 2026-10-17:** el PDF del DS 024-2016-EM trae los 417 artículos (no está truncado en el 44) y el del DS 023-2017-EM es el decreto modificatorio, con los artículos modificados. Detalle en [`docs/fuentes-verificadas.md`](../fuentes-verificadas.md).
 - Cada PDF debe tener **texto seleccionable**. Si es una imagen escaneada, no se puede resumir con `pypdf`.
 
 ### Nota: estructura del dataset de Kaggle (RF-F0-16)

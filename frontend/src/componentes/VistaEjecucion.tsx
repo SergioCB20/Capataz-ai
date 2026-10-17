@@ -5,6 +5,7 @@ import type { Catalogo } from '@/api/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { EstadoConexion } from '@/eventos/fuentes'
+import { idPlanDecision, planActivo, planesElegibles } from '@/eventos/planActivo'
 import { filasControles, incidentesDeControl, nombrePeligro, type FilaControl, type FilaRequisito } from '@/eventos/vista'
 import type { ControlRun } from '@/hooks/useRun'
 import { BarraDecision } from './BarraDecision'
@@ -55,8 +56,11 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
   const sinEventos = estado.ultimoSeq === 0
   const [planElegido, setPlanElegido] = useState<string | null>(null)
   const planes = useMemo(() => (estado.plan ? [estado.plan, ...estado.planesAlternativos] : []), [estado.plan, estado.planesAlternativos])
-  const planId = planElegido ?? estado.decisionRequerida?.plan_id ?? estado.plan?.id ?? ''
-  const bloqueado = estado.plan?.estado_sistema === 'BLOQUEADO'
+  const planId = idPlanDecision({ decision: estado.decision, elegido: planElegido, requerida: estado.decisionRequerida, plan: estado.plan })
+  // Se decide sobre el plan elegido (la alternativa verificada en un conflicto), no sobre el original.
+  const planDecision = planActivo(planes, planId)
+  const elegibles = useMemo(() => planesElegibles(planes), [planes])
+  const bloqueado = planDecision?.estado_sistema === 'BLOQUEADO'
   const nombreControl = (id: string) => catalogo.controles.find((x) => x.id === id)?.nombre ?? id
   const c = CONEXION[conexion]
 
@@ -165,10 +169,10 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
             <EstadoBloqueado causa={estado.conflicto?.causa ?? null} alternativas={estado.alternativas} escalamiento={estado.plan?.escalamiento} />
           )}
 
-          {estado.tarea && planes.length > 0 && !bloqueado && (planes.length > 1 || planes[0].cambios.length > 0) && (
+          {estado.tarea && elegibles.length > 0 && !bloqueado && (elegibles.length > 1 || elegibles[0].cambios.length > 0) && (
             <ComparacionPlanes
               tarea={estado.tarea}
-              planes={planes}
+              planes={elegibles}
               elegido={planId}
               onElegir={setPlanElegido}
               catalogo={catalogo}
@@ -177,11 +181,11 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
           )}
 
           <BarraDecision
-            estadoSistema={estado.plan?.estado_sistema ?? estado.estadoSistema}
+            estadoSistema={planDecision?.estado_sistema ?? estado.estadoSistema}
             estadoRun={estado.estadoRun}
             requerida={estado.decisionRequerida}
             decision={estado.decision}
-            planElegido={planes.length > 1 ? planId : null}
+            planElegido={elegibles.length > 1 ? planId : null}
             enviando={run.enviando}
             error={estado.estadoRun === 'ESPERANDO_CAMPO' ? null : run.errorAccion}
             onDecidir={(d, comentario) => run.decidir(d, comentario, planId || undefined)}

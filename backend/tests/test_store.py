@@ -29,6 +29,12 @@ def _memory(tmp_path):
 
 FABRICAS = {"memory": _memory}
 
+# SupabaseStore contra un cliente falso (sin red): comprueba la lógica del store, no el servidor real.
+from fake_supabase import FakeSupabase  # noqa: E402
+from app.store.supabase_store import SupabaseStore  # noqa: E402
+
+FABRICAS["supabase_fake"] = lambda tmp: SupabaseStore(cliente=FakeSupabase(), data_dir=None, dump_dir=tmp)
+
 if os.getenv("STORE_TEST_SUPABASE") == "1":
     from app.store.supabase_store import SupabaseStore  # P4
 

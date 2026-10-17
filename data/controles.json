@@ -1,0 +1,219 @@
+[
+  {
+    "id": "C-SOST-OPER",
+    "nombre": "Operador de sostenimiento certificado",
+    "peligro_id": "PEL-ROCA",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-SOST"
+    ],
+    "requisitos": [
+      {
+        "id": "R-SOST-OPER",
+        "tipo": "competencia",
+        "descripcion": "Operador con certificación vigente de sostenimiento",
+        "certificacion": "OPER-SOST",
+        "certificaciones_equivalentes": [
+          "OPER-SOST-B"
+        ]
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-SOST-EQ",
+    "nombre": "Empernador operativo",
+    "peligro_id": "PEL-ROCA",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-SOST"
+    ],
+    "requisitos": [
+      {
+        "id": "R-SOST-EQ",
+        "tipo": "equipo",
+        "descripcion": "Empernador operativo y disponible en el turno",
+        "tipo_equipo": "empernador"
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-SSO-PRESENTE",
+    "nombre": "Supervisor de seguridad presente en la labor",
+    "peligro_id": "PEL-ROCA",
+    "bloqueante": true,
+    "aplica_a": [],
+    "requisitos": [
+      {
+        "id": "R-SSO-PRESENTE",
+        "tipo": "competencia",
+        "descripcion": "Supervisor de seguridad certificado y presente",
+        "certificacion": "SSO-SUP",
+        "certificaciones_equivalentes": []
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-PERF-OPER",
+    "nombre": "Operador de jumbo certificado",
+    "peligro_id": "PEL-ROCA",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-PERF"
+    ],
+    "requisitos": [
+      {
+        "id": "R-PERF-OPER",
+        "tipo": "competencia",
+        "descripcion": "Operador con certificación vigente de jumbo",
+        "certificacion": "OPER-JUMBO",
+        "certificaciones_equivalentes": [
+          "OPER-JUMBO-B"
+        ]
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-PERF-EQ",
+    "nombre": "Jumbo operativo",
+    "peligro_id": "PEL-MOV",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-PERF"
+    ],
+    "requisitos": [
+      {
+        "id": "R-PERF-EQ",
+        "tipo": "equipo",
+        "descripcion": "Jumbo operativo y disponible en el turno",
+        "tipo_equipo": "jumbo"
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-LOTO-OPER",
+    "nombre": "Electricista certificado en bloqueo y etiquetado",
+    "peligro_id": "PEL-ENE",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-LOTO"
+    ],
+    "requisitos": [
+      {
+        "id": "R-LOTO-OPER",
+        "tipo": "competencia",
+        "descripcion": "Técnico con certificación vigente de bloqueo y etiquetado",
+        "certificacion": "ELEC-LOTO",
+        "certificaciones_equivalentes": []
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-LOTO-KIT",
+    "nombre": "Kit de bloqueo y etiquetado disponible",
+    "peligro_id": "PEL-ENE",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-LOTO"
+    ],
+    "requisitos": [
+      {
+        "id": "R-LOTO-KIT",
+        "tipo": "equipo",
+        "descripcion": "Kit de candados y etiquetas operativo",
+        "tipo_equipo": "kit_loto"
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-LOTO-APLICADO",
+    "nombre": "Aislamiento de energía aplicado y verificado",
+    "peligro_id": "PEL-ENE",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-LOTO"
+    ],
+    "requisitos": [
+      {
+        "id": "R-LOTO-APLICADO",
+        "tipo": "condicion_campo",
+        "descripcion": "Candados y etiquetas colocados y energía cero verificada en el punto de trabajo",
+        "pregunta_campo": "¿Se colocaron los candados y etiquetas y se verificó energía cero en el punto de trabajo?"
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-ALT-OPER",
+    "nombre": "Trabajador certificado en trabajo en altura",
+    "peligro_id": "PEL-ALT",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-ALT"
+    ],
+    "requisitos": [
+      {
+        "id": "R-ALT-OPER",
+        "tipo": "competencia",
+        "descripcion": "Trabajador con certificación vigente de trabajo en altura",
+        "certificacion": "ALT-ARNES",
+        "certificaciones_equivalentes": []
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  },
+  {
+    "id": "C-ALT-EQ",
+    "nombre": "Plataforma elevadora operativa",
+    "peligro_id": "PEL-ALT",
+    "bloqueante": true,
+    "aplica_a": [
+      "TT-ALT"
+    ],
+    "requisitos": [
+      {
+        "id": "R-ALT-EQ",
+        "tipo": "equipo",
+        "descripcion": "Plataforma elevadora operativa y disponible en el turno",
+        "tipo_equipo": "plataforma"
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Control simulado para la demo; no cita una norma"
+    }
+  }
+]

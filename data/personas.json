@@ -1,0 +1,408 @@
+[
+  {
+    "id": "PER-01",
+    "nombre": "Ana Quispe",
+    "rol": "operadora de sostenimiento",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-20",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-20",
+        "turno": "noche"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "OPER-SOST",
+        "vence": "2027-03-01",
+        "nombre": "Operador de sostenimiento"
+      }
+    ]
+  },
+  {
+    "id": "PER-02",
+    "nombre": "Luis Huamán",
+    "rol": "supervisor de seguridad",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-20",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "SSO-SUP",
+        "vence": "2027-06-30",
+        "nombre": "Supervisor de seguridad"
+      }
+    ]
+  },
+  {
+    "id": "PER-03",
+    "nombre": "Rosa Mamani",
+    "rol": "operadora de jumbo",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-20",
+        "turno": "noche"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "OPER-JUMBO",
+        "vence": "2026-09-30",
+        "nombre": "Operador de jumbo"
+      }
+    ]
+  },
+  {
+    "id": "PER-04",
+    "nombre": "Jorge Ccori",
+    "rol": "operador de jumbo",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-20",
+        "turno": "noche"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "OPER-JUMBO",
+        "vence": "2027-02-15",
+        "nombre": "Operador de jumbo"
+      }
+    ]
+  },
+  {
+    "id": "PER-05",
+    "nombre": "Marta Soto",
+    "rol": "operadora de jumbo",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-20",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-21",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "OPER-JUMBO",
+        "vence": "2027-08-01",
+        "nombre": "Operador de jumbo"
+      }
+    ]
+  },
+  {
+    "id": "PER-06",
+    "nombre": "Marco Ruiz",
+    "rol": "electricista",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-21",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "ELEC-LOTO",
+        "vence": "2027-04-10",
+        "nombre": "Bloqueo y etiquetado"
+      }
+    ]
+  },
+  {
+    "id": "PER-07",
+    "nombre": "Carlos Díaz",
+    "rol": "ayudante de mantenimiento",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-21",
+        "turno": "noche"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "PRIM-AUX",
+        "vence": "2027-01-31",
+        "nombre": "Primeros auxilios"
+      }
+    ]
+  },
+  {
+    "id": "PER-08",
+    "nombre": "Elena Torres",
+    "rol": "técnica en altura",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-19",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-23",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "ALT-ARNES",
+        "vence": "2027-05-20",
+        "nombre": "Trabajo en altura"
+      }
+    ]
+  },
+  {
+    "id": "PER-09",
+    "nombre": "Julio Paredes",
+    "rol": "operador de sostenimiento",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "OPER-SOST",
+        "vence": "2027-01-20",
+        "nombre": "Operador de sostenimiento"
+      }
+    ]
+  },
+  {
+    "id": "PER-10",
+    "nombre": "Sandra Vega",
+    "rol": "supervisora de seguridad",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "SSO-SUP",
+        "vence": "2027-09-01",
+        "nombre": "Supervisor de seguridad"
+      }
+    ]
+  },
+  {
+    "id": "PER-11",
+    "nombre": "Diego Flores",
+    "rol": "técnico en altura",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "ALT-ARNES",
+        "vence": "2027-02-28",
+        "nombre": "Trabajo en altura"
+      }
+    ]
+  },
+  {
+    "id": "PER-12",
+    "nombre": "Patricia Lazo",
+    "rol": "operadora de sostenimiento",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "OPER-SOST-B",
+        "vence": "2027-05-05",
+        "nombre": "Operador de sostenimiento B"
+      }
+    ]
+  },
+  {
+    "id": "PER-13",
+    "nombre": "Raúl Medina",
+    "rol": "supervisor de seguridad",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "SSO-SUP",
+        "vence": "2026-08-15",
+        "nombre": "Supervisor de seguridad"
+      }
+    ]
+  },
+  {
+    "id": "PER-14",
+    "nombre": "Teresa Núñez",
+    "rol": "ayudante de sostenimiento",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      }
+    ],
+    "certificaciones": []
+  },
+  {
+    "id": "PER-15",
+    "nombre": "Víctor Rojas",
+    "rol": "operador de sostenimiento",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "dia"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "OPER-SOST",
+        "vence": "2026-10-01",
+        "nombre": "Operador de sostenimiento"
+      }
+    ]
+  },
+  {
+    "id": "PER-16",
+    "nombre": "Lucía Cárdenas",
+    "rol": "técnica en altura",
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    },
+    "turnos": [
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      }
+    ],
+    "certificaciones": [
+      {
+        "codigo": "ALT-ARNES",
+        "vence": "2027-03-15",
+        "nombre": "Trabajo en altura"
+      }
+    ]
+  }
+]

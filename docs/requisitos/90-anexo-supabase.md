@@ -33,14 +33,17 @@ El **contrato Pydantic es la fuente de verdad**. Las tablas guardan los objetos 
 
 ## Esquema inicial (`supabase/migrations/0001_init.sql`)
 
+> El archivo de la migración es la versión vigente (validado como SQL). Este bloque la resume; si difieren, manda el archivo.
+
 ```sql
--- Catálogo (objetos del contrato guardados como jsonb)
-create table if not exists peligros     (id text primary key, data jsonb not null);
-create table if not exists tipos_tarea  (id text primary key, data jsonb not null);
-create table if not exists controles    (id text primary key, peligro_id text not null, bloqueante boolean not null default true, data jsonb not null);
-create table if not exists personas     (id text primary key, data jsonb not null);
-create table if not exists equipos      (id text primary key, tipo_equipo text not null, data jsonb not null);
-create table if not exists escenarios   (id text primary key, data jsonb not null);
+-- Catálogo (objetos del contrato guardados como jsonb). `orden` conserva la posición en el archivo.
+create table if not exists peligros     (id text primary key, orden integer not null default 0, data jsonb not null);
+create table if not exists tipos_tarea  (id text primary key, orden integer not null default 0, data jsonb not null);
+create table if not exists controles    (id text primary key, orden integer not null default 0, peligro_id text not null, bloqueante boolean not null default true, data jsonb not null);
+create table if not exists personas     (id text primary key, orden integer not null default 0, data jsonb not null);
+create table if not exists equipos      (id text primary key, orden integer not null default 0, tipo_equipo text not null, data jsonb not null);
+create table if not exists incidentes   (id text primary key, orden integer not null default 0, tipo_tarea text, riesgo_critico text, data jsonb not null);
+create table if not exists escenarios   (id text primary key, orden integer not null default 0, data jsonb not null);
 create table if not exists incidentes   (id text primary key, tipo_tarea_id text not null, data jsonb not null);
 
 -- Ejecución
@@ -50,6 +53,7 @@ create table if not exists runs (
   modo        text not null default 'vivo',  -- 'vivo' | 'replay'
   escenario_id text,
   tarea       jsonb not null,
+  data        jsonb not null,                -- el Run completo (plan, alternativas y decisión incluidos)
   creado_en   timestamptz not null default now(),
   actualizado_en timestamptz not null default now()
 );
@@ -93,6 +97,7 @@ alter table tipos_tarea enable row level security;
 alter table controles enable row level security;
 alter table personas enable row level security;
 alter table equipos enable row level security;
+alter table incidentes enable row level security;
 alter table escenarios enable row level security;
 alter table incidentes enable row level security;
 alter table runs enable row level security;
@@ -138,3 +143,10 @@ from runs r left join eventos e on e.run_id = r.id;
 -- Incidentes por tipo de tarea (verifica RF-F0-16: ≥ 3 por tipo)
 select tipo_tarea_id, count(*) from incidentes group by tipo_tarea_id order by 2;
 ```
+
+## Implementación (P4)
+
+- **`SupabaseStore`** (`backend/app/store/supabase_store.py`): cada escritura va primero a un `MemoryStore` interno y luego a Supabase. Si una llamada falla o supera `SUPABASE_TIMEOUT_S` (5 s por defecto), pasa a modo degradado (queda así, se registra en el log) y el run sigue en memoria. Las lecturas salen de Supabase mientras responde, lo que permite consultar un run tras reiniciar.
+- **Catálogo:** se lee de las tablas ordenado por `orden`; si Supabase no tiene seeds se usan los archivos de `data/`. El orden importa (por ejemplo, qué candidato prueba primero el Supervisor), por eso se guarda la posición de cada fila.
+- **`scripts/cargar_seeds.py`:** valida `data/*.json` (contrato y referencias cruzadas) y hace *upsert* por `id`; no borra filas que ya no estén en los JSON. `--dry-run` solo valida.
+- **Estado de la verificación:** la lógica se probó con un cliente falso de PostgREST y la migración se validó como SQL con `pglast`. **No se ha aplicado la migración ni probado `SupabaseStore` contra el proyecto real** (faltan credenciales). Para correr la suite compartida de `Store` contra el real: `STORE_TEST_SUPABASE=1`.

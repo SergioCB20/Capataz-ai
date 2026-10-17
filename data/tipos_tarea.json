@@ -1,0 +1,22 @@
+[
+  {
+    "id": "TT-SOST",
+    "nombre": "Sostenimiento con pernos de roca",
+    "descripcion": "Instalación de pernos y malla para sostener el techo y las paredes de una labor."
+  },
+  {
+    "id": "TT-PERF",
+    "nombre": "Perforación de frentes con jumbo",
+    "descripcion": "Perforación del frente de avance con jumbo para el carguío de explosivos."
+  },
+  {
+    "id": "TT-LOTO",
+    "nombre": "Mantenimiento con bloqueo y etiquetado de energía",
+    "descripcion": "Mantenimiento de equipos con aislamiento de energía mediante candados y etiquetas."
+  },
+  {
+    "id": "TT-ALT",
+    "nombre": "Trabajo en altura en estructura de mina",
+    "descripcion": "Trabajos en plataformas o estructuras elevadas dentro de la mina."
+  }
+]

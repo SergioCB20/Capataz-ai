@@ -1,0 +1,150 @@
+[
+  {
+    "id": "EQ-EMP-01",
+    "nombre": "Empernador 01",
+    "tipo_equipo": "empernador",
+    "estado": "operativo",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-EMP-02",
+    "nombre": "Empernador 02",
+    "tipo_equipo": "empernador",
+    "estado": "operativo",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-EMP-03",
+    "nombre": "Empernador 03",
+    "tipo_equipo": "empernador",
+    "estado": "mantenimiento",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-JUM-01",
+    "nombre": "Jumbo 01",
+    "tipo_equipo": "jumbo",
+    "estado": "mantenimiento",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-JUM-02",
+    "nombre": "Jumbo 02",
+    "tipo_equipo": "jumbo",
+    "estado": "operativo",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-JEM-01",
+    "nombre": "Jumbo empernador 01",
+    "tipo_equipo": "jumbo_empernador",
+    "estado": "operativo",
+    "tipos_equivalentes": [
+      "jumbo",
+      "empernador"
+    ],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-KIT-01",
+    "nombre": "Kit de bloqueo y etiquetado 01",
+    "tipo_equipo": "kit_loto",
+    "estado": "operativo",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-PLA-01",
+    "nombre": "Plataforma elevadora 01",
+    "tipo_equipo": "plataforma",
+    "estado": "fuera_servicio",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-PLA-02",
+    "nombre": "Plataforma elevadora 02",
+    "tipo_equipo": "plataforma",
+    "estado": "operativo",
+    "tipos_equivalentes": [],
+    "mantenimiento": [
+      {
+        "fecha": "2026-10-21",
+        "turno": "noche"
+      },
+      {
+        "fecha": "2026-10-22",
+        "turno": "noche"
+      },
+      {
+        "fecha": "2026-10-23",
+        "turno": "noche"
+      }
+    ],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-VOL-01",
+    "nombre": "Volquete 01",
+    "tipo_equipo": "volquete",
+    "estado": "operativo",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  },
+  {
+    "id": "EQ-DET-01",
+    "nombre": "Detector de gases 01",
+    "tipo_equipo": "detector_gases",
+    "estado": "operativo",
+    "tipos_equivalentes": [],
+    "mantenimiento": [],
+    "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado para la demo de CAPATAZ"
+    }
+  }
+]
