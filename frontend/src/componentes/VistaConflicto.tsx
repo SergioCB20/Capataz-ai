@@ -1,10 +1,10 @@
 // Conflicto y alternativas (RF-F2-30, 35, 08, 21): causas con evidencia; alternativas por ronda con el
 // veredicto de las HERRAMIENTAS separado de la explicación del LLM; las verificadas se pueden elegir.
 import { motion } from 'motion/react'
-import { CircleCheck, CircleX, Loader2 } from 'lucide-react'
+import { CircleCheck, CircleX, Loader2, Star } from 'lucide-react'
 import type { Alternativa, Evidencia, Plan, TipoCambio } from '@/api/types'
 import { cn } from '@/lib/utils'
-import { InsigniaSimulado, Pastilla } from './insignias'
+import { Pastilla } from './insignias'
 
 export const TIPO_CAMBIO: Record<TipoCambio, string> = {
   reprogramar_turno: 'Reprogramar turno',
@@ -53,7 +53,6 @@ export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda
                 {c.evidencia.map((ev, i) => (
                   <li key={i} className="flex flex-wrap items-center gap-1">
                     <span className="font-mono">{ev.registro}</span> · {ev.campo}: <b>{String(ev.valor)}</b>
-                    <InsigniaSimulado fuente={ev.fuente} className="bg-white" />
                   </li>
                 ))}
               </ul>
@@ -74,6 +73,10 @@ export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda
               {alternativas.filter((a) => a.ronda === r).map((a, i) => {
                 const plan = planes.find((p) => p.id === a.id)
                 const sel = elegido === a.id
+                // Solo se aprueba un plan RECOMENDADO. P2 recalcula tras el campo solo la mejor
+                // alternativa; las demás verificadas quedan como respaldo (no elegibles).
+                const recomendada = plan?.estado_sistema === 'RECOMENDADO'
+                const esLaMejor = planes[0]?.id === a.id
                 return (
                   <motion.article
                     key={a.id}
@@ -85,9 +88,13 @@ export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda
                       sel ? 'border-acento bg-acento-fondo' : a.cumple_bloqueantes === false ? 'border-dashed border-[#E3C9C7] bg-[#FBFAFD]' : 'border-linea bg-white',
                     )}
                   >
-                    <div className="flex items-center justify-between gap-2">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
                       <span className="font-mono text-[13px]">{a.id}</span>
-                      <Veredicto alt={a} />
+                      <span className="flex flex-wrap items-center gap-1.5">
+                        {plan && esLaMejor && <Pastilla tono="ok" icono={Star} texto="Recomendada" />}
+                        {plan && !esLaMejor && <Pastilla tono="neutro" icono={CircleCheck} texto="Opción de respaldo" />}
+                        <Veredicto alt={a} />
+                      </span>
                     </div>
                     <ul className="m-0 flex list-none flex-col gap-2 p-0">
                       {a.cambios.map((c, j) => (
@@ -105,12 +112,17 @@ export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda
                     <p className="m-0 rounded-xl bg-segmento px-3 py-2.5 text-[13px] leading-snug">
                       <b>Por qué la propone el LLM:</b> {a.explicacion}
                     </p>
-                    {plan && (
+                    {plan && !recomendada && !esLaMejor && (
+                      <p className="m-0 mt-auto rounded-xl bg-acento-fondo px-3 py-2.5 text-[13px] leading-snug text-acento-texto">
+                        También pasó la verificación de personas y equipos. Queda como respaldo: para usarla habría que confirmar su campo por separado.
+                      </p>
+                    )}
+                    {plan && (recomendada || esLaMejor) && (
                       <button
                         type="button"
                         onClick={() => onElegir(a.id)}
                         aria-pressed={sel}
-                        disabled={!puedeElegir}
+                        disabled={!puedeElegir || !recomendada}
                         className={cn(
                           'mt-auto min-h-11 rounded-full text-sm font-extrabold transition-colors focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-acento disabled:cursor-not-allowed disabled:opacity-60',
                           sel ? 'bg-acento text-white' : 'border-[1.5px] border-tinta bg-white text-tinta hover:bg-segmento',
