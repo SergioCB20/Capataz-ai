@@ -1,6 +1,8 @@
 // Línea de tiempo de auditoría (RF-F2-34): eventos clave con actor y hora.
+import { Download } from 'lucide-react'
 import type { EntradaLineaTiempo } from '@/eventos/reductor'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { nombreActor } from './insignias'
 
@@ -14,11 +16,18 @@ const DESTACADO: Partial<Record<EntradaLineaTiempo['tipo'], string>> = {
   'run.error': 'border-red-500',
 }
 
-export function LineaTiempo({ entradas }: { entradas: EntradaLineaTiempo[] }) {
+export function LineaTiempo({ entradas, onExportar }: { entradas: EntradaLineaTiempo[]; onExportar?: () => void }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Línea de tiempo (auditoría)</CardTitle>
+        {onExportar && entradas.length > 0 && (
+          <CardAction>
+            <Button variant="outline" size="sm" onClick={onExportar}>
+              <Download aria-hidden /> Exportar auditoría (JSON)
+            </Button>
+          </CardAction>
+        )}
       </CardHeader>
       <CardContent>
         {entradas.length === 0 ? (

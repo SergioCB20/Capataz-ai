@@ -24,8 +24,8 @@
 
 ## 4. Pulido y despliegue (hasta 16:45)
 
-- [ ] 4.1 Insignia «Replay» y revisión de textos en español (RF-F3-03, RF-F3-14)
-- [ ] 4.2 Build local con `pnpm build && pnpm preview` probado sin Wi-Fi (RF-F3-45)
+- [x] 4.1 Insignia «Replay» y revisión de textos en español (RF-F3-03, RF-F3-14)
+- [x] 4.2 Build local con `pnpm build && pnpm preview` probado sin Wi-Fi (RF-F3-45)
 - [ ] 4.3 Desplegar en Vercel como vitrina (RF-F0-19)
 - [ ] 4.4 Grabar video o capturas de respaldo de E2 (RF-F3-43)
 - [ ] 4.5 (Recortable) Exportar auditoría, animaciones, tableta, replays sin backend en Vercel (RF-F3-30, RF-F3-10, RF-F3-12, RF-F3-46)

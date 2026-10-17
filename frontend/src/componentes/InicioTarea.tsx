@@ -89,7 +89,7 @@ export function InicioTarea({ catalogo, conBackend, iniciando, error, onIniciar 
         <CardHeader>
           <CardTitle>{escenarioId ? `Tarea del escenario ${escenarioId}` : 'Tarea libre'}</CardTitle>
           <CardDescription className="flex flex-wrap items-center gap-2">
-            {conBackend ? 'Catálogo cargado desde el backend.' : 'Sin backend: catálogo de demostración local.'}
+            {conBackend ? 'Catálogo cargado desde el servidor.' : 'Sin servidor: catálogo de demostración local.'}
             <InsigniaSimulado />
           </CardDescription>
         </CardHeader>
@@ -145,7 +145,7 @@ export function InicioTarea({ catalogo, conBackend, iniciando, error, onIniciar 
                 </label>
               </RadioGroup>
               {sinEscenarioEnReplay && <p className="text-xs text-amber-700 dark:text-amber-300">El replay necesita un escenario: elige uno arriba.</p>}
-              {modo === 'vivo' && !conBackend && <p className="text-xs text-amber-700 dark:text-amber-300">El backend no responde: el modo en vivo fallará. Usa replay.</p>}
+              {modo === 'vivo' && !conBackend && <p className="text-xs text-amber-700 dark:text-amber-300">El servidor no responde: el modo en vivo fallará. Usa replay.</p>}
             </fieldset>
 
             {error && (

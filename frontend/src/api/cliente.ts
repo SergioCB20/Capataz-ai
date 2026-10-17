@@ -22,7 +22,7 @@ async function pedir<T>(ruta: string, init?: RequestInit & { tiempoMs?: number }
       signal: AbortSignal.timeout(tiempoMs),
     })
   } catch {
-    throw new ErrorApi(0, 'No se pudo conectar con el backend.')
+    throw new ErrorApi(0, 'No se pudo conectar con el servidor.')
   }
   if (!resp.ok) {
     let detalle = resp.statusText
@@ -56,7 +56,7 @@ export function mensajeError(e: unknown): string {
     if (e.status === 0) return e.message
     if (e.status === 409) return `Operación no permitida en el estado actual del run (${e.message}).`
     if (e.status === 422) return `Datos inválidos: ${e.message}`
-    return `Error del backend (${e.status}): ${e.message}`
+    return `Error del servidor (${e.status}): ${e.message}`
   }
   return e instanceof Error ? e.message : String(e)
 }

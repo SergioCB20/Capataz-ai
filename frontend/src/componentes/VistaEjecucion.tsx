@@ -22,8 +22,30 @@ const CONEXION: Record<EstadoConexion, { texto: string; tono: 'ok' | 'aviso' | '
   conectando: { texto: 'Conectando', tono: 'neutro' },
   abierta: { texto: 'En vivo', tono: 'ok' },
   reconectando: { texto: 'Reconectando', tono: 'aviso' },
-  cerrada: { texto: 'Stream cerrado', tono: 'neutro' },
+  cerrada: { texto: 'Conexión cerrada', tono: 'neutro' },
   error: { texto: 'Sin conexión', tono: 'peligro' },
+}
+
+/** Descarga eventos + decisión como JSON (RF-F3-30). Se genera en el navegador; no se envía a ningún lado. */
+function exportarAuditoria({ estado, eventos, sesion }: ControlRun) {
+  const datos = {
+    run_id: estado.runId,
+    modo: sesion?.modo,
+    origen: sesion?.origen,
+    exportado_en: new Date().toISOString(),
+    tarea: estado.tarea,
+    estado_run: estado.estadoRun,
+    plan: estado.plan,
+    decision: estado.decision,
+    nota: 'Datos simulados (hackatón). El plan es un PTW borrador; la persona responsable decide.',
+    eventos,
+  }
+  const url = URL.createObjectURL(new Blob([JSON.stringify(datos, null, 2)], { type: 'application/json' }))
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `auditoria-${estado.runId ?? 'run'}.json`
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
 export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: Catalogo }) {
@@ -56,7 +78,7 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {sesion?.modo === 'replay' && <InsigniaReplay />}
-          {sesion?.origen === 'local' && <Pastilla tono="neutro" icono={WifiOff} texto="Sin backend" />}
+          {sesion?.origen === 'local' && <Pastilla tono="neutro" icono={WifiOff} texto="Replay local (sin servidor)" />}
           {sesion?.origen === 'backend' && (
             <Pastilla tono={c.tono} icono={conexion === 'reconectando' ? RefreshCw : Wifi} girar={conexion === 'reconectando'} texto={c.texto} />
           )}
@@ -81,7 +103,7 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
       {sinEventos && !estado.error ? (
         <div className="flex items-center justify-center gap-2 rounded-xl border p-12 text-sm text-muted-foreground">
           <Loader2 className="size-4 animate-spin" aria-hidden />
-          {conexion === 'reconectando' ? 'Reconectando con el backend…' : 'Esperando los primeros eventos…'}
+          {conexion === 'reconectando' ? 'Reconectando con el servidor…' : 'Esperando los primeros eventos…'}
         </div>
       ) : (
         <>
@@ -165,7 +187,7 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
             onDecidir={(d, comentario) => run.decidir(d, comentario, planId || undefined)}
           />
 
-          <LineaTiempo entradas={estado.lineaTiempo} />
+          <LineaTiempo entradas={estado.lineaTiempo} onExportar={() => exportarAuditoria(run)} />
         </>
       )}
 

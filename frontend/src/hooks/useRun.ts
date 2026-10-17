@@ -2,7 +2,7 @@
 // Origen «backend»: POST /api/runs + SSE. Origen «local»: replay del archivo en el navegador.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { api, mensajeError } from '@/api/cliente'
-import type { ConfirmacionesCampo, DecisionHumana, ModoRun, Tarea } from '@/api/types'
+import type { ConfirmacionesCampo, DecisionHumana, Evento, ModoRun, Tarea } from '@/api/types'
 import { fuenteSSE, type EstadoConexion, type FuenteEventos } from '@/eventos/fuentes'
 import { estadoInicial, reducir, type EstadoUI } from '@/eventos/reductor'
 import { crearReplayLocal, type ReplayLocal } from '@/eventos/replayLocal'
@@ -26,6 +26,8 @@ export const USUARIO = 'supervisor'
 
 export function useRun() {
   const [estado, setEstado] = useState<EstadoUI>(estadoInicial)
+  /** Eventos crudos (sin repetidos) para exportar la auditoría (RF-F3-30). */
+  const [eventos, setEventos] = useState<Evento[]>([])
   const [sesion, setSesion] = useState<SesionRun | null>(null)
   const [conexion, setConexion] = useState<EstadoConexion>('cerrada')
   const [iniciando, setIniciando] = useState(false)
@@ -46,7 +48,10 @@ export function useRun() {
 
   const conectar = (fuente: FuenteEventos) => {
     cerrarRef.current = fuente({
-      onEvento: (e) => setEstado((s) => reducir(s, e)),
+      onEvento: (e) => {
+        setEstado((s) => reducir(s, e))
+        setEventos((lista) => (e.seq > (lista.at(-1)?.seq ?? 0) ? [...lista, e] : lista))
+      },
       onConexion: setConexion,
     })
   }
@@ -55,6 +60,7 @@ export function useRun() {
     async ({ modo, escenarioId, tarea }: PeticionRun) => {
       detener()
       setEstado(estadoInicial())
+      setEventos([])
       setErrorInicio(null)
       setErrorAccion(null)
       setIniciando(true)
@@ -74,7 +80,7 @@ export function useRun() {
           }
         }
 
-        if (modo === 'vivo') throw new Error('El backend no responde. Usa el modo replay o arranca el backend (uvicorn en :8000).')
+        if (modo === 'vivo') throw new Error('El servidor no responde. Usa el modo replay o arranca el backend (uvicorn en :8000).')
         const eventos = local
         if (!eventos) throw new Error(`No hay replay local para ${escenarioId ?? 'una tarea libre'}.`)
         const replay = crearReplayLocal(eventos, { velocidad: 1.5 })
@@ -119,7 +125,7 @@ export function useRun() {
       if (sesion.origen === 'local') {
         const sigue = replayRef.current?.confirmarCampo(c)
         if (!sigue) {
-          setErrorAccion('Respuesta registrada. En el replay sin backend solo hay corrida grabada para «Sí»; para ver el recálculo con «No», usa el modo en vivo.')
+          setErrorAccion('Respuesta registrada. En el replay sin servidor solo hay corrida grabada para «Sí»; para ver el recálculo con «No», usa el modo en vivo.')
         }
         return
       }
@@ -139,11 +145,12 @@ export function useRun() {
     detener()
     setSesion(null)
     setEstado(estadoInicial())
+    setEventos([])
     setConexion('cerrada')
     setErrorAccion(null)
   }, [detener])
 
-  return { estado, sesion, conexion, iniciando, errorInicio, errorAccion, enviando, iniciar, decidir, confirmarCampo, salir }
+  return { estado, eventos, sesion, conexion, iniciando, errorInicio, errorAccion, enviando, iniciar, decidir, confirmarCampo, salir }
 }
 
 export type ControlRun = ReturnType<typeof useRun>
