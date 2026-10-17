@@ -9,6 +9,7 @@ dependencies = [
     "pydantic>=2.7",
     "sse-starlette>=2.1",
     "python-dotenv>=1.0",
+    "openai>=3.34.0",
 ]
 
 [dependency-groups]
