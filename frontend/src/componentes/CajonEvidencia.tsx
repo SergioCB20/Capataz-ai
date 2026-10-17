@@ -40,7 +40,7 @@ export function CajonEvidencia({ seleccion, incidentes, onCerrar }: {
                       <li key={i} className="rounded-md border p-2">
                         <div className="font-mono text-xs">{ev.registro}</div>
                         <div className="mt-1">
-                          <span className="text-muted-foreground">{ev.campo}:</span> <b>{ev.valor}</b>
+                          <span className="text-muted-foreground">{ev.campo}:</span> <b>{String(ev.valor)}</b>
                         </div>
                         <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
                           {TIPO_FUENTE[ev.fuente.tipo]} · {ev.fuente.url ? <a className="underline" href={ev.fuente.url} target="_blank" rel="noreferrer">{ev.fuente.referencia}</a> : ev.fuente.referencia}

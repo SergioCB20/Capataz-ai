@@ -1,4 +1,5 @@
 import { Loader2, ShieldCheck } from 'lucide-react'
+import { MotionConfig } from 'motion/react'
 import { InicioTarea } from '@/componentes/InicioTarea'
 import { VistaEjecucion } from '@/componentes/VistaEjecucion'
 import { useCatalogo } from '@/hooks/useCatalogo'
@@ -9,6 +10,7 @@ export default function App() {
   const run = useRun()
 
   return (
+    <MotionConfig reducedMotion="user" transition={{ duration: 0.25, ease: 'easeOut' }}>
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b">
         <div className="mx-auto flex max-w-7xl items-center gap-2 px-6 py-3">
@@ -34,5 +36,6 @@ export default function App() {
         />
       )}
     </div>
+    </MotionConfig>
   )
 }

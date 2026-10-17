@@ -1,5 +1,6 @@
 // Línea de tiempo de auditoría (RF-F2-34): eventos clave con actor y hora.
 import { Download } from 'lucide-react'
+import { motion } from 'motion/react'
 import type { EntradaLineaTiempo } from '@/eventos/reductor'
 import { Button } from '@/components/ui/button'
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -35,13 +36,13 @@ export function LineaTiempo({ entradas, onExportar }: { entradas: EntradaLineaTi
         ) : (
           <ol className="grid gap-2">
             {entradas.map((e) => (
-              <li key={e.seq} className={cn('grid grid-cols-[4.5rem_minmax(0,1fr)] gap-2 border-l-2 pl-3 text-sm', DESTACADO[e.tipo] ?? 'border-border')}>
+              <motion.li key={e.seq} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} className={cn('grid grid-cols-[4.5rem_minmax(0,1fr)] gap-2 border-l-2 pl-3 text-sm', DESTACADO[e.tipo] ?? 'border-border')}>
                 <time dateTime={e.ts} className="font-mono text-xs text-muted-foreground">{hora(e.ts)}</time>
                 <div>
                   <div>{e.texto}</div>
                   <div className="text-xs text-muted-foreground">#{e.seq} · {nombreActor(e.actor)}</div>
                 </div>
-              </li>
+              </motion.li>
             ))}
           </ol>
         )}

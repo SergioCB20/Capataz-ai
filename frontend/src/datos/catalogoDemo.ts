@@ -1,9 +1,14 @@
 // Catálogo de DEMOSTRACIÓN para trabajar sin backend. Datos 100 % simulados (RT-07).
 // Cuando el backend responde, la UI usa GET /api/catalogo (seeds de P4) y este archivo no se usa.
 // Los IDs coinciden con replays/e1.json.
-import type { Catalogo, Fuente, Tarea } from '@/api/types'
+import type { Catalogo, Certificacion, Fuente, Requisito, Tarea } from '@/api/types'
 
-const SIM: Fuente = { tipo: 'simulado', referencia: 'Catálogo de demostración del frontend' }
+const SIM: Fuente = { tipo: 'simulado', referencia: 'Catálogo de demostración del frontend', url: null }
+
+const req = (r: Pick<Requisito, 'id' | 'tipo' | 'descripcion'> & Partial<Requisito>): Requisito => ({
+  certificacion: null, certificaciones_equivalentes: [], tipo_equipo: null, pregunta_campo: null, ...r,
+})
+const cert = (codigo: string, vence: string): Certificacion => ({ codigo, vence, nombre: null })
 
 const tarea = (id: string, tipo_tarea: string, descripcion: string, zona: string, turno: 'dia' | 'noche',
   personas: string[], equipos: string[]): Tarea => ({
@@ -12,54 +17,54 @@ const tarea = (id: string, tipo_tarea: string, descripcion: string, zona: string
 
 export const catalogoDemo: Catalogo = {
   peligros: [
-    { id: 'pel-caida-rocas', nombre: 'Caída de rocas' },
-    { id: 'pel-energia', nombre: 'Energía peligrosa (hidráulica / eléctrica)' },
-    { id: 'pel-gases', nombre: 'Atmósfera peligrosa (gases, falta de oxígeno)' },
+    { id: 'pel-caida-rocas', nombre: 'Caída de rocas', descripcion: '', fuente: SIM },
+    { id: 'pel-energia', nombre: 'Energía peligrosa (hidráulica / eléctrica)', descripcion: '', fuente: SIM },
+    { id: 'pel-gases', nombre: 'Atmósfera peligrosa (gases, falta de oxígeno)', descripcion: '', fuente: SIM },
   ],
   tipos_tarea: [
-    { id: 'sostenimiento_pernos', nombre: 'Sostenimiento con pernos' },
-    { id: 'desatado_rocas', nombre: 'Desatado de rocas' },
-    { id: 'limpieza_labor', nombre: 'Limpieza de labor con scoop' },
+    { id: 'sostenimiento_pernos', nombre: 'Sostenimiento con pernos', descripcion: '' },
+    { id: 'desatado_rocas', nombre: 'Desatado de rocas', descripcion: '' },
+    { id: 'limpieza_labor', nombre: 'Limpieza de labor con scoop', descripcion: '' },
   ],
   controles: [
     {
       id: 'ctl-sostenimiento', nombre: 'Sostenimiento ejecutado por operador certificado con equipo apto',
       peligro_id: 'pel-caida-rocas', bloqueante: true, aplica_a: ['sostenimiento_pernos', 'desatado_rocas'], fuente: SIM,
       requisitos: [
-        { id: 'req-operador-empernador', tipo: 'competencia', descripcion: 'Operador con certificación OP-EMPERNADOR vigente', certificacion: 'OP-EMPERNADOR' },
-        { id: 'req-jumbo-operativo', tipo: 'equipo', descripcion: 'Jumbo empernador operativo y disponible en el turno', tipo_equipo: 'jumbo_empernador' },
+        req({ id: 'req-operador-empernador', tipo: 'competencia', descripcion: 'Operador con certificación OP-EMPERNADOR vigente', certificacion: 'OP-EMPERNADOR' }),
+        req({ id: 'req-jumbo-operativo', tipo: 'equipo', descripcion: 'Jumbo empernador operativo y disponible en el turno', tipo_equipo: 'jumbo_empernador' }),
       ],
     },
     {
       id: 'ctl-loto', nombre: 'Bloqueo y etiquetado de energías (LOTO)',
       peligro_id: 'pel-energia', bloqueante: true, aplica_a: ['sostenimiento_pernos', 'limpieza_labor'], fuente: SIM,
-      requisitos: [{ id: 'req-loto', tipo: 'competencia', descripcion: 'Personal con capacitación LOTO vigente', certificacion: 'LOTO' }],
+      requisitos: [req({ id: 'req-loto', tipo: 'competencia', descripcion: 'Personal con capacitación LOTO vigente', certificacion: 'LOTO' })],
     },
     {
       id: 'ctl-epp', nombre: 'Inducción de seguridad y EPP',
       peligro_id: 'pel-caida-rocas', bloqueante: false, aplica_a: ['sostenimiento_pernos', 'desatado_rocas', 'limpieza_labor'], fuente: SIM,
-      requisitos: [{ id: 'req-induccion', tipo: 'competencia', descripcion: 'Inducción de seguridad vigente', certificacion: 'INDUCCION-SSO' }],
+      requisitos: [req({ id: 'req-induccion', tipo: 'competencia', descripcion: 'Inducción de seguridad vigente', certificacion: 'INDUCCION-SSO' })],
     },
     {
       id: 'ctl-ventilacion', nombre: 'Ventilación y medición de gases antes del ingreso',
       peligro_id: 'pel-gases', bloqueante: true, aplica_a: ['sostenimiento_pernos', 'desatado_rocas', 'limpieza_labor'], fuente: SIM,
-      requisitos: [{ id: 'req-ventilacion', tipo: 'condicion_campo', descripcion: 'Medición de gases conforme en la labor', pregunta_campo: '¿La medición de gases en la labor está dentro de límites y la ventilación funciona?' }],
+      requisitos: [req({ id: 'req-ventilacion', tipo: 'condicion_campo', descripcion: 'Medición de gases conforme en la labor', pregunta_campo: '¿La medición de gases en la labor está dentro de límites y la ventilación funciona?' })],
     },
   ],
   personas: [
     { id: 'p-001', nombre: 'Operador A (Luis)', rol: 'Operador de jumbo', fuente: SIM, turnos: [{ fecha: '2026-10-17', turno: 'dia' }],
-      certificaciones: [{ codigo: 'OP-EMPERNADOR', vence: '2027-03-31' }, { codigo: 'LOTO', vence: '2026-12-15' }, { codigo: 'INDUCCION-SSO', vence: '2027-01-10' }] },
+      certificaciones: [cert('OP-EMPERNADOR', '2027-03-31'), cert('LOTO', '2026-12-15'), cert('INDUCCION-SSO', '2027-01-10')] },
     { id: 'p-002', nombre: 'Ayudante B (Rosa)', rol: 'Ayudante', fuente: SIM, turnos: [{ fecha: '2026-10-17', turno: 'dia' }],
-      certificaciones: [{ codigo: 'INDUCCION-SSO', vence: '2026-11-30' }] },
+      certificaciones: [cert('INDUCCION-SSO', '2026-11-30')] },
     { id: 'p-003', nombre: 'Operador C (Jorge)', rol: 'Operador de jumbo', fuente: SIM, turnos: [{ fecha: '2026-10-17', turno: 'noche' }],
-      certificaciones: [{ codigo: 'OP-EMPERNADOR', vence: '2026-09-30' }, { codigo: 'LOTO', vence: '2027-02-01' }, { codigo: 'INDUCCION-SSO', vence: '2027-01-10' }] },
+      certificaciones: [cert('OP-EMPERNADOR', '2026-09-30'), cert('LOTO', '2027-02-01'), cert('INDUCCION-SSO', '2027-01-10')] },
     { id: 'p-004', nombre: 'Operador D (Ana)', rol: 'Operador de jumbo', fuente: SIM, turnos: [{ fecha: '2026-10-17', turno: 'noche' }],
-      certificaciones: [{ codigo: 'OP-EMPERNADOR', vence: '2027-05-20' }, { codigo: 'LOTO', vence: '2027-05-20' }, { codigo: 'INDUCCION-SSO', vence: '2027-05-20' }] },
+      certificaciones: [cert('OP-EMPERNADOR', '2027-05-20'), cert('LOTO', '2027-05-20'), cert('INDUCCION-SSO', '2027-05-20')] },
   ],
   equipos: [
-    { id: 'eq-jumbo-01', nombre: 'Jumbo empernador 01', tipo_equipo: 'jumbo_empernador', estado: 'operativo', tipos_equivalentes: [], fuente: SIM },
-    { id: 'eq-jumbo-02', nombre: 'Jumbo empernador 02', tipo_equipo: 'jumbo_empernador', estado: 'mantenimiento', tipos_equivalentes: [], fuente: SIM },
-    { id: 'eq-bolter-01', nombre: 'Bolter 01', tipo_equipo: 'bolter', estado: 'operativo', tipos_equivalentes: ['jumbo_empernador'], fuente: SIM },
+    { id: 'eq-jumbo-01', nombre: 'Jumbo empernador 01', tipo_equipo: 'jumbo_empernador', estado: 'operativo', tipos_equivalentes: [], mantenimiento: [], fuente: SIM },
+    { id: 'eq-jumbo-02', nombre: 'Jumbo empernador 02', tipo_equipo: 'jumbo_empernador', estado: 'mantenimiento', tipos_equivalentes: [], mantenimiento: [], fuente: SIM },
+    { id: 'eq-bolter-01', nombre: 'Bolter 01', tipo_equipo: 'bolter', estado: 'operativo', tipos_equivalentes: ['jumbo_empernador'], mantenimiento: [], fuente: SIM },
   ],
   incidentes: [
     { id: 'inc-007', fecha: '2025-03-14', planta: 'Mina subterránea A', nivel_real: 'II', nivel_potencial: 'V', riesgo_critico: 'caida_rocas',

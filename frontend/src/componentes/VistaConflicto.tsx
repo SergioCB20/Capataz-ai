@@ -1,5 +1,6 @@
 // Vista de conflicto (RF-F2-30, RF-F2-35, RF-F2-08): control en rojo con causa y evidencia;
 // alternativas lado a lado con cambios, veredicto de las HERRAMIENTAS y explicación del LLM por separado.
+import { motion } from 'motion/react'
 import { ArrowRight, CircleCheck, CircleX, Loader2, Sparkles, TriangleAlert } from 'lucide-react'
 import type { Alternativa, Evidencia, TipoCambio } from '@/api/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -54,7 +55,7 @@ export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda
               <ul className="mt-2 space-y-1 text-xs">
                 {conflicto.evidencia.map((ev, i) => (
                   <li key={i} className="flex flex-wrap items-center gap-1">
-                    <span className="font-mono">{ev.registro}</span> · {ev.campo}: <b>{ev.valor}</b>
+                    <span className="font-mono">{ev.registro}</span> · {ev.campo}: <b>{String(ev.valor)}</b>
                     <InsigniaSimulado fuente={ev.fuente} />
                   </li>
                 ))}
@@ -72,9 +73,12 @@ export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda
             <section key={r} aria-label={`Alternativas de la ronda ${r}`}>
               <h3 className="mb-2 text-xs font-medium text-muted-foreground">Ronda {r}</h3>
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {alternativas.filter((a) => a.ronda === r).map((a) => (
-                  <article
+                {alternativas.filter((a) => a.ronda === r).map((a, i) => (
+                  <motion.article
                     key={a.id}
+                    layout
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0, transition: { delay: i * 0.08 } }}
                     className={cn(
                       'grid content-start gap-3 rounded-xl border p-3',
                       a.cumple_bloqueantes === true && 'border-emerald-400',
@@ -109,7 +113,7 @@ export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda
                       </div>
                       {a.explicacion}
                     </div>
-                  </article>
+                  </motion.article>
                 ))}
               </div>
             </section>

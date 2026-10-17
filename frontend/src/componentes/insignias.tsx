@@ -1,4 +1,5 @@
 // Insignias de estado: SIEMPRE icono + texto, nunca solo color (RF-F1-32, RF-F3-13).
+import { motion } from 'motion/react'
 import { CircleCheck, CircleHelp, CircleX, FlaskConical, Loader2, Play, type LucideIcon } from 'lucide-react'
 import type { EstadoControl, EstadoSistema, Fuente } from '@/api/types'
 import { cn } from '@/lib/utils'
@@ -16,10 +17,15 @@ export function Pastilla({ tono, icono: Icono, texto, girar, className }: {
   tono: Tono; icono: LucideIcon; texto: string; girar?: boolean; className?: string
 }) {
   return (
-    <span className={cn('inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap', TONOS[tono], className)}>
+    <motion.span
+      key={texto}
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className={cn('inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap', TONOS[tono], className)}
+    >
       <Icono aria-hidden className={cn('size-3.5', girar && 'animate-spin')} />
       {texto}
-    </span>
+    </motion.span>
   )
 }
 

@@ -43,7 +43,10 @@ export function filasControles(estado: EstadoUI, catalogo: Catalogo): FilaContro
         resultado: estado.resultadosRequisito[claveRequisito({ control_id: id, requisito_id: requisito.id })] ?? null,
       })),
       ...extra.map((r) => ({
-        requisito: { id: r.requisito_id, tipo: 'competencia' as const, descripcion: r.requisito_id },
+        requisito: {
+          id: r.requisito_id, tipo: 'competencia' as const, descripcion: r.requisito_id,
+          certificacion: null, certificaciones_equivalentes: [], tipo_equipo: null, pregunta_campo: null,
+        },
         resultado: r,
       })),
     ]

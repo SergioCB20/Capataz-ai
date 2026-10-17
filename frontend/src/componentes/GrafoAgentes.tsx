@@ -1,6 +1,7 @@
 // Grafo vivo de agentes (RF-F1-31): 4 nodos fijos con su estado y las herramientas invocadas.
 import { Background, Handle, Position, ReactFlow, type Edge, type Node, type NodeProps } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
+import { motion } from 'motion/react'
 import { CircleAlert, CircleCheck, CircleDashed, Loader2, Wrench, type LucideIcon } from 'lucide-react'
 import type { IdAgente } from '@/api/types'
 import type { EstadoAgente, EstadoUI, VistaAgente } from '@/eventos/reductor'
@@ -21,7 +22,16 @@ function NodoAgente({ data }: NodeProps<Node<DatosNodo>>) {
   const e = ESTADO[agente.estado]
   const ultimas = agente.herramientas.slice(-3)
   return (
-    <div className={cn('w-52 rounded-xl border p-3 text-left shadow-sm transition-colors', e.clase)}>
+    <motion.div
+      className={cn('w-52 rounded-xl border p-3 text-left shadow-sm transition-colors', e.clase)}
+      animate={
+        agente.estado === 'trabajando'
+          ? { scale: [1, 1.035, 1], transition: { duration: 1.2, repeat: Infinity, ease: 'easeInOut' } }
+          : agente.estado === 'completado'
+            ? { scale: [1.06, 1], transition: { duration: 0.3 } }
+            : { scale: 1 }
+      }
+    >
       <Handle type="target" position={Position.Top} className="opacity-0" />
       <div className="text-sm font-semibold">{NOMBRE_AGENTE[id]}</div>
       <div className="text-xs opacity-80">{rol}</div>
@@ -40,7 +50,7 @@ function NodoAgente({ data }: NodeProps<Node<DatosNodo>>) {
         </ul>
       )}
       <Handle type="source" position={Position.Bottom} className="opacity-0" />
-    </div>
+    </motion.div>
   )
 }
 
