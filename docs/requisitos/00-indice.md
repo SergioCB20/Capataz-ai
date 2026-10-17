@@ -54,7 +54,7 @@ De 3:30 a 5:00: ensayo, correcciones, pitch. **No se agregan funcionalidades.**
 
 ## Qué queda fuera del MVP
 
-Agente de Costo · autenticación de usuarios finales · *override* de planes bloqueados · datos reales de la operación · RAG vectorial (la base de conocimiento es pequeña y va en contexto) · integración con sistemas de la mina · NANDA completo (ver fase 4).
+Agente de Costo · autenticación de usuarios finales · *override* de planes bloqueados · datos reales de la operación · RAG vectorial (la base de **conocimiento** es pequeña y va en contexto; los **incidentes**, ≥ 50 registros, no van al contexto: se consultan con la herramienta `buscar_incidentes`) · integración con sistemas de la mina · NANDA completo (ver fase 4).
 
 ## Preguntas abiertas (confirmar con organizadores)
 

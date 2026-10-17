@@ -11,7 +11,7 @@ Supabase (Postgres) es la **persistencia** de catálogo, runs, eventos (auditor�
 | Demo sin red | **Replay + `MemoryStore`** | RT-08: la demo no puede depender de Internet ni de un proyecto en la nube. |
 | Historial en vivo (opcional) | Supabase Realtime | Solo `RF-F3-32`; no es necesario para el núcleo. |
 
-**Qué no se usa:** Supabase Auth de usuarios finales (el MVP no tiene login), Storage, Edge Functions, `pgvector` (la base de conocimiento va en contexto).
+**Qué no se usa:** Supabase Auth de usuarios finales (el MVP no tiene login), Storage, Edge Functions, `pgvector` (la base de conocimiento va en contexto y los incidentes se filtran con la herramienta determinista `buscar_incidentes`, sin búsqueda vectorial).
 
 ## Principio de datos
 
@@ -119,4 +119,7 @@ select estado, count(*) from runs group by estado;
 select count(*) filter (where e.tipo = 'conflicto.detectado') as conflictos,
        count(*) filter (where r.estado = 'APROBADA') as aprobados
 from runs r left join eventos e on e.run_id = r.id;
+
+-- Incidentes por tipo de tarea (verifica RF-F0-16: ≥ 3 por tipo)
+select tipo_tarea_id, count(*) from incidentes group by tipo_tarea_id order by 2;
 ```

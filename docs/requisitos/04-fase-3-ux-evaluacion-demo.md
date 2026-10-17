@@ -28,8 +28,8 @@
 
 | ID | Requisito | Prio | Rúbrica | Aceptación |
 |---|---|---|---|---|
-| RF-F3-20 | Conjunto de evaluación `data/evaluacion.json` con casos `CasoEvaluacion`: tareas con **fallas inyectadas** (certificación vencida, equipo en mantenimiento, doble asignación, requisito sin verificar, etc.) y su resultado esperado. ≥ 15 casos, incluyendo casos limpios para medir falsos positivos. El **resultado esperado lo fija el equipo** a partir de la falla inyectada, nunca el LLM (evita una métrica circular; ver RF-F0-17). | M | AP, PT | El archivo valida contra el contrato; cada caso indica qué falla se inyectó. |
-| RF-F3-21 | Script `evaluar` que ejecuta los casos (modo `fake` para el LLM, herramientas reales) y reporta: % de fallas inyectadas detectadas, falsos positivos, y fallas por tipo. Salida en tabla y JSON. | M | AP, PT | Reporte reproducible con un comando. |
+| RF-F3-20 | Conjunto de evaluación `data/evaluacion.json` con casos `CasoEvaluacion`: tareas con **fallas inyectadas** (certificación vencida, equipo en mantenimiento, doble asignación, requisito sin verificar, etc.) y su resultado esperado. ≥ 15 casos, incluyendo casos limpios para medir falsos positivos y ≥ 3 casos cuya falla solo se detecta por el **patrón de incidentes** (control adicional sumado por RF-F1-10). El **resultado esperado lo fija el equipo** a partir de la falla inyectada, nunca el LLM (evita una métrica circular; ver RF-F0-17). | M | AP, PT | El archivo valida contra el contrato; cada caso indica qué falla se inyectó. |
+| RF-F3-21 | Script `evaluar` que ejecuta los casos (modo `fake` para el LLM, herramientas reales) y reporta: % de fallas inyectadas detectadas, falsos positivos, y fallas por tipo, separando «detectado por checklist base» de «detectado por incidentes». Salida en tabla y JSON. | M | AP, PT | Reporte reproducible con un comando. |
 | RF-F3-22 | La métrica se presenta como **sobre datos simulados**: valida que el sistema detecta lo que se le inyecta, no que reduzca accidentes reales. El texto de la UI/pitch lo dice. | M | AP | Redacción revisada por el equipo (RT-07). |
 | RF-F3-23 | Ejecutar la evaluación con LLM real sobre un subconjunto (los casos donde el LLM interviene: Riesgo y alternativas) y reportar estabilidad. | C | PT | Resultado documentado, aunque sea parcial. |
 
@@ -45,7 +45,7 @@
 
 | ID | Requisito | Prio | Rúbrica | Aceptación |
 |---|---|---|---|---|
-| RF-F3-40 | Guion de demo de ≤ 5 min: problema (con dato fuente) → E1 rápido → **E2 completo** → E3 breve → métrica y límites. Cada paso con quién habla y qué clic hace. | M | EJ, AP | Ensayado ≥ 2 veces con cronómetro. |
+| RF-F3-40 | Guion de demo de ≤ 5 min: problema (con dato fuente) → E1 rápido → **E2 completo** → E3 breve → métrica y límites (la métrica es **sobre datos simulados** y no promete reducir accidentes reales, RF-F3-22). Cada paso con quién habla y qué clic hace. | M | EJ, AP | Ensayado ≥ 2 veces con cronómetro. |
 | RF-F3-41 | Lista de verificación previa a la demo: frontend local construido y servido (RF-F3-45), `.env` cargado, Supabase accesible o `STORE_BACKEND=memory`, `LLM_MODE` decidido, replays presentes, navegador y zoom fijados. | M | EJ | Checklist impresa/compartida. |
 | RF-F3-42 | Plan B documentado: si falla la red/LLM ⇒ replay; si falla Supabase ⇒ `memory`; si falla el front ⇒ capturas/video de respaldo. | M | EJ | Se probó cambiar de modo en vivo al menos una vez. |
 | RF-F3-43 | Video/capturas de respaldo de E2 grabados. | S | EJ | Archivo disponible en el equipo del presentador. |
