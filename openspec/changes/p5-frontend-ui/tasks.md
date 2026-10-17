@@ -1,9 +1,9 @@
 ## 1. Arranque sin backend (desde el minuto 0)
 
-- [ ] 1.1 Proyecto Vite + React + TS + Tailwind + shadcn/ui con proxy `/api` → `:8000` y `VITE_API_URL` (RF-F0-13, RF-F0-18)
-- [ ] 1.2 Tipos TS a mano según los acuerdos de interfaz
-- [ ] 1.3 `replays/e1.json` a mano con la secuencia de eventos de E1 (RF-F1-05)
-- [ ] 1.4 Reductor puro `reducir(estado, evento)` y fuente de eventos desde archivo con velocidad (RF-F1-35)
+- [x] 1.1 Proyecto Vite + React + TS + Tailwind + shadcn/ui con proxy `/api` → `:8000` y `VITE_API_URL` (RF-F0-13, RF-F0-18)
+- [x] 1.2 Tipos TS a mano según los acuerdos de interfaz
+- [x] 1.3 `replays/e1.json` a mano con la secuencia de eventos de E1 (RF-F1-05)
+- [x] 1.4 Reductor puro `reducir(estado, evento)` y fuente de eventos desde archivo con velocidad (RF-F1-35)
 
 ## 2. Vista de E1 (hito 15:45 con el backend real)
 
