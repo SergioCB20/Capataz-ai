@@ -151,7 +151,7 @@ export function VistaEjecucion({ run, catalogo, onNuevaTarea }: { run: ControlRu
           <section aria-labelledby="ag" className="rounded-[28px] bg-white px-6 py-6 sm:px-7">
             <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
               <h2 id="ag" className="text-lg font-extrabold">Agentes</h2>
-              <span className="text-[13px] text-tenue">El Supervisor reparte; Personal y Equipo verifican en paralelo</span>
+              <span className="text-[13px] text-tenue">El Supervisor reparte; Personal y Equipo verifican con herramientas deterministas</span>
             </div>
             <GrafoAgentes agentes={estado.agentes} />
           </section>

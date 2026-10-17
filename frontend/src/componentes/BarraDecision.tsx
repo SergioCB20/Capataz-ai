@@ -32,11 +32,15 @@ export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, p
   const [rechazando, setRechazando] = useState(false)
   const [comentario, setComentario] = useState('')
   const [faltaComentario, setFaltaComentario] = useState(false)
-  const soloRechazo = requerida?.solo_rechazo || estadoSistema === 'BLOQUEADO'
+  // Solo se aprueba un plan RECOMENDADO (acuerdo con P2). Cubre también elegir una alternativa que
+  // quedó en REQUIERE_CAMPO aunque el backend pida decisión sobre otra.
+  const soloRechazo = !!requerida?.solo_rechazo || (!!estadoSistema && estadoSistema !== 'RECOMENDADO')
   const motivoSoloRechazo =
     estadoSistema === 'BLOQUEADO'
       ? 'El plan está BLOQUEADO: solo se puede rechazar, con un comentario.'
-      : 'Este plan no se puede aprobar: quedan requisitos sin verificar (NO_VERIFICABLE). Solo se puede rechazar, con un comentario.'
+      : estadoSistema === 'REQUIERE_CAMPO' && !requerida?.solo_rechazo
+        ? 'Este plan tiene requisitos de campo sin confirmar: elige el plan recomendado o recházalo con un comentario.'
+        : 'Este plan no se puede aprobar: quedan requisitos sin verificar (NO_VERIFICABLE). Solo se puede rechazar, con un comentario.'
 
   const enviarRechazo = () => {
     if (!comentario.trim()) return setFaltaComentario(true)
