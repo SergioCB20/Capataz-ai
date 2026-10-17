@@ -39,6 +39,7 @@ export interface Requisito {
   certificacion?: string | null
   tipo_equipo?: string | null
   pregunta_campo?: string | null
+  certificaciones_equivalentes?: string[]
 }
 
 export interface Control {
@@ -71,6 +72,8 @@ export interface Equipo {
   tipo_equipo: string
   estado: EstadoEquipo
   tipos_equivalentes: string[]
+  /** Turnos en que el equipo NO está disponible. */
+  mantenimiento?: TurnoRef[]
   fuente: Fuente
 }
 
@@ -199,6 +202,8 @@ export interface Plan {
   cambios: Cambio[]
   resultados: ResultadoControl[]
   escalamiento?: string | null
+  /** Por qué el plan quedó en su estado (P2: explica el bloqueo del plan original). */
+  motivo?: string | null
 }
 
 export interface DecisionHumana {

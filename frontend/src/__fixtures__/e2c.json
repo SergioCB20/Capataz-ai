@@ -124,7 +124,7 @@
         "nombre": "estado_equipo",
         "entrada": {
           "equipo_id": "eq-jumbo-01",
-          "turno": "dia"
+          "turno": "2026-10-17/dia"
         },
         "salida_resumen": "eq-jumbo-01: operativo",
         "duracion_ms": 5
@@ -330,6 +330,116 @@
     "run_id": "replay-e2c",
     "seq": 12,
     "ts": "2026-10-17T15:10:05.550Z",
+    "tipo": "plan.listo",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "plan": {
+        "id": "plan-e2c",
+        "run_id": "replay-e2c",
+        "estado_sistema": "REQUIERE_CAMPO",
+        "asignacion": {
+          "personas": [
+            "p-001"
+          ],
+          "equipos": [
+            "eq-jumbo-01"
+          ]
+        },
+        "cambios": [],
+        "resultados": [
+          {
+            "control_id": "ctl-sostenimiento",
+            "bloqueante": true,
+            "estado": "CUMPLE",
+            "requisitos": [
+              {
+                "control_id": "ctl-sostenimiento",
+                "requisito_id": "req-operador-empernador",
+                "estado": "CUMPLE",
+                "evidencia": [
+                  {
+                    "registro": "personas/p-001",
+                    "campo": "certificaciones.OP-EMPERNADOR.vence",
+                    "valor": "2027-03-31",
+                    "fuente": {
+                      "tipo": "simulado",
+                      "referencia": "Registro de personal (seed)"
+                    }
+                  }
+                ],
+                "verificado_por": "capataz:agente-personal",
+                "detalle": "p-001 con OP-EMPERNADOR vigente (turno día)."
+              },
+              {
+                "control_id": "ctl-sostenimiento",
+                "requisito_id": "req-jumbo-operativo",
+                "estado": "CUMPLE",
+                "evidencia": [
+                  {
+                    "registro": "equipos/eq-jumbo-01",
+                    "campo": "estado",
+                    "valor": "operativo",
+                    "fuente": {
+                      "tipo": "simulado",
+                      "referencia": "Registro de equipos (seed)"
+                    }
+                  }
+                ],
+                "verificado_por": "capataz:agente-equipo",
+                "detalle": "eq-jumbo-01 operativo en el turno día."
+              }
+            ]
+          },
+          {
+            "control_id": "ctl-epp",
+            "bloqueante": false,
+            "estado": "CUMPLE",
+            "requisitos": [
+              {
+                "control_id": "ctl-epp",
+                "requisito_id": "req-induccion",
+                "estado": "CUMPLE",
+                "evidencia": [
+                  {
+                    "registro": "personas/p-001",
+                    "campo": "certificaciones.INDUCCION-SSO.vence",
+                    "valor": "2027-01-10",
+                    "fuente": {
+                      "tipo": "simulado",
+                      "referencia": "Registro de personal (seed)"
+                    }
+                  }
+                ],
+                "verificado_por": "capataz:agente-personal",
+                "detalle": "p-001 con inducción vigente."
+              }
+            ]
+          },
+          {
+            "control_id": "ctl-ventilacion",
+            "bloqueante": true,
+            "estado": "NO_VERIFICABLE",
+            "requisitos": [
+              {
+                "control_id": "ctl-ventilacion",
+                "requisito_id": "req-ventilacion",
+                "estado": "NO_VERIFICABLE",
+                "evidencia": [],
+                "verificado_por": "capataz:agente-supervisor",
+                "detalle": "Condición de campo: no se puede verificar con datos; requiere confirmación en la labor."
+              }
+            ]
+          }
+        ],
+        "escalamiento": null,
+        "motivo": "Falta confirmar en campo la medición de gases y la ventilación."
+      }
+    }
+  },
+  {
+    "run_id": "replay-e2c",
+    "seq": 13,
+    "ts": "2026-10-17T15:10:05.650Z",
     "tipo": "humano.campo_requerido",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -343,8 +453,8 @@
   },
   {
     "run_id": "replay-e2c",
-    "seq": 13,
-    "ts": "2026-10-17T15:10:08.550Z",
+    "seq": 14,
+    "ts": "2026-10-17T15:10:08.650Z",
     "tipo": "humano.campo_confirmado",
     "actor": "humano:supervisor",
     "payload": {
@@ -363,8 +473,8 @@
   },
   {
     "run_id": "replay-e2c",
-    "seq": 14,
-    "ts": "2026-10-17T15:10:09.150Z",
+    "seq": 15,
+    "ts": "2026-10-17T15:10:09.250Z",
     "tipo": "supervisor.consolidado",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -468,8 +578,8 @@
   },
   {
     "run_id": "replay-e2c",
-    "seq": 15,
-    "ts": "2026-10-17T15:10:09.550Z",
+    "seq": 16,
+    "ts": "2026-10-17T15:10:09.650Z",
     "tipo": "plan.listo",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -581,14 +691,15 @@
             ]
           }
         ],
-        "escalamiento": null
+        "escalamiento": null,
+        "motivo": null
       }
     }
   },
   {
     "run_id": "replay-e2c",
-    "seq": 16,
-    "ts": "2026-10-17T15:10:09.650Z",
+    "seq": 17,
+    "ts": "2026-10-17T15:10:09.750Z",
     "tipo": "humano.decision_requerida",
     "actor": "sistema",
     "payload": {

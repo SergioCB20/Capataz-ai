@@ -1,7 +1,7 @@
 // Comparación de la asignación original vs. el «Plan (PTW borrador)» (RF-F2-31) y elección
 // del plan cuando hay varias alternativas verificadas (RF-F2-21).
 import { ArrowRight, Minus, Plus } from 'lucide-react'
-import type { Catalogo, Plan, Tarea } from '@/api/types'
+import type { Alternativa, Asignacion, Catalogo, Plan } from '@/api/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { cn } from '@/lib/utils'
@@ -40,9 +40,13 @@ function Diferencia({ titulo, antes, despues, nombre }: {
   )
 }
 
-export function ComparacionPlanes({ tarea, planes, elegido, onElegir, catalogo, puedeElegir }: {
-  tarea: Tarea
+export function ComparacionPlanes({ original, planes, alternativas, elegido, onElegir, catalogo, nombreRecurso, puedeElegir }: {
+  /** Asignación «antes»: la del plan original (P2) o, si no hay alternativas, la de la tarea. */
+  original: Asignacion
+  /** Candidatos a aprobar, el mejor primero. */
   planes: Plan[]
+  alternativas: Alternativa[]
+  nombreRecurso: (valor: string) => string
   elegido: string
   onElegir: (planId: string) => void
   catalogo: Catalogo
@@ -69,6 +73,9 @@ export function ComparacionPlanes({ tarea, planes, elegido, onElegir, catalogo, 
                   <span className="grid gap-1">
                     <span className="flex flex-wrap items-center gap-2 font-mono text-xs">{p.id} <EstadoSistemaBadge estado={p.estado_sistema} /></span>
                     <span className="text-muted-foreground">{p.cambios.map((c) => TIPO_CAMBIO[c.tipo]).join(' + ') || 'Sin cambios'}</span>
+                    {alternativas.find((a) => a.id === p.id)?.explicacion && (
+                      <span className="text-xs text-muted-foreground">{alternativas.find((a) => a.id === p.id)?.explicacion}</span>
+                    )}
                   </span>
                 </label>
               ))}
@@ -83,8 +90,8 @@ export function ComparacionPlanes({ tarea, planes, elegido, onElegir, catalogo, 
             <span />
             <span>Plan {plan.id}</span>
           </div>
-          <Diferencia titulo="Personas" antes={tarea.asignacion.personas} despues={plan.asignacion.personas} nombre={persona} />
-          <Diferencia titulo="Equipos" antes={tarea.asignacion.equipos} despues={plan.asignacion.equipos} nombre={equipo} />
+          <Diferencia titulo="Personas" antes={original.personas} despues={plan.asignacion.personas} nombre={persona} />
+          <Diferencia titulo="Equipos" antes={original.equipos} despues={plan.asignacion.equipos} nombre={equipo} />
         </div>
 
         {plan.cambios.length === 0 ? (
@@ -93,7 +100,7 @@ export function ComparacionPlanes({ tarea, planes, elegido, onElegir, catalogo, 
           <ul className="grid gap-2 text-sm">
             {plan.cambios.map((c, i) => (
               <li key={i} className="rounded-md bg-muted p-2">
-                <b>{TIPO_CAMBIO[c.tipo]}:</b> {c.desde} → {c.hacia}
+                <b>{TIPO_CAMBIO[c.tipo]}:</b> {nombreRecurso(c.desde)} → {nombreRecurso(c.hacia)}
                 <div className="text-xs text-muted-foreground">Por qué: {c.motivo}</div>
               </li>
             ))}

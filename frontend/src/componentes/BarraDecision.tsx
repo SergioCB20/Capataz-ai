@@ -1,5 +1,6 @@
 // Barra de decisión (RF-F1-34, RF-F2-33, RT-04): Aprobar / Rechazar (comentario obligatorio).
-// Con plan BLOQUEADO solo se puede rechazar. El backend lo fuerza igual (409).
+// Solo se aprueba un plan RECOMENDADO; si el backend pide `solo_rechazo` (plan BLOQUEADO, o requisitos
+// que quedaron NO_VERIFICABLE sin preguntas de campo), solo se puede rechazar. El backend lo fuerza igual (409).
 import { useState } from 'react'
 import { Check, Loader2, X } from 'lucide-react'
 import type { DecisionHumana, EstadoRun, EstadoSistema } from '@/api/types'
@@ -29,6 +30,10 @@ export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, p
   const [comentario, setComentario] = useState('')
   const [faltaComentario, setFaltaComentario] = useState(false)
   const soloRechazo = requerida?.solo_rechazo || estadoSistema === 'BLOQUEADO'
+  const motivoSoloRechazo =
+    estadoSistema === 'BLOQUEADO'
+      ? 'El plan está BLOQUEADO: solo se puede rechazar, con un comentario.'
+      : 'Este plan no se puede aprobar: quedan requisitos sin verificar (NO_VERIFICABLE). Solo se puede rechazar, con un comentario.'
 
   const enviarRechazo = () => {
     if (!comentario.trim()) return setFaltaComentario(true)
@@ -55,7 +60,7 @@ export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, p
             <Button
               onClick={() => onDecidir('aprobar')}
               disabled={enviando || soloRechazo}
-              title={soloRechazo ? 'Un plan BLOQUEADO solo admite rechazo' : undefined}
+              title={soloRechazo ? motivoSoloRechazo : undefined}
             >
               {enviando ? <Loader2 className="animate-spin" aria-hidden /> : <Check aria-hidden />}
               Aprobar
@@ -72,7 +77,7 @@ export function BarraDecision({ estadoSistema, estadoRun, requerida, decision, p
       </div>
 
       {soloRechazo && requerida && !decision && (
-        <p className="text-sm text-red-800 dark:text-red-200">El plan está BLOQUEADO: solo se puede rechazar, con un comentario.</p>
+        <p className="text-sm text-red-800 dark:text-red-200">{motivoSoloRechazo}</p>
       )}
 
       {rechazando && requerida && !decision && (

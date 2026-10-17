@@ -44,10 +44,13 @@ export interface EstadoUI {
   resultadosRequisito: Record<string, ResultadoRequisito>
   resultadosControl: ResultadoControl[]
   estadoSistema: EstadoSistema | null
-  conflicto: { control_id: string; requisito_id: string; causa: string; evidencia: Evidencia[] } | null
+  /** P2 emite un `conflicto.detectado` por cada requisito que falla. */
+  conflictos: { control_id: string; requisito_id: string; causa: string; evidencia: Evidencia[] }[]
   ronda: 1 | 2 | null
   alternativas: Alternativa[]
+  /** Convención de P2: `plan` es el plan ORIGINAL (puede ser BLOQUEADO). */
   plan: Plan | null
+  /** Planes de las alternativas verificadas, el mejor primero (`Plan.id == Alternativa.id`). */
   planesAlternativos: Plan[]
   preguntasCampo: { requisito_id: string; pregunta: string }[]
   decisionRequerida: { plan_id: string; solo_rechazo: boolean } | null
@@ -73,7 +76,7 @@ export const estadoInicial = (): EstadoUI => ({
   resultadosRequisito: {},
   resultadosControl: [],
   estadoSistema: null,
-  conflicto: null,
+  conflictos: [],
   ronda: null,
   alternativas: [],
   plan: null,
@@ -125,8 +128,12 @@ export function describirEvento(e: Evento): string | null {
         ? `Alternativa ${a.id} verificada con herramientas`
         : `Alternativa ${a.id} falló la verificación${a.motivo_fallo ? `: ${a.motivo_fallo}` : ''}`
     }
-    case 'plan.listo':
-      return `Plan (PTW borrador) listo: ${e.payload.plan.estado_sistema}`
+    case 'plan.listo': {
+      const mejor = e.payload.planes_alternativos?.[0]
+      return mejor
+        ? `Plan (PTW borrador) listo: ${e.payload.planes_alternativos!.length} alternativa(s) verificada(s), la mejor ${mejor.estado_sistema}`
+        : `Plan (PTW borrador) listo: ${e.payload.plan.estado_sistema}`
+    }
     case 'humano.campo_requerido':
       return `Se requiere confirmación en campo (${e.payload.preguntas.length} preguntas)`
     case 'humano.campo_confirmado':
@@ -185,7 +192,10 @@ function aplicar(estado: EstadoUI, e: Evento): EstadoUI {
     case 'conflicto.detectado':
       return {
         ...conAgente(estado, 'supervisor', (a) => ({ ...a, estado: 'trabajando' })),
-        conflicto: e.payload,
+        conflictos: [
+          ...estado.conflictos.filter((c) => claveRequisito(c) !== claveRequisito(e.payload)),
+          e.payload,
+        ],
         estadoRun: 'RESOLVIENDO_CONFLICTO',
       }
     case 'conflicto.alternativas':
@@ -201,7 +211,8 @@ function aplicar(estado: EstadoUI, e: Evento): EstadoUI {
         ...conAgente(estado, 'supervisor', (a) => ({ ...a, estado: 'completado' })),
         plan: e.payload.plan,
         planesAlternativos: e.payload.planes_alternativos ?? [],
-        estadoSistema: e.payload.plan.estado_sistema,
+        // El estado que se muestra es el del mejor candidato a aprobar.
+        estadoSistema: (e.payload.planes_alternativos?.[0] ?? e.payload.plan).estado_sistema,
       }
     // Al esperar a la persona, el Supervisor deja de «trabajar» aunque aún no haya plan.listo.
     case 'humano.campo_requerido':
@@ -246,3 +257,10 @@ export function reducir(estado: EstadoUI, e: Evento): EstadoUI {
 }
 
 export const reducirTodos = (eventos: Evento[], inicial: EstadoUI = estadoInicial()) => eventos.reduce(reducir, inicial)
+
+/** Planes que se pueden aprobar: las alternativas verificadas o, si no hay, el plan original. */
+export const candidatos = (s: EstadoUI): Plan[] =>
+  s.planesAlternativos.length ? s.planesAlternativos : s.plan ? [s.plan] : []
+
+/** Sin alternativa segura: el plan original quedó BLOQUEADO y no hay alternativas verificadas. */
+export const sinAlternativaSegura = (s: EstadoUI) => s.plan?.estado_sistema === 'BLOQUEADO' && s.planesAlternativos.length === 0

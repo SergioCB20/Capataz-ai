@@ -115,7 +115,7 @@
         "nombre": "estado_equipo",
         "entrada": {
           "equipo_id": "eq-jumbo-02",
-          "turno": "noche"
+          "turno": "2026-10-17/noche"
         },
         "salida_resumen": "eq-jumbo-02: mantenimiento",
         "duracion_ms": 5
@@ -311,18 +311,9 @@
     "actor": "capataz:agente-supervisor",
     "payload": {
       "control_id": "ctl-sostenimiento",
-      "requisito_id": "req-jumbo-operativo",
-      "causa": "El jumbo eq-jumbo-02 está en mantenimiento y p-003 no tiene OP-EMPERNADOR vigente en el turno noche",
+      "requisito_id": "req-operador-empernador",
+      "causa": "p-003 no tiene OP-EMPERNADOR vigente en el turno noche",
       "evidencia": [
-        {
-          "registro": "equipos/eq-jumbo-02",
-          "campo": "estado",
-          "valor": "mantenimiento",
-          "fuente": {
-            "tipo": "simulado",
-            "referencia": "Registro de equipos (seed)"
-          }
-        },
         {
           "registro": "personas/p-003",
           "campo": "certificaciones.OP-EMPERNADOR.vence",
@@ -338,7 +329,30 @@
   {
     "run_id": "replay-e3",
     "seq": 13,
-    "ts": "2026-10-17T15:10:07.050Z",
+    "ts": "2026-10-17T15:10:05.600Z",
+    "tipo": "conflicto.detectado",
+    "actor": "capataz:agente-supervisor",
+    "payload": {
+      "control_id": "ctl-sostenimiento",
+      "requisito_id": "req-jumbo-operativo",
+      "causa": "El jumbo eq-jumbo-02 está en mantenimiento el turno noche",
+      "evidencia": [
+        {
+          "registro": "equipos/eq-jumbo-02",
+          "campo": "estado",
+          "valor": "mantenimiento",
+          "fuente": {
+            "tipo": "simulado",
+            "referencia": "Registro de equipos (seed)"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "run_id": "replay-e3",
+    "seq": 14,
+    "ts": "2026-10-17T15:10:07.100Z",
     "tipo": "conflicto.alternativas",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -350,12 +364,12 @@
           "cambios": [
             {
               "tipo": "reprogramar_turno",
-              "desde": "noche 17/10",
-              "hacia": "día 17/10",
-              "motivo": "En el turno día hay operador certificado"
+              "desde": "2026-10-17/noche",
+              "hacia": "2026-10-17/dia",
+              "motivo": "En el turno día hay jumbo operativo"
             }
           ],
-          "explicacion": "Pasar al turno día con p-001 y el jumbo 01.",
+          "explicacion": "Pasar la tarea al turno día manteniendo la asignación.",
           "cumple_bloqueantes": null,
           "motivo_fallo": null
         },
@@ -367,7 +381,7 @@
               "tipo": "equipo_equivalente",
               "desde": "eq-jumbo-02",
               "hacia": "eq-bolter-01",
-              "motivo": "Bolter equivalente"
+              "motivo": "Bolter equivalente operativo"
             }
           ],
           "explicacion": "Usar el bolter 01 en el turno noche.",
@@ -379,8 +393,8 @@
   },
   {
     "run_id": "replay-e3",
-    "seq": 14,
-    "ts": "2026-10-17T15:10:07.550Z",
+    "seq": 15,
+    "ts": "2026-10-17T15:10:07.600Z",
     "tipo": "agente.herramienta",
     "actor": "capataz:agente-personal",
     "payload": {
@@ -389,19 +403,19 @@
         "nombre": "detectar_doble_asignacion",
         "entrada": {
           "personas": [
-            "p-001"
+            "p-003"
           ],
-          "turno": "dia"
+          "turno": "2026-10-17/dia"
         },
-        "salida_resumen": "p-001 ya asignado a otra tarea en el turno día",
+        "salida_resumen": "p-003 no está en el turno día",
         "duracion_ms": 5
       }
     }
   },
   {
     "run_id": "replay-e3",
-    "seq": 15,
-    "ts": "2026-10-17T15:10:07.950Z",
+    "seq": 16,
+    "ts": "2026-10-17T15:10:08.000Z",
     "tipo": "conflicto.alternativa_verificada",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -411,21 +425,21 @@
         "cambios": [
           {
             "tipo": "reprogramar_turno",
-            "desde": "noche 17/10",
-            "hacia": "día 17/10",
-            "motivo": "En el turno día hay operador certificado"
+            "desde": "2026-10-17/noche",
+            "hacia": "2026-10-17/dia",
+            "motivo": "En el turno día hay jumbo operativo"
           }
         ],
-        "explicacion": "Pasar al turno día con p-001 y el jumbo 01.",
+        "explicacion": "Pasar la tarea al turno día manteniendo la asignación.",
         "cumple_bloqueantes": false,
-        "motivo_fallo": "p-001 y eq-jumbo-01 ya están asignados a otra tarea en el turno día (doble asignación)"
+        "motivo_fallo": "p-003 no está disponible en el turno día y su OP-EMPERNADOR sigue vencida"
       }
     }
   },
   {
     "run_id": "replay-e3",
-    "seq": 16,
-    "ts": "2026-10-17T15:10:08.350Z",
+    "seq": 17,
+    "ts": "2026-10-17T15:10:08.400Z",
     "tipo": "conflicto.alternativa_verificada",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -437,7 +451,7 @@
             "tipo": "equipo_equivalente",
             "desde": "eq-jumbo-02",
             "hacia": "eq-bolter-01",
-            "motivo": "Bolter equivalente"
+            "motivo": "Bolter equivalente operativo"
           }
         ],
         "explicacion": "Usar el bolter 01 en el turno noche.",
@@ -448,8 +462,8 @@
   },
   {
     "run_id": "replay-e3",
-    "seq": 17,
-    "ts": "2026-10-17T15:10:09.850Z",
+    "seq": 18,
+    "ts": "2026-10-17T15:10:09.900Z",
     "tipo": "conflicto.alternativas",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -460,13 +474,19 @@
           "ronda": 2,
           "cambios": [
             {
+              "tipo": "equipo_equivalente",
+              "desde": "eq-jumbo-02",
+              "hacia": "eq-bolter-01",
+              "motivo": "Bolter equivalente operativo"
+            },
+            {
               "tipo": "certificacion_equivalente",
-              "desde": "OP-EMPERNADOR",
-              "hacia": "OP-JUMBO-PERF",
-              "motivo": "p-003 tiene OP-JUMBO-PERF vigente"
+              "desde": "p-003",
+              "hacia": "p-002",
+              "motivo": "p-002 está disponible en la labor"
             }
           ],
-          "explicacion": "Aceptar OP-JUMBO-PERF como equivalente para p-003 (ronda 2, tras fallar la ronda 1 por competencia y doble asignación).",
+          "explicacion": "Ronda 2: además del bolter, reemplazar al operador por p-002, que está disponible.",
           "cumple_bloqueantes": null,
           "motivo_fallo": null
         }
@@ -475,8 +495,8 @@
   },
   {
     "run_id": "replay-e3",
-    "seq": 18,
-    "ts": "2026-10-17T15:10:10.350Z",
+    "seq": 19,
+    "ts": "2026-10-17T15:10:10.400Z",
     "tipo": "agente.herramienta",
     "actor": "capataz:agente-personal",
     "payload": {
@@ -485,19 +505,19 @@
         "nombre": "verificar_certificaciones",
         "entrada": {
           "personas": [
-            "p-003"
+            "p-002"
           ],
           "permitir_equivalencias": true
         },
-        "salida_resumen": "OP-JUMBO-PERF no es equivalente en el catálogo",
+        "salida_resumen": "p-002 sin OP-EMPERNADOR",
         "duracion_ms": 5
       }
     }
   },
   {
     "run_id": "replay-e3",
-    "seq": 19,
-    "ts": "2026-10-17T15:10:10.750Z",
+    "seq": 20,
+    "ts": "2026-10-17T15:10:10.800Z",
     "tipo": "conflicto.alternativa_verificada",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -506,22 +526,28 @@
         "ronda": 2,
         "cambios": [
           {
+            "tipo": "equipo_equivalente",
+            "desde": "eq-jumbo-02",
+            "hacia": "eq-bolter-01",
+            "motivo": "Bolter equivalente operativo"
+          },
+          {
             "tipo": "certificacion_equivalente",
-            "desde": "OP-EMPERNADOR",
-            "hacia": "OP-JUMBO-PERF",
-            "motivo": "p-003 tiene OP-JUMBO-PERF vigente"
+            "desde": "p-003",
+            "hacia": "p-002",
+            "motivo": "p-002 está disponible en la labor"
           }
         ],
-        "explicacion": "Aceptar OP-JUMBO-PERF como equivalente para p-003 (ronda 2, tras fallar la ronda 1 por competencia y doble asignación).",
+        "explicacion": "Ronda 2: además del bolter, reemplazar al operador por p-002, que está disponible.",
         "cumple_bloqueantes": false,
-        "motivo_fallo": "OP-JUMBO-PERF no figura como equivalente de OP-EMPERNADOR en el catálogo"
+        "motivo_fallo": "p-002 no tiene OP-EMPERNADOR ni una certificación equivalente en el catálogo"
       }
     }
   },
   {
     "run_id": "replay-e3",
-    "seq": 20,
-    "ts": "2026-10-17T15:10:11.150Z",
+    "seq": 21,
+    "ts": "2026-10-17T15:10:11.200Z",
     "tipo": "plan.listo",
     "actor": "capataz:agente-supervisor",
     "payload": {
@@ -608,14 +634,16 @@
             ]
           }
         ],
-        "escalamiento": "Avisar al jefe de guardia: no hay operador certificado ni jumbo operativo en el turno noche. No iniciar la tarea."
-      }
+        "escalamiento": "Avisar al jefe de guardia: no hay operador certificado ni jumbo operativo en el turno noche. No iniciar la tarea.",
+        "motivo": "El control bloqueante de sostenimiento no se cumple: operador sin certificación vigente y jumbo en mantenimiento."
+      },
+      "planes_alternativos": []
     }
   },
   {
     "run_id": "replay-e3",
-    "seq": 21,
-    "ts": "2026-10-17T15:10:11.250Z",
+    "seq": 22,
+    "ts": "2026-10-17T15:10:11.300Z",
     "tipo": "humano.decision_requerida",
     "actor": "sistema",
     "payload": {

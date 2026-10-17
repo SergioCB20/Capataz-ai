@@ -5,7 +5,8 @@ import type { Catalogo } from '@/api/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { EstadoConexion } from '@/eventos/fuentes'
-import { filasControles, incidentesDeControl, nombrePeligro, type FilaControl, type FilaRequisito } from '@/eventos/vista'
+import { candidatos, sinAlternativaSegura } from '@/eventos/reductor'
+import { filasControles, incidentesDeControl, nombrePeligro, nombreRecurso, type FilaControl, type FilaRequisito } from '@/eventos/vista'
 import type { ControlRun } from '@/hooks/useRun'
 import { BarraDecision } from './BarraDecision'
 import { CajonEvidencia } from './CajonEvidencia'
@@ -54,10 +55,14 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
   const filas = useMemo(() => filasControles(estado, catalogo), [estado, catalogo])
   const sinEventos = estado.ultimoSeq === 0
   const [planElegido, setPlanElegido] = useState<string | null>(null)
-  const planes = useMemo(() => (estado.plan ? [estado.plan, ...estado.planesAlternativos] : []), [estado.plan, estado.planesAlternativos])
-  const planId = planElegido ?? estado.decisionRequerida?.plan_id ?? estado.plan?.id ?? ''
-  const bloqueado = estado.plan?.estado_sistema === 'BLOQUEADO'
+  const planes = useMemo(() => candidatos(estado), [estado])
+  const planId = planElegido ?? estado.decisionRequerida?.plan_id ?? planes[0]?.id ?? ''
+  const planActual = planes.find((p) => p.id === planId) ?? planes[0] ?? null
+  const bloqueado = sinAlternativaSegura(estado)
   const nombreControl = (id: string) => catalogo.controles.find((x) => x.id === id)?.nombre ?? id
+  const recurso = (v: string) => nombreRecurso(catalogo, v)
+  // «Antes» del diff: el plan original de P2 si hay alternativas; si no, la asignación de la tarea.
+  const original = estado.planesAlternativos.length && estado.plan ? estado.plan.asignacion : estado.tarea?.asignacion
   const c = CONEXION[conexion]
 
   return (
@@ -147,10 +152,11 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
             </Card>
           </div>
 
-          {estado.conflicto && (
+          {estado.conflictos.length > 0 && (
             <VistaConflicto
-              conflicto={estado.conflicto}
-              nombreControl={nombreControl(estado.conflicto.control_id)}
+              conflictos={estado.conflictos}
+              nombreControl={nombreControl}
+              nombreRecurso={recurso}
               ronda={estado.ronda}
               alternativas={estado.alternativas}
               enCurso={estado.estadoRun === 'RESOLVIENDO_CONFLICTO'}
@@ -162,13 +168,20 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
           )}
 
           {bloqueado && (
-            <EstadoBloqueado causa={estado.conflicto?.causa ?? null} alternativas={estado.alternativas} escalamiento={estado.plan?.escalamiento} />
+            <EstadoBloqueado
+              motivo={estado.plan?.motivo}
+              causas={estado.conflictos.map((c) => c.causa)}
+              alternativas={estado.alternativas}
+              escalamiento={estado.plan?.escalamiento}
+            />
           )}
 
-          {estado.tarea && planes.length > 0 && !bloqueado && (planes.length > 1 || planes[0].cambios.length > 0) && (
+          {original && planes.length > 0 && !bloqueado && (estado.planesAlternativos.length > 0 || planes[0].cambios.length > 0) && (
             <ComparacionPlanes
-              tarea={estado.tarea}
+              original={original}
               planes={planes}
+              alternativas={estado.alternativas}
+              nombreRecurso={recurso}
               elegido={planId}
               onElegir={setPlanElegido}
               catalogo={catalogo}
@@ -177,7 +190,7 @@ export function VistaEjecucion({ run, catalogo }: { run: ControlRun; catalogo: C
           )}
 
           <BarraDecision
-            estadoSistema={estado.plan?.estado_sistema ?? estado.estadoSistema}
+            estadoSistema={planActual?.estado_sistema ?? estado.estadoSistema}
             estadoRun={estado.estadoRun}
             requerida={estado.decisionRequerida}
             decision={estado.decision}

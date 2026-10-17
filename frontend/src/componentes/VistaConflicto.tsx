@@ -18,9 +18,10 @@ function Veredicto({ alt }: { alt: Alternativa }) {
   return <Pastilla tono="peligro" icono={CircleX} texto="Falló la verificación" />
 }
 
-export function VistaConflicto({ conflicto, nombreControl, ronda, alternativas, enCurso }: {
-  conflicto: { control_id: string; causa: string; evidencia: Evidencia[] }
-  nombreControl: string
+export function VistaConflicto({ conflictos, nombreControl, nombreRecurso, ronda, alternativas, enCurso }: {
+  conflictos: { control_id: string; requisito_id: string; causa: string; evidencia: Evidencia[] }[]
+  nombreControl: (id: string) => string
+  nombreRecurso: (valor: string) => string
   ronda: 1 | 2 | null
   alternativas: Alternativa[]
   enCurso: boolean
@@ -31,7 +32,8 @@ export function VistaConflicto({ conflicto, nombreControl, ronda, alternativas, 
       <CardHeader>
         <CardTitle className="flex flex-wrap items-center justify-between gap-2">
           <span className="flex items-center gap-2">
-            <TriangleAlert aria-hidden className="size-5 text-red-600" /> Conflicto en un control bloqueante
+            <TriangleAlert aria-hidden className="size-5 text-red-600" />
+            {conflictos.length > 1 ? `${conflictos.length} requisitos bloqueantes no se cumplen` : 'Conflicto en un control bloqueante'}
           </span>
           {ronda && (
             <Pastilla
@@ -44,20 +46,22 @@ export function VistaConflicto({ conflicto, nombreControl, ronda, alternativas, 
         </CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4 text-sm">
-        <div className="rounded-md border border-red-300 bg-red-50 p-3 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100">
-          <div className="font-medium">{nombreControl}</div>
-          <p className="mt-1">{conflicto.causa}</p>
-          {conflicto.evidencia.length > 0 && (
-            <ul className="mt-2 space-y-1 text-xs">
-              {conflicto.evidencia.map((ev, i) => (
-                <li key={i} className="flex flex-wrap items-center gap-1">
-                  <span className="font-mono">{ev.registro}</span> · {ev.campo}: <b>{ev.valor}</b>
-                  <InsigniaSimulado fuente={ev.fuente} />
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        {conflictos.map((conflicto) => (
+          <div key={`${conflicto.control_id}/${conflicto.requisito_id}`} className="rounded-md border border-red-300 bg-red-50 p-3 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100">
+            <div className="font-medium">{nombreControl(conflicto.control_id)}</div>
+            <p className="mt-1">{conflicto.causa}</p>
+            {conflicto.evidencia.length > 0 && (
+              <ul className="mt-2 space-y-1 text-xs">
+                {conflicto.evidencia.map((ev, i) => (
+                  <li key={i} className="flex flex-wrap items-center gap-1">
+                    <span className="font-mono">{ev.registro}</span> · {ev.campo}: <b>{ev.valor}</b>
+                    <InsigniaSimulado fuente={ev.fuente} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
 
         {alternativas.length === 0 ? (
           <p className="flex items-center gap-2 text-muted-foreground">
@@ -86,9 +90,9 @@ export function VistaConflicto({ conflicto, nombreControl, ronda, alternativas, 
                         <li key={i}>
                           <div className="text-xs font-medium text-muted-foreground">{TIPO_CAMBIO[c.tipo]}</div>
                           <div className="flex flex-wrap items-center gap-1">
-                            <span className="line-through decoration-red-400">{c.desde}</span>
+                            <span className="line-through decoration-red-400">{nombreRecurso(c.desde)}</span>
                             <ArrowRight aria-hidden className="size-3.5" />
-                            <b>{c.hacia}</b>
+                            <b>{nombreRecurso(c.hacia)}</b>
                           </div>
                           <div className="text-xs text-muted-foreground">{c.motivo}</div>
                         </li>

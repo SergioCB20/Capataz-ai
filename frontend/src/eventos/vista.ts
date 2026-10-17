@@ -67,5 +67,16 @@ export function incidentesDeControl(estado: EstadoUI, catalogo: Catalogo, contro
   return [...ids].map((id) => catalogo.incidentes.find((i) => i.id === id) ?? { id })
 }
 
+/** Nombre legible de una persona o equipo por ID; turnos `AAAA-MM-DD/dia|noche` => «día 17/10». Si no se reconoce, el texto tal cual. */
+export function nombreRecurso(catalogo: Catalogo, valor: string): string {
+  const persona = catalogo.personas.find((p) => p.id === valor)
+  if (persona) return `${persona.nombre} (${valor})`
+  const equipo = catalogo.equipos.find((e) => e.id === valor)
+  if (equipo) return `${equipo.nombre} (${valor})`
+  const turno = /^(\d{4})-(\d{2})-(\d{2})\/(dia|noche)$/.exec(valor)
+  if (turno) return `${turno[4] === 'dia' ? 'día' : 'noche'} ${turno[3]}/${turno[2]}`
+  return valor
+}
+
 export const nombrePeligro = (catalogo: Catalogo, id: string | null) =>
   (id && (catalogo.peligros.find((p) => p.id === id)?.nombre as string | undefined)) || id || ''

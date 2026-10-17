@@ -3,8 +3,10 @@
 import { Megaphone, OctagonX } from 'lucide-react'
 import type { Alternativa } from '@/api/types'
 
-export function EstadoBloqueado({ causa, alternativas, escalamiento }: {
-  causa: string | null
+export function EstadoBloqueado({ motivo, causas, alternativas, escalamiento }: {
+  /** `Plan.motivo` del plan original (P2). */
+  motivo: string | null | undefined
+  causas: string[]
   alternativas: Alternativa[]
   escalamiento: string | null | undefined
 }) {
@@ -15,7 +17,7 @@ export function EstadoBloqueado({ causa, alternativas, escalamiento }: {
       <h2 className="flex items-center gap-2 text-base font-semibold">
         <OctagonX aria-hidden className="size-5" /> Plan BLOQUEADO: no hay una alternativa segura
       </h2>
-      {causa && <p><b>Por qué:</b> {causa}</p>}
+      {motivo ? <p><b>Por qué:</b> {motivo}</p> : causas.map((c, i) => <p key={i}><b>Por qué:</b> {c}</p>)}
       {alternativas.length > 0 && (
         <p>
           Se probaron {alternativas.length} alternativas en {rondas} {rondas === 1 ? 'ronda' : 'rondas'} y {fallidas.length === alternativas.length ? 'ninguna' : `solo ${alternativas.length - fallidas.length}`} pasó la verificación con herramientas.
