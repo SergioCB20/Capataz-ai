@@ -63,7 +63,7 @@ const FINALES: TipoEvento[] = ['run.finalizado', 'run.error']
 
 /**
  * SSE del backend (RF-F1-03, RF-F1-36). El navegador reconecta solo y manda `Last-Event-ID`;
- * si la conexión queda cerrada, se reabre a mano pidiendo `desde_seq` = último seq visto.
+ * si la conexión queda cerrada, se reabre a mano pidiendo `?desde=` último seq visto.
  * Se cierra al recibir `run.finalizado` o `run.error`. El reductor descarta eventos repetidos.
  */
 export function fuenteSSE(runId: string, opciones: { reintentoMs?: number } = {}): FuenteEventos {

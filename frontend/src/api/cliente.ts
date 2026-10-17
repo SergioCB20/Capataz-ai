@@ -47,7 +47,7 @@ export const api = {
   decidir: (id: string, d: DecisionHumana) => post<Run>(`/api/runs/${encodeURIComponent(id)}/decision`, d),
   confirmarCampo: (id: string, c: ConfirmacionesCampo) => post<Run>(`/api/runs/${encodeURIComponent(id)}/campo`, c),
   urlEventos: (id: string, desdeSeq = 0) =>
-    `${BASE_API}/api/runs/${encodeURIComponent(id)}/eventos${desdeSeq ? `?desde_seq=${desdeSeq}` : ''}`,
+    `${BASE_API}/api/runs/${encodeURIComponent(id)}/eventos${desdeSeq ? `?desde=${desdeSeq}` : ''}`,
 }
 
 /** Mensaje en español para mostrar en la UI. */
