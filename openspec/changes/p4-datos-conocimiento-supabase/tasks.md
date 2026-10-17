@@ -23,8 +23,8 @@
 
 ## 5. Supabase (recortable: si falla, todo sigue en memoria)
 
-- [ ] 5.1 Crear el proyecto y compartir credenciales por canal privado (RF-F0-04)
-- [ ] 5.2 `supabase/migrations/0001_init.sql` con RLS (RF-F0-04, RF-F0-14)
+- [ ] 5.1 Usar el proyecto existente `shjpypqcetndpokklycy`: confirmar que no está pausado, obtener la `service_role` y la cadena del pooler IPv4 si la conexión directa falla, y compartirlas por canal privado (RF-F0-04)
+- [ ] 5.2 `supabase/migrations/0001_init.sql` con RLS, aplicada con `psql "$DATABASE_URL"` o el SQL Editor (RF-F0-04, RF-F0-14)
 - [ ] 5.3 `scripts/cargar_seeds.py` idempotente (RF-F0-08)
 - [ ] 5.4 `backend/app/store/supabase_store.py` que pase la suite de `Store` de P1 (RF-F0-06)
 

@@ -46,7 +46,7 @@ De 16:45 a 17:00: ensayo, correcciones, pitch. **No se agregan funcionalidades.*
 | RT-06 | **Primera pasada estricta**; las equivalencias (`equipo_equivalente`, `certificacion_equivalente`) solo se usan al evaluar alternativas. Máximo **2 rondas** de resolución de conflicto. | M |
 | RT-07 | **Todo dato simulado se muestra como tal** en la UI (insignia «simulado» cuando `Fuente.tipo == simulado`). | M |
 | RT-08 | **La demo no depende de la red.** Modo `replay` y almacén en memoria funcionan sin Supabase ni LLM. La demo se presenta con frontend y backend **locales**; el despliegue en Vercel es solo una vitrina (RF-F3-45). | M |
-| RT-09 | Las claves (`OPENROUTER_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) viven solo en el backend; nunca en el frontend ni en el repo. | M |
+| RT-09 | Las claves (`OPENROUTER_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `DATABASE_URL` con su contraseña) viven solo en el backend; nunca en el frontend ni en el repo. | M |
 | RT-10 | Las citas normativas deben ser reales o marcarse `simulado`; no se inventan referencias. | M |
 
 ## Escenarios de demo (definición común)

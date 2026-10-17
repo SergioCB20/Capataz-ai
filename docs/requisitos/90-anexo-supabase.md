@@ -13,6 +13,20 @@ Supabase (Postgres) es la **persistencia** de catálogo, runs, eventos (auditor�
 
 **Qué no se usa:** Supabase Auth de usuarios finales (el MVP no tiene login), Storage, Edge Functions, `pgvector` (la base de conocimiento va en contexto y los incidentes se filtran con la herramienta determinista `buscar_incidentes`, sin búsqueda vectorial).
 
+## Proyecto
+
+El proyecto **ya existe**; no se crea otro.
+
+| Dato | Valor |
+|---|---|
+| Referencia | `shjpypqcetndpokklycy` |
+| `SUPABASE_URL` | `https://shjpypqcetndpokklycy.supabase.co` |
+| `DATABASE_URL` (conexión directa) | `postgresql://postgres:<CONTRASEÑA>@db.shjpypqcetndpokklycy.supabase.co:5432/postgres` |
+
+- La contraseña y la `service_role` van **solo** en `.env` y se comparten por canal privado (RT-09).
+- La conexión directa (`db.<ref>.supabase.co:5432`) puede ser **solo IPv6**. Si la red no tiene IPv6 (habitual en redes de eventos), usar la cadena del **pooler** («Session pooler», compatible con IPv4) que da el panel en *Connect*. Verificar antes de la demo.
+- La migración se aplica con `psql "$DATABASE_URL" -f supabase/migrations/0001_init.sql` o pegándola en el SQL Editor del panel.
+
 ## Principio de datos
 
 El **contrato Pydantic es la fuente de verdad**. Las tablas guardan los objetos del contrato como `jsonb` con unas pocas columnas relacionales para consultar y ordenar. Así un cambio de campo no exige migrar SQL y los datos siempre se validan con Pydantic al leer y al escribir.
@@ -104,7 +118,8 @@ alter table decisiones enable row level security;
 - Versión y comportamiento actuales de Realtime (cambios en Postgres vs. *broadcast*) si se llega a usar `RF-F3-32`.
 - Latencia desde la sala del evento hacia la región del proyecto (elegir región cercana, p. ej. São Paulo, si está disponible).
 - Si el cliente `supabase-py` o `psycopg`/`asyncpg` encaja mejor con el orquestador asíncrono (ver ejecución de operaciones dentro de `asyncio`).
-- Desarrollo local con la CLI de Supabase (`supabase start`) requiere Docker; el plan del proyecto era no usar Docker, por eso se prefiere el proyecto en la nube + `MemoryStore` como respaldo.
+- Desarrollo local con la CLI de Supabase (`supabase start`) requiere Docker; el plan del proyecto era no usar Docker, por eso se usa el proyecto en la nube ya existente + `MemoryStore` como respaldo.
+- Si el proyecto está pausado (plan gratuito, 7 días sin actividad), reactivarlo desde el panel antes de empezar.
 
 ## Consultas útiles para la demo y las métricas
 

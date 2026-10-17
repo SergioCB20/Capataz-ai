@@ -21,6 +21,7 @@ Los datos se escriben contra los modelos de los acuerdos de interfaz (`p1-contra
   - E2c: todo cumple salvo un requisito `condicion_campo` ⇒ `REQUIERE_CAMPO`.
   - E3: ningún equivalente ni persona certificada disponible ⇒ `BLOQUEADO`, con a quién escalar.
 - **Incidentes con generador, revisados a mano.** `gen_sintetico.py` (semilla fija, temperatura baja) produce borradores; una persona los revisa antes de versionarlos. El resultado esperado de la evaluación lo fija el equipo, no el LLM.
+- **Proyecto existente.** Se usa `shjpypqcetndpokklycy`; no se crea otro. La conexión directa puede ser solo IPv6, así que se tiene a mano la cadena del pooler IPv4.
 - **Supabase guarda jsonb.** Tablas con `id` + `data jsonb` + pocas columnas para consultar, según `docs/requisitos/90-anexo-supabase.md`.
 
 ## Risks / Trade-offs

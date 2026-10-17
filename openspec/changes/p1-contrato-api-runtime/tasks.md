@@ -10,7 +10,7 @@
 
 - [ ] 2.1 `Store` (Protocol) y `MemoryStore` con volcado JSONL (RF-F0-06)
 - [ ] 2.2 Carga del catálogo desde `data/*.json`, con un seed de juguete hasta que P4 suba el real (RF-F0-08)
-- [ ] 2.3 `.env.example` con `OPENROUTER_API_KEY`, `LLM_MODEL`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `STORE_BACKEND`, `LLM_MODE`, `CORS_ORIGINS` (RF-F0-05)
+- [ ] 2.3 `.env.example` con `OPENROUTER_API_KEY`, `LLM_MODEL`, `SUPABASE_URL=https://shjpypqcetndpokklycy.supabase.co`, `SUPABASE_SERVICE_ROLE_KEY`, `DATABASE_URL` (con la contraseña como marcador), `STORE_BACKEND`, `LLM_MODE`, `CORS_ORIGINS` (RF-F0-05)
 - [ ] 2.4 `GET /api/health` y `GET /api/catalogo`; CORS desde `CORS_ORIGINS` (RF-F0-07, RF-F0-10, RF-F0-18)
 
 ## 3. Runs y eventos (hito 15:45: E1 de punta a punta)

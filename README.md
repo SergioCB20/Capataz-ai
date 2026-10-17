@@ -49,7 +49,7 @@ capataz/
 ## Arranque rápido
 
 ```bash
-cp .env.example .env          # OPENROUTER_API_KEY, LLM_MODEL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, CORS_ORIGINS
+cp .env.example .env          # OPENROUTER_API_KEY, LLM_MODEL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, DATABASE_URL, CORS_ORIGINS
 # Sin credenciales: STORE_BACKEND=memory y LLM_MODE=fake
 
 cd backend && uv sync && uv run uvicorn app.main:app --reload     # :8000
