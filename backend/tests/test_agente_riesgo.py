@@ -79,12 +79,17 @@ def ids(evaluacion):
 # -- modo fake: camino feliz ---------------------------------------------------------
 
 def test_fake_exige_los_controles_del_tipo_de_tarea_y_emite_los_eventos_del_agente(tarea, catalogo):
-    evaluacion, emisor = evaluar(tarea, catalogo, buscar=buscar_de(catalogo, "I1", "I2"))
+    evaluacion, emisor = evaluar(tarea, catalogo, buscar=buscar_de(catalogo, "I2"))
     assert controles_exigidos(evaluacion) == ["C1", "C2"]
     assert emisor.tipos[0] == TipoEvento.AGENTE_INICIADO
     assert emisor.tipos[-1] == TipoEvento.AGENTE_COMPLETADO
     assert TipoEvento.AGENTE_HERRAMIENTA in emisor.tipos
     assert {a for _, a, _ in emisor.eventos} == {ACTOR_RIESGO}
+
+
+def test_el_control_fallido_de_un_incidente_similar_se_suma_al_checklist(tarea, catalogo):
+    evaluacion, _ = evaluar(tarea, catalogo, buscar=buscar_de(catalogo, "I1"))  # I1 falló en C3, que no aplica al tipo
+    assert controles_exigidos(evaluacion) == ["C1", "C3", "C2"]
 
 
 def test_las_trazas_describen_la_herramienta_usada(tarea, catalogo):

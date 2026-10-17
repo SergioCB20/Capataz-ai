@@ -1,0 +1,240 @@
+[
+ {
+  "id": "CE-01",
+  "falla_inyectada": null,
+  "detectable_por": null,
+  "resultado_esperado": "RECOMENDADO",
+  "tarea": {
+   "id": "TA-CE-01",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Caso CE-01",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-1"
+    ],
+    "equipos": [
+     "EQ-1"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-02",
+  "falla_inyectada": "certificacion_vencida",
+  "detectable_por": "checklist",
+  "resultado_esperado": "BLOQUEADO",
+  "tarea": {
+   "id": "TA-CE-02",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Caso CE-02",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-2"
+    ],
+    "equipos": [
+     "EQ-1"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-03",
+  "falla_inyectada": "equipo_en_mantenimiento",
+  "detectable_por": "checklist",
+  "resultado_esperado": "BLOQUEADO",
+  "tarea": {
+   "id": "TA-CE-03",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Caso CE-03",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-1"
+    ],
+    "equipos": [
+     "EQ-2"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-04",
+  "falla_inyectada": "doble_asignacion",
+  "detectable_por": "checklist",
+  "resultado_esperado": "BLOQUEADO",
+  "tarea": {
+   "id": "TA-CE-04",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Caso CE-04",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-5"
+    ],
+    "equipos": [
+     "EQ-1"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-05",
+  "falla_inyectada": "condicion_de_campo_sin_verificar",
+  "detectable_por": "checklist",
+  "resultado_esperado": "REQUIERE_CAMPO",
+  "tarea": {
+   "id": "TA-CE-05",
+   "tipo_tarea": "TT-CAMPO",
+   "descripcion": "Caso CE-05",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-1"
+    ],
+    "equipos": [
+     "EQ-1"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-06",
+  "falla_inyectada": "sin_personal_asignado",
+  "detectable_por": "checklist",
+  "resultado_esperado": "BLOQUEADO",
+  "tarea": {
+   "id": "TA-CE-06",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Caso CE-06",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [],
+    "equipos": [
+     "EQ-1"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-07",
+  "falla_inyectada": "control_adicional_por_incidentes",
+  "detectable_por": "incidentes",
+  "resultado_esperado": "BLOQUEADO",
+  "tarea": {
+   "id": "TA-CE-07",
+   "tipo_tarea": "TT-ALT",
+   "descripcion": "Caso CE-07",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-4"
+    ],
+    "equipos": [
+     "EQ-4"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-08",
+  "falla_inyectada": null,
+  "detectable_por": null,
+  "resultado_esperado": "RECOMENDADO",
+  "tarea": {
+   "id": "TA-CE-08",
+   "tipo_tarea": "TT-ALT",
+   "descripcion": "Caso CE-08",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-1"
+    ],
+    "equipos": [
+     "EQ-4"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-09",
+  "falla_inyectada": "control_adicional_por_incidentes",
+  "detectable_por": "incidentes",
+  "resultado_esperado": "BLOQUEADO",
+  "tarea": {
+   "id": "TA-CE-09",
+   "tipo_tarea": "TT-ALT",
+   "descripcion": "Caso CE-09",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-2"
+    ],
+    "equipos": [
+     "EQ-4"
+    ]
+   }
+  }
+ },
+ {
+  "id": "CE-10",
+  "falla_inyectada": "tipo_de_equipo_incorrecto",
+  "detectable_por": "checklist",
+  "resultado_esperado": "BLOQUEADO",
+  "tarea": {
+   "id": "TA-CE-10",
+   "tipo_tarea": "TT-SOST",
+   "descripcion": "Caso CE-10",
+   "zona": "Nivel 3",
+   "turno": {
+    "fecha": "2026-10-20",
+    "turno": "dia"
+   },
+   "asignacion": {
+    "personas": [
+     "PER-1"
+    ],
+    "equipos": [
+     "EQ-3"
+    ]
+   }
+  }
+ }
+]
