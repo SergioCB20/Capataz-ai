@@ -1,0 +1,85 @@
+[
+ {
+  "id": "CTL-OPER",
+  "nombre": "Operador certificado en sostenimiento",
+  "peligro_id": "PEL-ROCA",
+  "aplica_a": [
+   "TT-SOST",
+   "TT-CAMPO"
+  ],
+  "requisitos": [
+   {
+    "id": "REQ-CERT",
+    "tipo": "competencia",
+    "descripcion": "Operador con certificación SOST",
+    "certificacion": "SOST",
+    "certificaciones_equivalentes": [
+     "SOST-B"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "CTL-EMP",
+  "nombre": "Empernador operativo",
+  "peligro_id": "PEL-ROCA",
+  "aplica_a": [
+   "TT-SOST",
+   "TT-CAMPO"
+  ],
+  "requisitos": [
+   {
+    "id": "REQ-EMP",
+    "tipo": "equipo",
+    "descripcion": "Empernador operativo",
+    "tipo_equipo": "empernador"
+   }
+  ]
+ },
+ {
+  "id": "CTL-DESATE",
+  "nombre": "Desatado de rocas previo",
+  "peligro_id": "PEL-ROCA",
+  "aplica_a": [
+   "TT-CAMPO"
+  ],
+  "requisitos": [
+   {
+    "id": "REQ-DES",
+    "tipo": "condicion_campo",
+    "descripcion": "Desatado realizado",
+    "pregunta_campo": "¿Se realizó el desatado de rocas en la labor?"
+   }
+  ]
+ },
+ {
+  "id": "CTL-PLAT",
+  "nombre": "Plataforma elevadora operativa",
+  "peligro_id": "PEL-ALT",
+  "aplica_a": [
+   "TT-ALT"
+  ],
+  "requisitos": [
+   {
+    "id": "REQ-PLAT",
+    "tipo": "equipo",
+    "descripcion": "Plataforma operativa",
+    "tipo_equipo": "plataforma"
+   }
+  ]
+ },
+ {
+  "id": "CTL-ARNES",
+  "nombre": "Operador con certificación de arnés",
+  "peligro_id": "PEL-ALT",
+  "aplica_a": [],
+  "requisitos": [
+   {
+    "id": "REQ-ARN",
+    "tipo": "competencia",
+    "descripcion": "Certificación de trabajo en altura",
+    "certificacion": "ARNES"
+   }
+  ]
+ }
+]
