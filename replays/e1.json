@@ -1,351 +1,538 @@
 [
-  {
-    "run_id": "replay-e1",
-    "seq": 1,
-    "ts": "2026-10-17T15:00:00.000Z",
-    "tipo": "run.iniciado",
-    "actor": "sistema",
-    "payload": {
-      "tarea": {
-        "id": "t-e1",
-        "tipo_tarea": "sostenimiento_pernos",
-        "descripcion": "Sostenimiento con pernos helicoidales en labor 12 tras voladura",
-        "zona": "Nivel 3200 · Labor 12",
-        "turno": { "fecha": "2026-10-17", "turno": "dia" },
-        "asignacion": { "personas": ["p-001", "p-002"], "equipos": ["eq-jumbo-01"] }
-      }
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 1,
+  "ts": "2026-10-17T22:26:37.980393Z",
+  "tipo": "run.iniciado",
+  "actor": "sistema",
+  "payload": {
+   "tarea": {
+    "id": "TAR-E1",
+    "tipo_tarea": "TT-ACARREO",
+    "descripcion": "Limpieza de mineral en el tajo 420 con scooptram",
+    "zona": "Nivel 3, tajo 420",
+    "turno": {
+     "fecha": "2026-10-20",
+     "turno": "dia"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-01"
+     ],
+     "equipos": [
+      "EQ-SCOOP-01"
+     ]
     }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 2,
-    "ts": "2026-10-17T15:00:00.300Z",
-    "tipo": "agente.iniciado",
-    "actor": "capataz:agente-riesgo",
-    "payload": { "agente": "capataz:agente-riesgo" }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 3,
-    "ts": "2026-10-17T15:00:01.200Z",
-    "tipo": "agente.herramienta",
-    "actor": "capataz:agente-riesgo",
-    "payload": {
-      "agente": "capataz:agente-riesgo",
-      "trace": {
-        "nombre": "buscar_incidentes",
-        "entrada": { "equipo": "jumbo_empernador", "actividad": "sostenimiento", "riesgo_critico": "caida_rocas" },
-        "salida_resumen": "2 incidentes similares (inc-007, inc-021)",
-        "duracion_ms": 12
-      }
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 4,
-    "ts": "2026-10-17T15:00:02.800Z",
-    "tipo": "agente.completado",
-    "actor": "capataz:agente-riesgo",
-    "payload": {
-      "agente": "capataz:agente-riesgo",
-      "resumen": "2 peligros detectados: caída de rocas y energía peligrosa. 3 controles del catálogo aplican.",
-      "evaluacion": {
-        "peligros": [
-          {
-            "peligro_id": "pel-caida-rocas",
-            "justificacion": "Labor recién disparada: el macizo puede estar fracturado hasta completar el desatado y el sostenimiento.",
-            "controles": ["ctl-sostenimiento", "ctl-epp"],
-            "incidentes_similares": ["inc-007", "inc-021"]
-          },
-          {
-            "peligro_id": "pel-energia",
-            "justificacion": "El jumbo empernador trabaja con energía hidráulica y eléctrica durante el mantenimiento en labor.",
-            "controles": ["ctl-loto"],
-            "incidentes_similares": []
-          }
-        ]
-      }
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 5,
-    "ts": "2026-10-17T15:00:03.000Z",
-    "tipo": "agente.iniciado",
-    "actor": "capataz:agente-personal",
-    "payload": { "agente": "capataz:agente-personal" }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 6,
-    "ts": "2026-10-17T15:00:03.050Z",
-    "tipo": "agente.iniciado",
-    "actor": "capataz:agente-equipo",
-    "payload": { "agente": "capataz:agente-equipo" }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 7,
-    "ts": "2026-10-17T15:00:03.600Z",
-    "tipo": "agente.herramienta",
-    "actor": "capataz:agente-personal",
-    "payload": {
-      "agente": "capataz:agente-personal",
-      "trace": {
-        "nombre": "listar_personal_turno",
-        "entrada": { "fecha": "2026-10-17", "turno": "dia" },
-        "salida_resumen": "6 personas disponibles en el turno día",
-        "duracion_ms": 4
-      }
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 8,
-    "ts": "2026-10-17T15:00:03.700Z",
-    "tipo": "agente.herramienta",
-    "actor": "capataz:agente-equipo",
-    "payload": {
-      "agente": "capataz:agente-equipo",
-      "trace": {
-        "nombre": "estado_equipo",
-        "entrada": { "equipo_id": "eq-jumbo-01", "fecha": "2026-10-17", "turno": "dia" },
-        "salida_resumen": "eq-jumbo-01: operativo, disponible en el turno",
-        "duracion_ms": 3
-      }
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 9,
-    "ts": "2026-10-17T15:00:04.300Z",
-    "tipo": "agente.herramienta",
-    "actor": "capataz:agente-personal",
-    "payload": {
-      "agente": "capataz:agente-personal",
-      "trace": {
-        "nombre": "verificar_certificaciones",
-        "entrada": { "personas": ["p-001", "p-002"], "a_fecha": "2026-10-17" },
-        "salida_resumen": "OP-EMPERNADOR, LOTO e INDUCCION-SSO vigentes",
-        "duracion_ms": 5
-      }
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 10,
-    "ts": "2026-10-17T15:00:04.600Z",
-    "tipo": "agente.completado",
-    "actor": "capataz:agente-equipo",
-    "payload": {
-      "agente": "capataz:agente-equipo",
-      "resumen": "1 requisito de equipo verificado: CUMPLE.",
-      "resultados": [
-        {
-          "control_id": "ctl-sostenimiento",
-          "requisito_id": "req-jumbo-operativo",
-          "estado": "CUMPLE",
-          "evidencia": [
-            {
-              "registro": "equipos/eq-jumbo-01",
-              "campo": "estado",
-              "valor": "operativo",
-              "fuente": { "tipo": "simulado", "referencia": "Registro de equipos (seed)" }
-            }
-          ],
-          "verificado_por": "capataz:agente-equipo",
-          "detalle": "Jumbo empernador eq-jumbo-01 operativo y sin otra asignación en el turno día."
-        }
-      ]
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 11,
-    "ts": "2026-10-17T15:00:05.000Z",
-    "tipo": "agente.completado",
-    "actor": "capataz:agente-personal",
-    "payload": {
-      "agente": "capataz:agente-personal",
-      "resumen": "3 requisitos de competencia verificados: todos CUMPLE.",
-      "resultados": [
-        {
-          "control_id": "ctl-sostenimiento",
-          "requisito_id": "req-operador-empernador",
-          "estado": "CUMPLE",
-          "evidencia": [
-            {
-              "registro": "personas/p-001",
-              "campo": "certificaciones.OP-EMPERNADOR.vence",
-              "valor": "2027-03-31",
-              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-            }
-          ],
-          "verificado_por": "capataz:agente-personal",
-          "detalle": "p-001 (operador) tiene OP-EMPERNADOR vigente a la fecha del turno."
-        },
-        {
-          "control_id": "ctl-loto",
-          "requisito_id": "req-loto",
-          "estado": "CUMPLE",
-          "evidencia": [
-            {
-              "registro": "personas/p-001",
-              "campo": "certificaciones.LOTO.vence",
-              "valor": "2026-12-15",
-              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-            }
-          ],
-          "verificado_por": "capataz:agente-personal",
-          "detalle": "p-001 tiene la capacitación de bloqueo y etiquetado (LOTO) vigente."
-        },
-        {
-          "control_id": "ctl-epp",
-          "requisito_id": "req-induccion",
-          "estado": "CUMPLE",
-          "evidencia": [
-            {
-              "registro": "personas/p-001",
-              "campo": "certificaciones.INDUCCION-SSO.vence",
-              "valor": "2027-01-10",
-              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-            },
-            {
-              "registro": "personas/p-002",
-              "campo": "certificaciones.INDUCCION-SSO.vence",
-              "valor": "2026-11-30",
-              "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-            }
-          ],
-          "verificado_por": "capataz:agente-personal",
-          "detalle": "p-001 y p-002 tienen la inducción de seguridad vigente."
-        }
-      ]
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 12,
-    "ts": "2026-10-17T15:00:05.300Z",
-    "tipo": "supervisor.consolidado",
-    "actor": "capataz:agente-supervisor",
-    "payload": {
-      "estado_sistema": "RECOMENDADO",
-      "resultados": [
-        {
-          "control_id": "ctl-sostenimiento",
-          "bloqueante": true,
-          "estado": "CUMPLE",
-          "requisitos": [
-            {
-              "control_id": "ctl-sostenimiento",
-              "requisito_id": "req-operador-empernador",
-              "estado": "CUMPLE",
-              "evidencia": [
-                {
-                  "registro": "personas/p-001",
-                  "campo": "certificaciones.OP-EMPERNADOR.vence",
-                  "valor": "2027-03-31",
-                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-                }
-              ],
-              "verificado_por": "capataz:agente-personal",
-              "detalle": "p-001 (operador) tiene OP-EMPERNADOR vigente a la fecha del turno."
-            },
-            {
-              "control_id": "ctl-sostenimiento",
-              "requisito_id": "req-jumbo-operativo",
-              "estado": "CUMPLE",
-              "evidencia": [
-                {
-                  "registro": "equipos/eq-jumbo-01",
-                  "campo": "estado",
-                  "valor": "operativo",
-                  "fuente": { "tipo": "simulado", "referencia": "Registro de equipos (seed)" }
-                }
-              ],
-              "verificado_por": "capataz:agente-equipo",
-              "detalle": "Jumbo empernador eq-jumbo-01 operativo y sin otra asignación en el turno día."
-            }
-          ]
-        },
-        {
-          "control_id": "ctl-loto",
-          "bloqueante": true,
-          "estado": "CUMPLE",
-          "requisitos": [
-            {
-              "control_id": "ctl-loto",
-              "requisito_id": "req-loto",
-              "estado": "CUMPLE",
-              "evidencia": [
-                {
-                  "registro": "personas/p-001",
-                  "campo": "certificaciones.LOTO.vence",
-                  "valor": "2026-12-15",
-                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-                }
-              ],
-              "verificado_por": "capataz:agente-personal",
-              "detalle": "p-001 tiene la capacitación de bloqueo y etiquetado (LOTO) vigente."
-            }
-          ]
-        },
-        {
-          "control_id": "ctl-epp",
-          "bloqueante": false,
-          "estado": "CUMPLE",
-          "requisitos": [
-            {
-              "control_id": "ctl-epp",
-              "requisito_id": "req-induccion",
-              "estado": "CUMPLE",
-              "evidencia": [
-                {
-                  "registro": "personas/p-001",
-                  "campo": "certificaciones.INDUCCION-SSO.vence",
-                  "valor": "2027-01-10",
-                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-                },
-                {
-                  "registro": "personas/p-002",
-                  "campo": "certificaciones.INDUCCION-SSO.vence",
-                  "valor": "2026-11-30",
-                  "fuente": { "tipo": "simulado", "referencia": "Registro de personal (seed)" }
-                }
-              ],
-              "verificado_por": "capataz:agente-personal",
-              "detalle": "p-001 y p-002 tienen la inducción de seguridad vigente."
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 13,
-    "ts": "2026-10-17T15:00:05.500Z",
-    "tipo": "plan.listo",
-    "actor": "capataz:agente-supervisor",
-    "payload": {
-      "plan": {
-        "id": "plan-e1",
-        "run_id": "replay-e1",
-        "estado_sistema": "RECOMENDADO",
-        "asignacion": { "personas": ["p-001", "p-002"], "equipos": ["eq-jumbo-01"] },
-        "cambios": [],
-        "resultados": [],
-        "escalamiento": null
-      }
-    }
-  },
-  {
-    "run_id": "replay-e1",
-    "seq": 14,
-    "ts": "2026-10-17T15:00:05.600Z",
-    "tipo": "humano.decision_requerida",
-    "actor": "sistema",
-    "payload": { "plan_id": "plan-e1", "solo_rechazo": false }
+   }
   }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 2,
+  "ts": "2026-10-17T22:26:37.989162Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo"
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 3,
+  "ts": "2026-10-17T22:26:37.997844Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "actividad": "Limpieza y acarreo con scooptram",
+     "riesgo_critico": "Interacción con equipo móvil"
+    },
+    "salida_resumen": "4 incidente(s): INC-05, INC-07, INC-06, INC-08",
+    "duracion_ms": 3
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 4,
+  "ts": "2026-10-17T22:26:38.011876Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "actividad": "Limpieza y acarreo con scooptram",
+     "riesgo_critico": "Energía no controlada en equipos"
+    },
+    "salida_resumen": "4 incidente(s): INC-05, INC-07, INC-06, INC-08",
+    "duracion_ms": 1
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 5,
+  "ts": "2026-10-17T22:26:38.014102Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "resumen": "2 peligro(s) y 2 control(es) exigido(s).",
+   "evaluacion": {
+    "peligros": [
+     {
+      "peligro_id": "PEL-EQM",
+      "justificacion": "Interacción con equipo móvil: peligro asociado a «Limpieza y acarreo con scooptram».",
+      "controles": [
+       "CTL-LIC",
+       "CTL-SCOOP"
+      ],
+      "incidentes_similares": [
+       "INC-05",
+       "INC-07"
+      ]
+     },
+     {
+      "peligro_id": "PEL-ENERGIA",
+      "justificacion": "Energía no controlada en equipos: peligro asociado a «Limpieza y acarreo con scooptram».",
+      "controles": [
+       "CTL-SCOOP",
+       "CTL-LIC"
+      ],
+      "incidentes_similares": [
+       "INC-05",
+       "INC-07"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 6,
+  "ts": "2026-10-17T22:26:38.015845Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal"
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 7,
+  "ts": "2026-10-17T22:26:38.017744Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "personal_disponible",
+    "entrada": {
+     "turno": "20/10/2026 día"
+    },
+    "salida_resumen": "2 persona(s): PER-01, PER-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 8,
+  "ts": "2026-10-17T22:26:38.022649Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "verificar_certificacion",
+    "entrada": {
+     "persona": "PER-01",
+     "certificaciones": [
+      "LIC-A1"
+     ],
+     "turno": "20/10/2026 día"
+    },
+    "salida_resumen": "Jorge Ccori: LIC-A1 vigente hasta el 15/08/2027",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 9,
+  "ts": "2026-10-17T22:26:38.024258Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "detectar_doble_asignacion",
+    "entrada": {
+     "persona": "PER-01",
+     "turno": "20/10/2026 día"
+    },
+    "salida_resumen": "0 otra(s) tarea(s)",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 10,
+  "ts": "2026-10-17T22:26:38.025874Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "resumen": "1 requisito(s): 1 CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-LIC",
+     "requisito_id": "REQ-LIC",
+     "estado": "CUMPLE",
+     "evidencia": [
+      {
+       "registro": "personas/PER-01",
+       "campo": "certificaciones.LIC-A1.vence",
+       "valor": "2027-08-15",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      },
+      {
+       "registro": "personas/PER-01",
+       "campo": "turnos",
+       "valor": "20/10/2026 día",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-personal",
+     "detalle": "Jorge Ccori: LIC-A1 vigente hasta el 15/08/2027; disponible el turno 20/10/2026 día"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 11,
+  "ts": "2026-10-17T22:26:38.027009Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo"
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 12,
+  "ts": "2026-10-17T22:26:38.028235Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-SCOOP-01",
+     "tipo_requerido": "scooptram",
+     "equivalencias": false
+    },
+    "salida_resumen": "Scooptram 01 es del tipo scooptram",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 13,
+  "ts": "2026-10-17T22:26:38.029395Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-SCOOP-01",
+     "turno": "20/10/2026 día"
+    },
+    "salida_resumen": "Scooptram 01 operativo y disponible el turno 20/10/2026 día",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 14,
+  "ts": "2026-10-17T22:26:38.030620Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "resumen": "1 requisito(s): 1 CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-SCOOP",
+     "requisito_id": "REQ-SCOOP",
+     "estado": "CUMPLE",
+     "evidencia": [
+      {
+       "registro": "equipos/EQ-SCOOP-01",
+       "campo": "tipo_equipo",
+       "valor": "scooptram",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      },
+      {
+       "registro": "equipos/EQ-SCOOP-01",
+       "campo": "estado",
+       "valor": "operativo",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-equipo",
+     "detalle": "Scooptram 01 es del tipo scooptram; Scooptram 01 operativo y disponible el turno 20/10/2026 día"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 15,
+  "ts": "2026-10-17T22:26:38.031880Z",
+  "tipo": "supervisor.consolidado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "resultados": [
+    {
+     "control_id": "CTL-LIC",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-LIC",
+       "requisito_id": "REQ-LIC",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "personas/PER-01",
+         "campo": "certificaciones.LIC-A1.vence",
+         "valor": "2027-08-15",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "personas/PER-01",
+         "campo": "turnos",
+         "valor": "20/10/2026 día",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-personal",
+       "detalle": "Jorge Ccori: LIC-A1 vigente hasta el 15/08/2027; disponible el turno 20/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-SCOOP",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-SCOOP",
+       "requisito_id": "REQ-SCOOP",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-SCOOP-01",
+         "campo": "tipo_equipo",
+         "valor": "scooptram",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "equipos/EQ-SCOOP-01",
+         "campo": "estado",
+         "valor": "operativo",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Scooptram 01 es del tipo scooptram; Scooptram 01 operativo y disponible el turno 20/10/2026 día"
+      }
+     ]
+    }
+   ],
+   "estado_sistema": "RECOMENDADO"
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 16,
+  "ts": "2026-10-17T22:26:38.032956Z",
+  "tipo": "plan.listo",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan": {
+    "id": "plan-3c764efb",
+    "run_id": "run-9fe90f68",
+    "estado_sistema": "RECOMENDADO",
+    "asignacion": {
+     "personas": [
+      "PER-01"
+     ],
+     "equipos": [
+      "EQ-SCOOP-01"
+     ]
+    },
+    "cambios": [],
+    "resultados": [
+     {
+      "control_id": "CTL-LIC",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-LIC",
+        "requisito_id": "REQ-LIC",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "personas/PER-01",
+          "campo": "certificaciones.LIC-A1.vence",
+          "valor": "2027-08-15",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "personas/PER-01",
+          "campo": "turnos",
+          "valor": "20/10/2026 día",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-personal",
+        "detalle": "Jorge Ccori: LIC-A1 vigente hasta el 15/08/2027; disponible el turno 20/10/2026 día"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-SCOOP",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-SCOOP",
+        "requisito_id": "REQ-SCOOP",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-SCOOP-01",
+          "campo": "tipo_equipo",
+          "valor": "scooptram",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "equipos/EQ-SCOOP-01",
+          "campo": "estado",
+          "valor": "operativo",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Scooptram 01 es del tipo scooptram; Scooptram 01 operativo y disponible el turno 20/10/2026 día"
+       }
+      ]
+     }
+    ],
+    "escalamiento": null,
+    "motivo": null
+   },
+   "planes_alternativos": []
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 17,
+  "ts": "2026-10-17T22:26:38.034343Z",
+  "tipo": "humano.decision_requerida",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan_id": "plan-3c764efb",
+   "solo_rechazo": false
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 18,
+  "ts": "2026-10-17T22:26:44.135788Z",
+  "tipo": "humano.decision_tomada",
+  "actor": "humano:supervisor",
+  "payload": {
+   "decision": {
+    "plan_id": "plan-3c764efb",
+    "decision": "aprobar",
+    "comentario": null,
+    "usuario": "supervisor"
+   }
+  }
+ },
+ {
+  "run_id": "run-9fe90f68",
+  "seq": 19,
+  "ts": "2026-10-17T22:26:44.137426Z",
+  "tipo": "run.finalizado",
+  "actor": "sistema",
+  "payload": {
+   "estado": "APROBADA"
+  }
+ }
 ]

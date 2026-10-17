@@ -1,0 +1,531 @@
+[
+ {
+  "run_id": "run-372964b4",
+  "seq": 1,
+  "ts": "2026-10-17T22:24:37.265199Z",
+  "tipo": "run.iniciado",
+  "actor": "sistema",
+  "payload": {
+   "tarea": {
+    "id": "TAR-E3",
+    "tipo_tarea": "TT-TRANSP",
+    "descripcion": "Transporte de mineral por la rampa 2 hacia la cancha de mineral",
+    "zona": "Rampa 2",
+    "turno": {
+     "fecha": "2026-10-23",
+     "turno": "noche"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-06"
+     ],
+     "equipos": [
+      "EQ-DUMP-01"
+     ]
+    }
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 2,
+  "ts": "2026-10-17T22:24:37.271817Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo"
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 3,
+  "ts": "2026-10-17T22:24:42.248492Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "equipo": "dumper",
+     "actividad": "transporte de mineral por rampa hacia cancha de mineral",
+     "riesgo_critico": "PEL-EQM interacción con equipo móvil"
+    },
+    "salida_resumen": "4 incidente(s): INC-06, INC-08, INC-05, INC-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 4,
+  "ts": "2026-10-17T22:24:42.250713Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "equipo": "dumper",
+     "actividad": "transporte de mineral por rampa hacia cancha de mineral",
+     "riesgo_critico": "PEL-ENERGIA energía no controlada en equipos"
+    },
+    "salida_resumen": "4 incidente(s): INC-06, INC-08, INC-05, INC-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 5,
+  "ts": "2026-10-17T22:24:50.654952Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "resumen": "2 peligro(s) y 2 control(es) exigido(s).",
+   "evaluacion": {
+    "peligros": [
+     {
+      "peligro_id": "PEL-EQM",
+      "justificacion": "El transporte en dumper por una rampa implica interacción con equipo móvil. INC-06 e INC-08 describen incidentes de dumper en rampa relacionados con fallas del equipo y falta de licencia.",
+      "controles": [
+       "CTL-LIC"
+      ],
+      "incidentes_similares": [
+       "INC-06",
+       "INC-08"
+      ]
+     },
+     {
+      "peligro_id": "PEL-ENERGIA",
+      "justificacion": "La tarea requiere operar un dumper; INC-06 documenta un despiste en rampa tras continuar operando con una falla de frenos reportada.",
+      "controles": [
+       "CTL-DUMPER"
+      ],
+      "incidentes_similares": [
+       "INC-06"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 6,
+  "ts": "2026-10-17T22:24:50.659988Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal"
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 7,
+  "ts": "2026-10-17T22:24:50.664099Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "personal_disponible",
+    "entrada": {
+     "turno": "23/10/2026 noche"
+    },
+    "salida_resumen": "2 persona(s): PER-06, PER-08",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 8,
+  "ts": "2026-10-17T22:24:50.666086Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "verificar_certificacion",
+    "entrada": {
+     "persona": "PER-06",
+     "certificaciones": [
+      "LIC-A1"
+     ],
+     "turno": "23/10/2026 noche"
+    },
+    "salida_resumen": "Pedro Condori: LIC-A1 vigente hasta el 01/02/2027",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 9,
+  "ts": "2026-10-17T22:24:50.667734Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "detectar_doble_asignacion",
+    "entrada": {
+     "persona": "PER-06",
+     "turno": "23/10/2026 noche"
+    },
+    "salida_resumen": "0 otra(s) tarea(s)",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 10,
+  "ts": "2026-10-17T22:24:50.669470Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "resumen": "1 requisito(s): 1 CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-LIC",
+     "requisito_id": "REQ-LIC",
+     "estado": "CUMPLE",
+     "evidencia": [
+      {
+       "registro": "personas/PER-06",
+       "campo": "certificaciones.LIC-A1.vence",
+       "valor": "2027-02-01",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      },
+      {
+       "registro": "personas/PER-06",
+       "campo": "turnos",
+       "valor": "23/10/2026 noche",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-personal",
+     "detalle": "Pedro Condori: LIC-A1 vigente hasta el 01/02/2027; disponible el turno 23/10/2026 noche"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 11,
+  "ts": "2026-10-17T22:24:50.671127Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo"
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 12,
+  "ts": "2026-10-17T22:24:50.672757Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-DUMP-01",
+     "tipo_requerido": "dumper",
+     "equivalencias": false
+    },
+    "salida_resumen": "Dumper 01 es del tipo dumper",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 13,
+  "ts": "2026-10-17T22:24:50.675188Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-DUMP-01",
+     "turno": "23/10/2026 noche"
+    },
+    "salida_resumen": "Dumper 01 está en fuera de servicio",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 14,
+  "ts": "2026-10-17T22:24:50.677183Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "resumen": "1 requisito(s): 1 NO_CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-DUMPER",
+     "requisito_id": "REQ-DUMPER",
+     "estado": "NO_CUMPLE",
+     "evidencia": [
+      {
+       "registro": "equipos/EQ-DUMP-01",
+       "campo": "estado",
+       "valor": "fuera_servicio",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-equipo",
+     "detalle": "Ningún equipo asignado está disponible: Dumper 01 está en fuera de servicio"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 15,
+  "ts": "2026-10-17T22:24:50.678885Z",
+  "tipo": "supervisor.consolidado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "resultados": [
+    {
+     "control_id": "CTL-LIC",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-LIC",
+       "requisito_id": "REQ-LIC",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "personas/PER-06",
+         "campo": "certificaciones.LIC-A1.vence",
+         "valor": "2027-02-01",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "personas/PER-06",
+         "campo": "turnos",
+         "valor": "23/10/2026 noche",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-personal",
+       "detalle": "Pedro Condori: LIC-A1 vigente hasta el 01/02/2027; disponible el turno 23/10/2026 noche"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-DUMPER",
+     "bloqueante": true,
+     "estado": "NO_CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-DUMPER",
+       "requisito_id": "REQ-DUMPER",
+       "estado": "NO_CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-DUMP-01",
+         "campo": "estado",
+         "valor": "fuera_servicio",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Ningún equipo asignado está disponible: Dumper 01 está en fuera de servicio"
+      }
+     ]
+    }
+   ],
+   "estado_sistema": "BLOQUEADO"
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 16,
+  "ts": "2026-10-17T22:24:50.680234Z",
+  "tipo": "conflicto.detectado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "control_id": "CTL-DUMPER",
+   "requisito_id": "REQ-DUMPER",
+   "causa": "Ningún equipo asignado está disponible: Dumper 01 está en fuera de servicio",
+   "evidencia": [
+    {
+     "registro": "equipos/EQ-DUMP-01",
+     "campo": "estado",
+     "valor": "fuera_servicio",
+     "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado",
+      "url": null
+     }
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 17,
+  "ts": "2026-10-17T22:24:55.766916Z",
+  "tipo": "plan.listo",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan": {
+    "id": "plan-4f4c60c0",
+    "run_id": "run-372964b4",
+    "estado_sistema": "BLOQUEADO",
+    "asignacion": {
+     "personas": [
+      "PER-06"
+     ],
+     "equipos": [
+      "EQ-DUMP-01"
+     ]
+    },
+    "cambios": [],
+    "resultados": [
+     {
+      "control_id": "CTL-LIC",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-LIC",
+        "requisito_id": "REQ-LIC",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "personas/PER-06",
+          "campo": "certificaciones.LIC-A1.vence",
+          "valor": "2027-02-01",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "personas/PER-06",
+          "campo": "turnos",
+          "valor": "23/10/2026 noche",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-personal",
+        "detalle": "Pedro Condori: LIC-A1 vigente hasta el 01/02/2027; disponible el turno 23/10/2026 noche"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-DUMPER",
+      "bloqueante": true,
+      "estado": "NO_CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-DUMPER",
+        "requisito_id": "REQ-DUMPER",
+        "estado": "NO_CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-DUMP-01",
+          "campo": "estado",
+          "valor": "fuera_servicio",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Ningún equipo asignado está disponible: Dumper 01 está en fuera de servicio"
+       }
+      ]
+     }
+    ],
+    "escalamiento": "Avisar al jefe de mantenimiento mina y al superintendente de operaciones: no hay dumper operativo ni equivalente para el turno.",
+    "motivo": "Dumper operativo y fuera de mantenimiento: Ningún equipo asignado está disponible: Dumper 01 está en fuera de servicio. Sin alternativa segura tras 2 rondas."
+   },
+   "planes_alternativos": []
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 18,
+  "ts": "2026-10-17T22:24:55.769537Z",
+  "tipo": "humano.decision_requerida",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan_id": "plan-4f4c60c0",
+   "solo_rechazo": true
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 19,
+  "ts": "2026-10-17T22:25:03.611748Z",
+  "tipo": "humano.decision_tomada",
+  "actor": "humano:supervisor",
+  "payload": {
+   "decision": {
+    "plan_id": "plan-4f4c60c0",
+    "decision": "rechazar",
+    "comentario": "Sin alternativa segura: no se inicia la tarea y se escala según lo sugerido.",
+    "usuario": "supervisor"
+   }
+  }
+ },
+ {
+  "run_id": "run-372964b4",
+  "seq": 20,
+  "ts": "2026-10-17T22:25:03.617922Z",
+  "tipo": "run.finalizado",
+  "actor": "sistema",
+  "payload": {
+   "estado": "BLOQUEADA"
+  }
+ }
+]

@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react'
 import { api } from '@/api/cliente'
 import type { Catalogo } from '@/api/types'
-import { catalogoDemo } from '@/datos/catalogoDemo'
+import catalogoJson from '@/datos/catalogo.json'
 
 export interface EstadoCatalogo {
   catalogo: Catalogo
-  /** true si el backend respondió; false = catálogo de demostración local. */
+  /** true si el backend respondió; false = catálogo empaquetado en el build. */
   conBackend: boolean
   cargando: boolean
 }
 
-/** Catálogo del backend (GET /api/catalogo); si no responde, el de demostración (RF-F0-13). */
+// Catálogo empaquetado: data/ de P4 validado por el backend (`pnpm gen:types` lo actualiza).
+// Tiene los mismos IDs que los replays grabados, así que el modo sin servidor muestra nombres reales.
+const catalogoLocal = catalogoJson as unknown as Catalogo
+
+/** Catálogo del backend (GET /api/catalogo); si no responde, el empaquetado (RF-F0-13, RF-F3-45). */
 export function useCatalogo(): EstadoCatalogo {
-  const [estado, setEstado] = useState<EstadoCatalogo>({ catalogo: catalogoDemo, conBackend: false, cargando: true })
+  const [estado, setEstado] = useState<EstadoCatalogo>({ catalogo: catalogoLocal, conBackend: false, cargando: true })
 
   useEffect(() => {
     let vivo = true
@@ -20,7 +24,7 @@ export function useCatalogo(): EstadoCatalogo {
       .health()
       .then(() => api.catalogo())
       .then((catalogo) => vivo && setEstado({ catalogo, conBackend: true, cargando: false }))
-      .catch(() => vivo && setEstado({ catalogo: catalogoDemo, conBackend: false, cargando: false }))
+      .catch(() => vivo && setEstado({ catalogo: catalogoLocal, conBackend: false, cargando: false }))
     return () => {
       vivo = false
     }

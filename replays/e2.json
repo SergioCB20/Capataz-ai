@@ -1,0 +1,2157 @@
+[
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 1,
+  "ts": "2026-10-17T22:23:23.937485Z",
+  "tipo": "run.iniciado",
+  "actor": "sistema",
+  "payload": {
+   "tarea": {
+    "id": "TAR-E2",
+    "tipo_tarea": "TT-SOST",
+    "descripcion": "Sostenimiento con pernos en la galería 310",
+    "zona": "Nivel 2, galería 310",
+    "turno": {
+     "fecha": "2026-10-21",
+     "turno": "dia"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-02"
+     ],
+     "equipos": [
+      "EQ-EMP-01"
+     ]
+    }
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 2,
+  "ts": "2026-10-17T22:23:23.951953Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo"
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 3,
+  "ts": "2026-10-17T22:23:27.735474Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "equipo": "Empernador / equipo de sostenimiento",
+     "actividad": "Sostenimiento con pernos en galería",
+     "riesgo_critico": "Caída de rocas (PEL-ROCA)"
+    },
+    "salida_resumen": "4 incidente(s): INC-03, INC-01, INC-04, INC-02",
+    "duracion_ms": 3
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 4,
+  "ts": "2026-10-17T22:23:27.753769Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "equipo": "Equipo móvil de sostenimiento, si aplica",
+     "actividad": "Sostenimiento con pernos en galería",
+     "riesgo_critico": "Interacción con equipo móvil (PEL-EQM)"
+    },
+    "salida_resumen": "5 incidente(s): INC-03, INC-01, INC-05, INC-04, INC-07",
+    "duracion_ms": 6
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 5,
+  "ts": "2026-10-17T22:23:27.760068Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "equipo": "Empernador / equipo de sostenimiento",
+     "actividad": "Sostenimiento con pernos en galería",
+     "riesgo_critico": "Energía no controlada en equipos (PEL-ENERGIA)"
+    },
+    "salida_resumen": "5 incidente(s): INC-03, INC-01, INC-04, INC-05, INC-07",
+    "duracion_ms": 2
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 6,
+  "ts": "2026-10-17T22:23:31.864829Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "resumen": "1 peligro(s) y 4 control(es) exigido(s).",
+   "evaluacion": {
+    "peligros": [
+     {
+      "peligro_id": "PEL-ROCA",
+      "justificacion": "El sostenimiento con pernos expone a caída de rocas durante el trabajo en la galería. Los incidentes consultados relacionan este riesgo con la capacitación del operador, el uso del empernador, la tabla geomecánica y el desatado previo.",
+      "controles": [
+       "CTL-SOST",
+       "CTL-EMP",
+       "CTL-GEOMEC",
+       "CTL-DESATADO"
+      ],
+      "incidentes_similares": [
+       "INC-03",
+       "INC-01",
+       "INC-04",
+       "INC-02"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 7,
+  "ts": "2026-10-17T22:23:31.869434Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal"
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 8,
+  "ts": "2026-10-17T22:23:31.873486Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "personal_disponible",
+    "entrada": {
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "4 persona(s): PER-02, PER-03, PER-04, PER-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 9,
+  "ts": "2026-10-17T22:23:31.876935Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "verificar_certificacion",
+    "entrada": {
+     "persona": "PER-02",
+     "certificaciones": [
+      "SOST"
+     ],
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026)",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 10,
+  "ts": "2026-10-17T22:23:31.882677Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "resumen": "1 requisito(s): 1 NO_CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-SOST",
+     "requisito_id": "REQ-SOST",
+     "estado": "NO_CUMPLE",
+     "evidencia": [
+      {
+       "registro": "personas/PER-02",
+       "campo": "certificaciones.SOST.vence",
+       "valor": "2026-09-30",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-personal",
+     "detalle": "Ninguna persona asignada cumple: Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026)"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 11,
+  "ts": "2026-10-17T22:23:31.885619Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo"
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 12,
+  "ts": "2026-10-17T22:23:31.888079Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-01",
+     "tipo_requerido": "empernador",
+     "equivalencias": false
+    },
+    "salida_resumen": "Empernador 01 es del tipo empernador",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 13,
+  "ts": "2026-10-17T22:23:31.890296Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-01",
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Empernador 01 está en mantenimiento",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 14,
+  "ts": "2026-10-17T22:23:31.892633Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "resumen": "1 requisito(s): 1 NO_CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-EMP",
+     "requisito_id": "REQ-EMP",
+     "estado": "NO_CUMPLE",
+     "evidencia": [
+      {
+       "registro": "equipos/EQ-EMP-01",
+       "campo": "estado",
+       "valor": "mantenimiento",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-equipo",
+     "detalle": "Ningún equipo asignado está disponible: Empernador 01 está en mantenimiento"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 15,
+  "ts": "2026-10-17T22:23:31.896047Z",
+  "tipo": "supervisor.consolidado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "resultados": [
+    {
+     "control_id": "CTL-SOST",
+     "bloqueante": true,
+     "estado": "NO_CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-SOST",
+       "requisito_id": "REQ-SOST",
+       "estado": "NO_CUMPLE",
+       "evidencia": [
+        {
+         "registro": "personas/PER-02",
+         "campo": "certificaciones.SOST.vence",
+         "valor": "2026-09-30",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-personal",
+       "detalle": "Ninguna persona asignada cumple: Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026)"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-EMP",
+     "bloqueante": true,
+     "estado": "NO_CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-EMP",
+       "requisito_id": "REQ-EMP",
+       "estado": "NO_CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-EMP-01",
+         "campo": "estado",
+         "valor": "mantenimiento",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Ningún equipo asignado está disponible: Empernador 01 está en mantenimiento"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-GEOMEC",
+     "bloqueante": true,
+     "estado": "NO_VERIFICABLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-GEOMEC",
+       "requisito_id": "REQ-GEOMEC",
+       "estado": "NO_VERIFICABLE",
+       "evidencia": [],
+       "verificado_por": "capataz:agente-supervisor",
+       "detalle": "Requiere confirmación en campo"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-DESATADO",
+     "bloqueante": true,
+     "estado": "NO_VERIFICABLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-DESATADO",
+       "requisito_id": "REQ-DESATADO",
+       "estado": "NO_VERIFICABLE",
+       "evidencia": [],
+       "verificado_por": "capataz:agente-supervisor",
+       "detalle": "Requiere confirmación en campo"
+      }
+     ]
+    }
+   ],
+   "estado_sistema": "BLOQUEADO"
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 16,
+  "ts": "2026-10-17T22:23:31.899433Z",
+  "tipo": "conflicto.detectado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "control_id": "CTL-SOST",
+   "requisito_id": "REQ-SOST",
+   "causa": "Ninguna persona asignada cumple: Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026)",
+   "evidencia": [
+    {
+     "registro": "personas/PER-02",
+     "campo": "certificaciones.SOST.vence",
+     "valor": "2026-09-30",
+     "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado",
+      "url": null
+     }
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 17,
+  "ts": "2026-10-17T22:23:31.901193Z",
+  "tipo": "conflicto.detectado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "control_id": "CTL-EMP",
+   "requisito_id": "REQ-EMP",
+   "causa": "Ningún equipo asignado está disponible: Empernador 01 está en mantenimiento",
+   "evidencia": [
+    {
+     "registro": "equipos/EQ-EMP-01",
+     "campo": "estado",
+     "valor": "mantenimiento",
+     "fuente": {
+      "tipo": "simulado",
+      "referencia": "Dato simulado",
+      "url": null
+     }
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 18,
+  "ts": "2026-10-17T22:23:36.143180Z",
+  "tipo": "conflicto.alternativas",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "ronda": 1,
+   "alternativas": [
+    {
+     "id": "alt-c11956d3",
+     "ronda": 1,
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-04",
+       "motivo": "Cuenta con certificación SOST vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-02",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "explicacion": "Sustituye a la persona con certificación vencida y al empernador en mantenimiento por recursos disponibles y vigentes. Sacrifica la asignación original de ambos recursos.",
+     "cumple_bloqueantes": null,
+     "motivo_fallo": null
+    },
+    {
+     "id": "alt-342f1713",
+     "ronda": 1,
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-03",
+       "motivo": "Cuenta con certificación equivalente SOST-B vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-02",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "explicacion": "Usa una certificación equivalente vigente y un empernador operativo en el mismo turno. Sacrifica la asignación original de ambos recursos.",
+     "cumple_bloqueantes": null,
+     "motivo_fallo": null
+    },
+    {
+     "id": "alt-1273ac5f",
+     "ronda": 1,
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-04",
+       "motivo": "Cuenta con certificación SOST vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-04",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "explicacion": "Mantiene el turno y reemplaza ambos recursos que no cumplen con alternativas disponibles y vigentes. Sacrifica la asignación original de ambos recursos.",
+     "cumple_bloqueantes": null,
+     "motivo_fallo": null
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 19,
+  "ts": "2026-10-17T22:23:36.146391Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "personal_disponible",
+    "entrada": {
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "4 persona(s): PER-02, PER-03, PER-04, PER-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 20,
+  "ts": "2026-10-17T22:23:36.148660Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "verificar_certificacion",
+    "entrada": {
+     "persona": "PER-04",
+     "certificaciones": [
+      "SOST",
+      "SOST-B"
+     ],
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Ana Quispe: SOST vigente hasta el 01/03/2027",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 21,
+  "ts": "2026-10-17T22:23:36.150227Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "detectar_doble_asignacion",
+    "entrada": {
+     "persona": "PER-04",
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "0 otra(s) tarea(s)",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 22,
+  "ts": "2026-10-17T22:23:36.151797Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-02",
+     "tipo_requerido": "empernador",
+     "equivalencias": true
+    },
+    "salida_resumen": "Empernador 02 es del tipo empernador",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 23,
+  "ts": "2026-10-17T22:23:36.153228Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-02",
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Empernador 02 operativo y disponible el turno 21/10/2026 día",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 24,
+  "ts": "2026-10-17T22:23:36.154802Z",
+  "tipo": "conflicto.alternativa_verificada",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "alternativa": {
+    "id": "alt-c11956d3",
+    "ronda": 1,
+    "cambios": [
+     {
+      "tipo": "certificacion_equivalente",
+      "desde": "PER-02",
+      "hacia": "PER-04",
+      "motivo": "Cuenta con certificación SOST vigente para el turno."
+     },
+     {
+      "tipo": "equipo_equivalente",
+      "desde": "EQ-EMP-01",
+      "hacia": "EQ-EMP-02",
+      "motivo": "Empernador operativo."
+     }
+    ],
+    "explicacion": "Sustituye a la persona con certificación vencida y al empernador en mantenimiento por recursos disponibles y vigentes. Sacrifica la asignación original de ambos recursos.",
+    "cumple_bloqueantes": true,
+    "motivo_fallo": null
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 25,
+  "ts": "2026-10-17T22:23:36.156575Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "personal_disponible",
+    "entrada": {
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "4 persona(s): PER-02, PER-03, PER-04, PER-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 26,
+  "ts": "2026-10-17T22:23:36.158185Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "verificar_certificacion",
+    "entrada": {
+     "persona": "PER-03",
+     "certificaciones": [
+      "SOST",
+      "SOST-B"
+     ],
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Rosa Mamani: SOST-B vigente hasta el 01/05/2027",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 27,
+  "ts": "2026-10-17T22:23:36.159663Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "detectar_doble_asignacion",
+    "entrada": {
+     "persona": "PER-03",
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "0 otra(s) tarea(s)",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 28,
+  "ts": "2026-10-17T22:23:36.162429Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-02",
+     "tipo_requerido": "empernador",
+     "equivalencias": true
+    },
+    "salida_resumen": "Empernador 02 es del tipo empernador",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 29,
+  "ts": "2026-10-17T22:23:36.164389Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-02",
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Empernador 02 operativo y disponible el turno 21/10/2026 día",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 30,
+  "ts": "2026-10-17T22:23:36.166149Z",
+  "tipo": "conflicto.alternativa_verificada",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "alternativa": {
+    "id": "alt-342f1713",
+    "ronda": 1,
+    "cambios": [
+     {
+      "tipo": "certificacion_equivalente",
+      "desde": "PER-02",
+      "hacia": "PER-03",
+      "motivo": "Cuenta con certificación equivalente SOST-B vigente para el turno."
+     },
+     {
+      "tipo": "equipo_equivalente",
+      "desde": "EQ-EMP-01",
+      "hacia": "EQ-EMP-02",
+      "motivo": "Empernador operativo."
+     }
+    ],
+    "explicacion": "Usa una certificación equivalente vigente y un empernador operativo en el mismo turno. Sacrifica la asignación original de ambos recursos.",
+    "cumple_bloqueantes": true,
+    "motivo_fallo": null
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 31,
+  "ts": "2026-10-17T22:23:36.168181Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "personal_disponible",
+    "entrada": {
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "4 persona(s): PER-02, PER-03, PER-04, PER-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 32,
+  "ts": "2026-10-17T22:23:36.169634Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "verificar_certificacion",
+    "entrada": {
+     "persona": "PER-04",
+     "certificaciones": [
+      "SOST",
+      "SOST-B"
+     ],
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Ana Quispe: SOST vigente hasta el 01/03/2027",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 33,
+  "ts": "2026-10-17T22:23:36.171198Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "detectar_doble_asignacion",
+    "entrada": {
+     "persona": "PER-04",
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "0 otra(s) tarea(s)",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 34,
+  "ts": "2026-10-17T22:23:36.172851Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-04",
+     "tipo_requerido": "empernador",
+     "equivalencias": true
+    },
+    "salida_resumen": "Empernador 04 es del tipo empernador",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 35,
+  "ts": "2026-10-17T22:23:36.174393Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-04",
+     "turno": "21/10/2026 día"
+    },
+    "salida_resumen": "Empernador 04 operativo y disponible el turno 21/10/2026 día",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 36,
+  "ts": "2026-10-17T22:23:36.175968Z",
+  "tipo": "conflicto.alternativa_verificada",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "alternativa": {
+    "id": "alt-1273ac5f",
+    "ronda": 1,
+    "cambios": [
+     {
+      "tipo": "certificacion_equivalente",
+      "desde": "PER-02",
+      "hacia": "PER-04",
+      "motivo": "Cuenta con certificación SOST vigente para el turno."
+     },
+     {
+      "tipo": "equipo_equivalente",
+      "desde": "EQ-EMP-01",
+      "hacia": "EQ-EMP-04",
+      "motivo": "Empernador operativo."
+     }
+    ],
+    "explicacion": "Mantiene el turno y reemplaza ambos recursos que no cumplen con alternativas disponibles y vigentes. Sacrifica la asignación original de ambos recursos.",
+    "cumple_bloqueantes": true,
+    "motivo_fallo": null
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 37,
+  "ts": "2026-10-17T22:23:36.178842Z",
+  "tipo": "plan.listo",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan": {
+    "id": "plan-2fdb9905",
+    "run_id": "run-e2da45ce",
+    "estado_sistema": "BLOQUEADO",
+    "asignacion": {
+     "personas": [
+      "PER-02"
+     ],
+     "equipos": [
+      "EQ-EMP-01"
+     ]
+    },
+    "cambios": [],
+    "resultados": [
+     {
+      "control_id": "CTL-SOST",
+      "bloqueante": true,
+      "estado": "NO_CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-SOST",
+        "requisito_id": "REQ-SOST",
+        "estado": "NO_CUMPLE",
+        "evidencia": [
+         {
+          "registro": "personas/PER-02",
+          "campo": "certificaciones.SOST.vence",
+          "valor": "2026-09-30",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-personal",
+        "detalle": "Ninguna persona asignada cumple: Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026)"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-EMP",
+      "bloqueante": true,
+      "estado": "NO_CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-EMP",
+        "requisito_id": "REQ-EMP",
+        "estado": "NO_CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-EMP-01",
+          "campo": "estado",
+          "valor": "mantenimiento",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Ningún equipo asignado está disponible: Empernador 01 está en mantenimiento"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-GEOMEC",
+      "bloqueante": true,
+      "estado": "NO_VERIFICABLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-GEOMEC",
+        "requisito_id": "REQ-GEOMEC",
+        "estado": "NO_VERIFICABLE",
+        "evidencia": [],
+        "verificado_por": "capataz:agente-supervisor",
+        "detalle": "Requiere confirmación en campo"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-DESATADO",
+      "bloqueante": true,
+      "estado": "NO_VERIFICABLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-DESATADO",
+        "requisito_id": "REQ-DESATADO",
+        "estado": "NO_VERIFICABLE",
+        "evidencia": [],
+        "verificado_por": "capataz:agente-supervisor",
+        "detalle": "Requiere confirmación en campo"
+       }
+      ]
+     }
+    ],
+    "escalamiento": null,
+    "motivo": "Plan original bloqueado. Operador capacitado en desate y sostenimiento: Ninguna persona asignada cumple: Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026); Sostenimiento mecanizado con empernador operativo: Ningún equipo asignado está disponible: Empernador 01 está en mantenimiento."
+   },
+   "planes_alternativos": [
+    {
+     "id": "alt-c11956d3",
+     "run_id": "run-e2da45ce",
+     "estado_sistema": "REQUIERE_CAMPO",
+     "asignacion": {
+      "personas": [
+       "PER-04"
+      ],
+      "equipos": [
+       "EQ-EMP-02"
+      ]
+     },
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-04",
+       "motivo": "Cuenta con certificación SOST vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-02",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "resultados": [
+      {
+       "control_id": "CTL-SOST",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-SOST",
+         "requisito_id": "REQ-SOST",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "personas/PER-04",
+           "campo": "certificaciones.SOST.vence",
+           "valor": "2027-03-01",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "personas/PER-04",
+           "campo": "turnos",
+           "valor": "21/10/2026 día",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-personal",
+         "detalle": "Ana Quispe: SOST vigente hasta el 01/03/2027; disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-EMP",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-EMP",
+         "requisito_id": "REQ-EMP",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "tipo_equipo",
+           "valor": "empernador",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "estado",
+           "valor": "operativo",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-equipo",
+         "detalle": "Empernador 02 es del tipo empernador; Empernador 02 operativo y disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-GEOMEC",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-GEOMEC",
+         "requisito_id": "REQ-GEOMEC",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-DESATADO",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-DESATADO",
+         "requisito_id": "REQ-DESATADO",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      }
+     ],
+     "escalamiento": null,
+     "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+    },
+    {
+     "id": "alt-342f1713",
+     "run_id": "run-e2da45ce",
+     "estado_sistema": "REQUIERE_CAMPO",
+     "asignacion": {
+      "personas": [
+       "PER-03"
+      ],
+      "equipos": [
+       "EQ-EMP-02"
+      ]
+     },
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-03",
+       "motivo": "Cuenta con certificación equivalente SOST-B vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-02",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "resultados": [
+      {
+       "control_id": "CTL-SOST",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-SOST",
+         "requisito_id": "REQ-SOST",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "personas/PER-03",
+           "campo": "certificaciones.SOST-B.vence",
+           "valor": "2027-05-01",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "personas/PER-03",
+           "campo": "turnos",
+           "valor": "21/10/2026 día",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-personal",
+         "detalle": "Rosa Mamani: SOST-B vigente hasta el 01/05/2027; disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-EMP",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-EMP",
+         "requisito_id": "REQ-EMP",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "tipo_equipo",
+           "valor": "empernador",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "estado",
+           "valor": "operativo",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-equipo",
+         "detalle": "Empernador 02 es del tipo empernador; Empernador 02 operativo y disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-GEOMEC",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-GEOMEC",
+         "requisito_id": "REQ-GEOMEC",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-DESATADO",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-DESATADO",
+         "requisito_id": "REQ-DESATADO",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      }
+     ],
+     "escalamiento": null,
+     "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+    },
+    {
+     "id": "alt-1273ac5f",
+     "run_id": "run-e2da45ce",
+     "estado_sistema": "REQUIERE_CAMPO",
+     "asignacion": {
+      "personas": [
+       "PER-04"
+      ],
+      "equipos": [
+       "EQ-EMP-04"
+      ]
+     },
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-04",
+       "motivo": "Cuenta con certificación SOST vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-04",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "resultados": [
+      {
+       "control_id": "CTL-SOST",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-SOST",
+         "requisito_id": "REQ-SOST",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "personas/PER-04",
+           "campo": "certificaciones.SOST.vence",
+           "valor": "2027-03-01",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "personas/PER-04",
+           "campo": "turnos",
+           "valor": "21/10/2026 día",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-personal",
+         "detalle": "Ana Quispe: SOST vigente hasta el 01/03/2027; disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-EMP",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-EMP",
+         "requisito_id": "REQ-EMP",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "equipos/EQ-EMP-04",
+           "campo": "tipo_equipo",
+           "valor": "empernador",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "equipos/EQ-EMP-04",
+           "campo": "estado",
+           "valor": "operativo",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-equipo",
+         "detalle": "Empernador 04 es del tipo empernador; Empernador 04 operativo y disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-GEOMEC",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-GEOMEC",
+         "requisito_id": "REQ-GEOMEC",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-DESATADO",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-DESATADO",
+         "requisito_id": "REQ-DESATADO",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      }
+     ],
+     "escalamiento": null,
+     "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 38,
+  "ts": "2026-10-17T22:23:36.184059Z",
+  "tipo": "humano.campo_requerido",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "preguntas": [
+    {
+     "requisito_id": "REQ-GEOMEC",
+     "pregunta": "¿Está publicada en la labor la tabla geomecánica vigente del mes?",
+     "control_id": "CTL-GEOMEC"
+    },
+    {
+     "requisito_id": "REQ-DESATADO",
+     "pregunta": "¿Se completó el desatado total de la labor, con dos personas (una desata y otra vigila)?",
+     "control_id": "CTL-DESATADO"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 39,
+  "ts": "2026-10-17T22:23:42.220467Z",
+  "tipo": "humano.campo_confirmado",
+  "actor": "humano:supervisor",
+  "payload": {
+   "confirmaciones": {
+    "usuario": "supervisor",
+    "ts": "2026-10-17T22:23:40.190551Z",
+    "respuestas": [
+     {
+      "requisito_id": "REQ-GEOMEC",
+      "cumple": true,
+      "nota": "Verificado en la labor"
+     },
+     {
+      "requisito_id": "REQ-DESATADO",
+      "cumple": true,
+      "nota": "Verificado en la labor"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 40,
+  "ts": "2026-10-17T22:23:42.236652Z",
+  "tipo": "supervisor.consolidado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "resultados": [
+    {
+     "control_id": "CTL-SOST",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-SOST",
+       "requisito_id": "REQ-SOST",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "personas/PER-04",
+         "campo": "certificaciones.SOST.vence",
+         "valor": "2027-03-01",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "personas/PER-04",
+         "campo": "turnos",
+         "valor": "21/10/2026 día",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-personal",
+       "detalle": "Ana Quispe: SOST vigente hasta el 01/03/2027; disponible el turno 21/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-EMP",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-EMP",
+       "requisito_id": "REQ-EMP",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-EMP-02",
+         "campo": "tipo_equipo",
+         "valor": "empernador",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "equipos/EQ-EMP-02",
+         "campo": "estado",
+         "valor": "operativo",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Empernador 02 es del tipo empernador; Empernador 02 operativo y disponible el turno 21/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-GEOMEC",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-GEOMEC",
+       "requisito_id": "REQ-GEOMEC",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "confirmacion_campo/REQ-GEOMEC",
+         "campo": "respuesta",
+         "valor": "sí: Verificado en la labor",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Confirmado por supervisor el 2026-10-17 22:23",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "humano:supervisor",
+       "detalle": "Verificado en la labor"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-DESATADO",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-DESATADO",
+       "requisito_id": "REQ-DESATADO",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "confirmacion_campo/REQ-DESATADO",
+         "campo": "respuesta",
+         "valor": "sí: Verificado en la labor",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Confirmado por supervisor el 2026-10-17 22:23",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "humano:supervisor",
+       "detalle": "Verificado en la labor"
+      }
+     ]
+    }
+   ],
+   "estado_sistema": "RECOMENDADO"
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 41,
+  "ts": "2026-10-17T22:23:42.249115Z",
+  "tipo": "plan.listo",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan": {
+    "id": "plan-2fdb9905",
+    "run_id": "run-e2da45ce",
+    "estado_sistema": "BLOQUEADO",
+    "asignacion": {
+     "personas": [
+      "PER-02"
+     ],
+     "equipos": [
+      "EQ-EMP-01"
+     ]
+    },
+    "cambios": [],
+    "resultados": [
+     {
+      "control_id": "CTL-SOST",
+      "bloqueante": true,
+      "estado": "NO_CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-SOST",
+        "requisito_id": "REQ-SOST",
+        "estado": "NO_CUMPLE",
+        "evidencia": [
+         {
+          "registro": "personas/PER-02",
+          "campo": "certificaciones.SOST.vence",
+          "valor": "2026-09-30",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-personal",
+        "detalle": "Ninguna persona asignada cumple: Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026)"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-EMP",
+      "bloqueante": true,
+      "estado": "NO_CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-EMP",
+        "requisito_id": "REQ-EMP",
+        "estado": "NO_CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-EMP-01",
+          "campo": "estado",
+          "valor": "mantenimiento",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Ningún equipo asignado está disponible: Empernador 01 está en mantenimiento"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-GEOMEC",
+      "bloqueante": true,
+      "estado": "NO_VERIFICABLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-GEOMEC",
+        "requisito_id": "REQ-GEOMEC",
+        "estado": "NO_VERIFICABLE",
+        "evidencia": [],
+        "verificado_por": "capataz:agente-supervisor",
+        "detalle": "Requiere confirmación en campo"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-DESATADO",
+      "bloqueante": true,
+      "estado": "NO_VERIFICABLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-DESATADO",
+        "requisito_id": "REQ-DESATADO",
+        "estado": "NO_VERIFICABLE",
+        "evidencia": [],
+        "verificado_por": "capataz:agente-supervisor",
+        "detalle": "Requiere confirmación en campo"
+       }
+      ]
+     }
+    ],
+    "escalamiento": null,
+    "motivo": "Plan original bloqueado. Operador capacitado en desate y sostenimiento: Ninguna persona asignada cumple: Luis Huamán: SOST venció el 30/09/2026 (turno del 21/10/2026); Sostenimiento mecanizado con empernador operativo: Ningún equipo asignado está disponible: Empernador 01 está en mantenimiento."
+   },
+   "planes_alternativos": [
+    {
+     "id": "alt-c11956d3",
+     "run_id": "run-e2da45ce",
+     "estado_sistema": "RECOMENDADO",
+     "asignacion": {
+      "personas": [
+       "PER-04"
+      ],
+      "equipos": [
+       "EQ-EMP-02"
+      ]
+     },
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-04",
+       "motivo": "Cuenta con certificación SOST vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-02",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "resultados": [
+      {
+       "control_id": "CTL-SOST",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-SOST",
+         "requisito_id": "REQ-SOST",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "personas/PER-04",
+           "campo": "certificaciones.SOST.vence",
+           "valor": "2027-03-01",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "personas/PER-04",
+           "campo": "turnos",
+           "valor": "21/10/2026 día",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-personal",
+         "detalle": "Ana Quispe: SOST vigente hasta el 01/03/2027; disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-EMP",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-EMP",
+         "requisito_id": "REQ-EMP",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "tipo_equipo",
+           "valor": "empernador",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "estado",
+           "valor": "operativo",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-equipo",
+         "detalle": "Empernador 02 es del tipo empernador; Empernador 02 operativo y disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-GEOMEC",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-GEOMEC",
+         "requisito_id": "REQ-GEOMEC",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "confirmacion_campo/REQ-GEOMEC",
+           "campo": "respuesta",
+           "valor": "sí: Verificado en la labor",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Confirmado por supervisor el 2026-10-17 22:23",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "humano:supervisor",
+         "detalle": "Verificado en la labor"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-DESATADO",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-DESATADO",
+         "requisito_id": "REQ-DESATADO",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "confirmacion_campo/REQ-DESATADO",
+           "campo": "respuesta",
+           "valor": "sí: Verificado en la labor",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Confirmado por supervisor el 2026-10-17 22:23",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "humano:supervisor",
+         "detalle": "Verificado en la labor"
+        }
+       ]
+      }
+     ],
+     "escalamiento": null,
+     "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+    },
+    {
+     "id": "alt-342f1713",
+     "run_id": "run-e2da45ce",
+     "estado_sistema": "REQUIERE_CAMPO",
+     "asignacion": {
+      "personas": [
+       "PER-03"
+      ],
+      "equipos": [
+       "EQ-EMP-02"
+      ]
+     },
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-03",
+       "motivo": "Cuenta con certificación equivalente SOST-B vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-02",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "resultados": [
+      {
+       "control_id": "CTL-SOST",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-SOST",
+         "requisito_id": "REQ-SOST",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "personas/PER-03",
+           "campo": "certificaciones.SOST-B.vence",
+           "valor": "2027-05-01",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "personas/PER-03",
+           "campo": "turnos",
+           "valor": "21/10/2026 día",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-personal",
+         "detalle": "Rosa Mamani: SOST-B vigente hasta el 01/05/2027; disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-EMP",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-EMP",
+         "requisito_id": "REQ-EMP",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "tipo_equipo",
+           "valor": "empernador",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "equipos/EQ-EMP-02",
+           "campo": "estado",
+           "valor": "operativo",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-equipo",
+         "detalle": "Empernador 02 es del tipo empernador; Empernador 02 operativo y disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-GEOMEC",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-GEOMEC",
+         "requisito_id": "REQ-GEOMEC",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-DESATADO",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-DESATADO",
+         "requisito_id": "REQ-DESATADO",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      }
+     ],
+     "escalamiento": null,
+     "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+    },
+    {
+     "id": "alt-1273ac5f",
+     "run_id": "run-e2da45ce",
+     "estado_sistema": "REQUIERE_CAMPO",
+     "asignacion": {
+      "personas": [
+       "PER-04"
+      ],
+      "equipos": [
+       "EQ-EMP-04"
+      ]
+     },
+     "cambios": [
+      {
+       "tipo": "certificacion_equivalente",
+       "desde": "PER-02",
+       "hacia": "PER-04",
+       "motivo": "Cuenta con certificación SOST vigente para el turno."
+      },
+      {
+       "tipo": "equipo_equivalente",
+       "desde": "EQ-EMP-01",
+       "hacia": "EQ-EMP-04",
+       "motivo": "Empernador operativo."
+      }
+     ],
+     "resultados": [
+      {
+       "control_id": "CTL-SOST",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-SOST",
+         "requisito_id": "REQ-SOST",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "personas/PER-04",
+           "campo": "certificaciones.SOST.vence",
+           "valor": "2027-03-01",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "personas/PER-04",
+           "campo": "turnos",
+           "valor": "21/10/2026 día",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-personal",
+         "detalle": "Ana Quispe: SOST vigente hasta el 01/03/2027; disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-EMP",
+       "bloqueante": true,
+       "estado": "CUMPLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-EMP",
+         "requisito_id": "REQ-EMP",
+         "estado": "CUMPLE",
+         "evidencia": [
+          {
+           "registro": "equipos/EQ-EMP-04",
+           "campo": "tipo_equipo",
+           "valor": "empernador",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          },
+          {
+           "registro": "equipos/EQ-EMP-04",
+           "campo": "estado",
+           "valor": "operativo",
+           "fuente": {
+            "tipo": "simulado",
+            "referencia": "Dato simulado",
+            "url": null
+           }
+          }
+         ],
+         "verificado_por": "capataz:agente-equipo",
+         "detalle": "Empernador 04 es del tipo empernador; Empernador 04 operativo y disponible el turno 21/10/2026 día"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-GEOMEC",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-GEOMEC",
+         "requisito_id": "REQ-GEOMEC",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      },
+      {
+       "control_id": "CTL-DESATADO",
+       "bloqueante": true,
+       "estado": "NO_VERIFICABLE",
+       "requisitos": [
+        {
+         "control_id": "CTL-DESATADO",
+         "requisito_id": "REQ-DESATADO",
+         "estado": "NO_VERIFICABLE",
+         "evidencia": [],
+         "verificado_por": "capataz:agente-supervisor",
+         "detalle": "Requiere confirmación en campo"
+        }
+       ]
+      }
+     ],
+     "escalamiento": null,
+     "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 42,
+  "ts": "2026-10-17T22:23:42.259317Z",
+  "tipo": "humano.decision_requerida",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan_id": "alt-c11956d3",
+   "solo_rechazo": false
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 43,
+  "ts": "2026-10-17T22:23:49.420501Z",
+  "tipo": "humano.decision_tomada",
+  "actor": "humano:supervisor",
+  "payload": {
+   "decision": {
+    "plan_id": "alt-c11956d3",
+    "decision": "aprobar",
+    "comentario": null,
+    "usuario": "supervisor"
+   }
+  }
+ },
+ {
+  "run_id": "run-e2da45ce",
+  "seq": 44,
+  "ts": "2026-10-17T22:23:49.431678Z",
+  "tipo": "run.finalizado",
+  "actor": "sistema",
+  "payload": {
+   "estado": "APROBADA"
+  }
+ }
+]

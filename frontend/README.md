@@ -25,9 +25,11 @@ Node ≥ 20.18 (Vite 6). `VITE_API_URL` (ver `.env.example`): vacío = mismo ori
 |---|---|
 | Backend arriba, modo **en vivo** | `POST /api/runs` + SSE `/api/runs/{id}/eventos` (reconexión con `Last-Event-ID` / `?desde=`). |
 | Backend arriba, modo **replay** | El backend reproduce `replays/<escenario>.json`; si no lo tiene, se usa el replay local. |
-| **Sin backend** | Catálogo de demostración (`src/datos/catalogoDemo.ts`) y replay local en el navegador. La decisión se simula y no se guarda. |
+| **Sin backend** | Catálogo empaquetado (`src/datos/catalogo.json`, el `data/` de P4 validado por el backend) y replay local en el navegador. La decisión se simula y no se guarda. |
 
-Replays locales: primero `../replays/*.json` (grabados por P1 desde corridas reales) y, si falta alguno, los fixtures provisionales escritos a mano en `src/__fixtures__/` (E2, E2c, E3). Todos se empaquetan en el build, así que la demo **no necesita Internet** (RF-F3-45).
+Replays locales: `../replays/*.json`, grabados desde corridas reales con `scripts/grabar_replay.py` (E1 y E2c con LLM fake para que muestren exactamente su escenario; E2 y E3 con el LLM real). Se empaquetan en el build, así que la demo **no necesita Internet** (RF-F3-45). Los fixtures de `src/__fixtures__/` son solo para los tests.
+
+Si cambian `data/` o los replays: `pnpm gen:types` (también regenera `src/datos/catalogo.json`) y `pnpm build`.
 
 ## Demo sin Wi-Fi (RF-F3-45)
 

@@ -18,4 +18,10 @@ execFileSync('pnpm', ['exec', 'openapi-typescript', 'openapi.json', '-o', 'src/a
   stdio: 'inherit',
   shell: process.platform === 'win32',
 })
+// Catálogo real (data/ de P4) para el modo sin servidor: mismos IDs que los replays grabados.
+execFileSync('uv', ['run', 'python', resolve(raiz, 'scripts/volcar_catalogo.py'), resolve(raiz, 'src/datos/catalogo.json')], {
+  cwd: backend,
+  stdio: 'inherit',
+})
+console.log('Catálogo local actualizado (src/datos/catalogo.json).')
 console.log('Tipos regenerados. Corre `pnpm typecheck` para ver si el contrato cambió algo que el frontend usa.')

@@ -1,0 +1,810 @@
+{
+ "peligros": [
+  {
+   "id": "PEL-ROCA",
+   "nombre": "Caída de rocas",
+   "descripcion": "Desprendimiento de rocas del techo o hastiales en labor subterránea.",
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 224",
+    "url": null
+   }
+  },
+  {
+   "id": "PEL-EQM",
+   "nombre": "Interacción con equipo móvil",
+   "descripcion": "Atropello, atrapamiento o choque con equipos de carguío y acarreo.",
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 232",
+    "url": null
+   }
+  },
+  {
+   "id": "PEL-ENERGIA",
+   "nombre": "Energía no controlada en equipos",
+   "descripcion": "Operar o intervenir equipos en mantenimiento sin bloqueo.",
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 38, inc. 11",
+    "url": null
+   }
+  }
+ ],
+ "tipos_tarea": [
+  {
+   "id": "TT-ACARREO",
+   "nombre": "Limpieza y acarreo con scooptram",
+   "descripcion": "Carguío y acarreo de mineral en labor subterránea."
+  },
+  {
+   "id": "TT-SOST",
+   "nombre": "Sostenimiento con pernos",
+   "descripcion": "Instalación de pernos de roca con empernador."
+  },
+  {
+   "id": "TT-DESATE",
+   "nombre": "Desatado mecanizado y sostenimiento",
+   "descripcion": "Desatado con desatador mecánico y sostenimiento en labor de techo alto."
+  },
+  {
+   "id": "TT-TRANSP",
+   "nombre": "Transporte de mineral con dumper",
+   "descripcion": "Transporte de mineral por rampa con dumper."
+  }
+ ],
+ "controles": [
+  {
+   "id": "CTL-LIC",
+   "nombre": "Operador autorizado con licencia A-I",
+   "peligro_id": "PEL-EQM",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-ACARREO",
+    "TT-TRANSP"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-LIC",
+     "tipo": "competencia",
+     "descripcion": "Operador capacitado, autorizado y con licencia de conducir A-I vigente",
+     "certificacion": "LIC-A1",
+     "certificaciones_equivalentes": [],
+     "tipo_equipo": null,
+     "pregunta_campo": null
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 232",
+    "url": null
+   }
+  },
+  {
+   "id": "CTL-SCOOP",
+   "nombre": "Scooptram operativo y fuera de mantenimiento",
+   "peligro_id": "PEL-ENERGIA",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-ACARREO"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-SCOOP",
+     "tipo": "equipo",
+     "descripcion": "Scooptram operativo",
+     "certificacion": null,
+     "certificaciones_equivalentes": [],
+     "tipo_equipo": "scooptram",
+     "pregunta_campo": null
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 38, inc. 11",
+    "url": null
+   }
+  },
+  {
+   "id": "CTL-DUMPER",
+   "nombre": "Dumper operativo y fuera de mantenimiento",
+   "peligro_id": "PEL-ENERGIA",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-TRANSP"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-DUMPER",
+     "tipo": "equipo",
+     "descripcion": "Dumper operativo",
+     "certificacion": null,
+     "certificaciones_equivalentes": [],
+     "tipo_equipo": "dumper",
+     "pregunta_campo": null
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 38, inc. 11",
+    "url": null
+   }
+  },
+  {
+   "id": "CTL-SOST",
+   "nombre": "Operador capacitado en desate y sostenimiento",
+   "peligro_id": "PEL-ROCA",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-SOST",
+    "TT-DESATE"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-SOST",
+     "tipo": "competencia",
+     "descripcion": "Certificación vigente en desate y sostenimiento",
+     "certificacion": "SOST",
+     "certificaciones_equivalentes": [
+      "SOST-B"
+     ],
+     "tipo_equipo": null,
+     "pregunta_campo": null
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 75, inc. 1-3",
+    "url": null
+   }
+  },
+  {
+   "id": "CTL-EMP",
+   "nombre": "Sostenimiento mecanizado con empernador operativo",
+   "peligro_id": "PEL-ROCA",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-SOST",
+    "TT-DESATE"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-EMP",
+     "tipo": "equipo",
+     "descripcion": "Empernador operativo",
+     "certificacion": null,
+     "certificaciones_equivalentes": [],
+     "tipo_equipo": "empernador",
+     "pregunta_campo": null
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, arts. 225 y 231",
+    "url": null
+   }
+  },
+  {
+   "id": "CTL-DESATADOR",
+   "nombre": "Desatador mecánico operativo (techo mayor a 5 m)",
+   "peligro_id": "PEL-ROCA",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-DESATE"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-DESATADOR",
+     "tipo": "equipo",
+     "descripcion": "Desatador mecánico operativo",
+     "certificacion": null,
+     "certificaciones_equivalentes": [],
+     "tipo_equipo": "desatador",
+     "pregunta_campo": null
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 230",
+    "url": null
+   }
+  },
+  {
+   "id": "CTL-GEOMEC",
+   "nombre": "Tabla geomecánica vigente publicada en la labor",
+   "peligro_id": "PEL-ROCA",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-DESATE"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-GEOMEC",
+     "tipo": "condicion_campo",
+     "descripcion": "Tabla y plano geomecánico del mes publicados en la labor",
+     "certificacion": null,
+     "certificaciones_equivalentes": [],
+     "tipo_equipo": null,
+     "pregunta_campo": "¿Está publicada en la labor la tabla geomecánica vigente del mes?"
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 33",
+    "url": null
+   }
+  },
+  {
+   "id": "CTL-DESATADO",
+   "nombre": "Desatado total antes del sostenimiento",
+   "peligro_id": "PEL-ROCA",
+   "bloqueante": true,
+   "aplica_a": [
+    "TT-DESATE"
+   ],
+   "requisitos": [
+    {
+     "id": "REQ-DESATADO",
+     "tipo": "condicion_campo",
+     "descripcion": "Desatado total de la labor, realizado por dos personas",
+     "certificacion": null,
+     "certificaciones_equivalentes": [],
+     "tipo_equipo": null,
+     "pregunta_campo": "¿Se completó el desatado total de la labor, con dos personas (una desata y otra vigila)?"
+    }
+   ],
+   "fuente": {
+    "tipo": "normativa",
+    "referencia": "DS 024-2016-EM, art. 224, lit. c y d",
+    "url": null
+   }
+  }
+ ],
+ "personas": [
+  {
+   "id": "PER-01",
+   "nombre": "Jorge Ccori",
+   "rol": "operador de scoop",
+   "certificaciones": [
+    {
+     "codigo": "LIC-A1",
+     "vence": "2027-08-15",
+     "nombre": null
+    }
+   ],
+   "turnos": [
+    {
+     "fecha": "2026-10-20",
+     "turno": "dia"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "PER-02",
+   "nombre": "Luis Huamán",
+   "rol": "operador de empernador",
+   "certificaciones": [
+    {
+     "codigo": "SOST",
+     "vence": "2026-09-30",
+     "nombre": null
+    }
+   ],
+   "turnos": [
+    {
+     "fecha": "2026-10-21",
+     "turno": "dia"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "PER-03",
+   "nombre": "Rosa Mamani",
+   "rol": "operadora de empernador",
+   "certificaciones": [
+    {
+     "codigo": "SOST-B",
+     "vence": "2027-05-01",
+     "nombre": null
+    }
+   ],
+   "turnos": [
+    {
+     "fecha": "2026-10-21",
+     "turno": "dia"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "PER-04",
+   "nombre": "Ana Quispe",
+   "rol": "operadora de empernador",
+   "certificaciones": [
+    {
+     "codigo": "SOST",
+     "vence": "2027-03-01",
+     "nombre": null
+    }
+   ],
+   "turnos": [
+    {
+     "fecha": "2026-10-21",
+     "turno": "dia"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "PER-05",
+   "nombre": "Marta Soto",
+   "rol": "operadora de desatador",
+   "certificaciones": [
+    {
+     "codigo": "SOST",
+     "vence": "2027-01-10",
+     "nombre": null
+    }
+   ],
+   "turnos": [
+    {
+     "fecha": "2026-10-22",
+     "turno": "dia"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "PER-06",
+   "nombre": "Pedro Condori",
+   "rol": "operador de dumper",
+   "certificaciones": [
+    {
+     "codigo": "LIC-A1",
+     "vence": "2027-02-01",
+     "nombre": null
+    }
+   ],
+   "turnos": [
+    {
+     "fecha": "2026-10-23",
+     "turno": "noche"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "PER-07",
+   "nombre": "Carlos Díaz",
+   "rol": "ayudante",
+   "certificaciones": [],
+   "turnos": [
+    {
+     "fecha": "2026-10-20",
+     "turno": "dia"
+    },
+    {
+     "fecha": "2026-10-21",
+     "turno": "dia"
+    },
+    {
+     "fecha": "2026-10-22",
+     "turno": "dia"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "PER-08",
+   "nombre": "Elena Rojas",
+   "rol": "operadora de dumper",
+   "certificaciones": [
+    {
+     "codigo": "LIC-A1",
+     "vence": "2026-10-01",
+     "nombre": null
+    }
+   ],
+   "turnos": [
+    {
+     "fecha": "2026-10-23",
+     "turno": "noche"
+    }
+   ],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  }
+ ],
+ "equipos": [
+  {
+   "id": "EQ-SCOOP-01",
+   "nombre": "Scooptram 01",
+   "tipo_equipo": "scooptram",
+   "estado": "operativo",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "EQ-SCOOP-02",
+   "nombre": "Scooptram 02",
+   "tipo_equipo": "scooptram",
+   "estado": "mantenimiento",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "EQ-EMP-01",
+   "nombre": "Empernador 01",
+   "tipo_equipo": "empernador",
+   "estado": "mantenimiento",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "EQ-EMP-02",
+   "nombre": "Empernador 02",
+   "tipo_equipo": "empernador",
+   "estado": "operativo",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "EQ-EMP-03",
+   "nombre": "Empernador 03",
+   "tipo_equipo": "empernador",
+   "estado": "fuera_servicio",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "EQ-EMP-04",
+   "nombre": "Empernador 04",
+   "tipo_equipo": "empernador",
+   "estado": "operativo",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "EQ-DES-01",
+   "nombre": "Desatador mecánico 01",
+   "tipo_equipo": "desatador",
+   "estado": "operativo",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "EQ-DUMP-01",
+   "nombre": "Dumper 01",
+   "tipo_equipo": "dumper",
+   "estado": "fuera_servicio",
+   "tipos_equivalentes": [],
+   "mantenimiento": [],
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  }
+ ],
+ "incidentes": [
+  {
+   "id": "INC-01",
+   "fecha": "2025-03-12",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "II",
+   "nivel_potencial": "V",
+   "riesgo_critico": "Caída de rocas",
+   "descripcion": "Desprendimiento de roca durante la instalación de pernos; el operador trabajaba fuera de la zona sostenida.",
+   "equipo": "empernador",
+   "actividad": "Sostenimiento con pernos",
+   "tipo_tarea": "TT-SOST",
+   "causa_raiz": "Sostenimiento no llegó al tope del frente",
+   "control_fallido": "CTL-EMP",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "INC-02",
+   "fecha": "2025-06-03",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "I",
+   "nivel_potencial": "IV",
+   "riesgo_critico": "Caída de rocas",
+   "descripcion": "Roca suelta cayó tras un desatado manual hecho por una sola persona.",
+   "equipo": null,
+   "actividad": "Desatado mecanizado y sostenimiento",
+   "tipo_tarea": "TT-DESATE",
+   "causa_raiz": "Desatado sin vigía",
+   "control_fallido": "CTL-DESATADO",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "INC-03",
+   "fecha": "2025-08-21",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "II",
+   "nivel_potencial": "V",
+   "riesgo_critico": "Caída de rocas",
+   "descripcion": "Operador con certificación vencida instaló pernos con patrón incorrecto; se desprendió una cuña.",
+   "equipo": "empernador",
+   "actividad": "Sostenimiento con pernos",
+   "tipo_tarea": "TT-SOST",
+   "causa_raiz": "Competencia no verificada al asignar",
+   "control_fallido": "CTL-SOST",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "INC-04",
+   "fecha": "2025-10-02",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "I",
+   "nivel_potencial": "IV",
+   "riesgo_critico": "Caída de rocas",
+   "descripcion": "Labor sin tabla geomecánica actualizada; se aplicó el sostenimiento de otra calidad de roca.",
+   "equipo": "empernador",
+   "actividad": "Desatado mecanizado y sostenimiento",
+   "tipo_tarea": "TT-DESATE",
+   "causa_raiz": "Tabla geomecánica desactualizada",
+   "control_fallido": "CTL-GEOMEC",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "INC-05",
+   "fecha": "2025-02-17",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "II",
+   "nivel_potencial": "V",
+   "riesgo_critico": "Interacción con equipo móvil",
+   "descripcion": "Scooptram atropelló a un ayudante en una cámara de carguío sin iluminación.",
+   "equipo": "scooptram",
+   "actividad": "Limpieza y acarreo con scooptram",
+   "tipo_tarea": "TT-ACARREO",
+   "causa_raiz": "Operador sin autorización interna vigente",
+   "control_fallido": "CTL-LIC",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "INC-06",
+   "fecha": "2025-05-28",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "I",
+   "nivel_potencial": "IV",
+   "riesgo_critico": "Interacción con equipo móvil",
+   "descripcion": "Dumper con falla de frenos reportada siguió operando en rampa y se despistó.",
+   "equipo": "dumper",
+   "actividad": "Transporte de mineral con dumper",
+   "tipo_tarea": "TT-TRANSP",
+   "causa_raiz": "Equipo en mantenimiento asignado al turno",
+   "control_fallido": "CTL-DUMPER",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "INC-07",
+   "fecha": "2025-09-09",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "II",
+   "nivel_potencial": "IV",
+   "riesgo_critico": "Energía no controlada en equipos",
+   "descripcion": "Mecánico atrapado al arrancar un scooptram en mantenimiento sin bloqueo.",
+   "equipo": "scooptram",
+   "actividad": "Limpieza y acarreo con scooptram",
+   "tipo_tarea": "TT-ACARREO",
+   "causa_raiz": "Equipo en mantenimiento sin bloqueo",
+   "control_fallido": "CTL-SCOOP",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  },
+  {
+   "id": "INC-08",
+   "fecha": "2026-01-14",
+   "planta": "Unidad subterránea (simulada)",
+   "nivel_real": "I",
+   "nivel_potencial": "III",
+   "riesgo_critico": "Interacción con equipo móvil",
+   "descripcion": "Choque leve entre un dumper y una camioneta en rampa; el operador no tenía licencia A-I.",
+   "equipo": "dumper",
+   "actividad": "Transporte de mineral con dumper",
+   "tipo_tarea": "TT-TRANSP",
+   "causa_raiz": "Licencia no verificada",
+   "control_fallido": "CTL-LIC",
+   "fuente": {
+    "tipo": "simulado",
+    "referencia": "Dato simulado",
+    "url": null
+   }
+  }
+ ],
+ "escenarios": [
+  {
+   "id": "E1",
+   "nombre": "Caso limpio: acarreo con scooptram",
+   "tarea": {
+    "id": "TAR-E1",
+    "tipo_tarea": "TT-ACARREO",
+    "descripcion": "Limpieza de mineral en el tajo 420 con scooptram",
+    "zona": "Nivel 3, tajo 420",
+    "turno": {
+     "fecha": "2026-10-20",
+     "turno": "dia"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-01"
+     ],
+     "equipos": [
+      "EQ-SCOOP-01"
+     ]
+    }
+   },
+   "resultado_esperado": "RECOMENDADO",
+   "escalamiento": null
+  },
+  {
+   "id": "E2",
+   "nombre": "Conflicto: empernador en mantenimiento y certificación vencida",
+   "tarea": {
+    "id": "TAR-E2",
+    "tipo_tarea": "TT-SOST",
+    "descripcion": "Sostenimiento con pernos en la galería 310",
+    "zona": "Nivel 2, galería 310",
+    "turno": {
+     "fecha": "2026-10-21",
+     "turno": "dia"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-02"
+     ],
+     "equipos": [
+      "EQ-EMP-01"
+     ]
+    }
+   },
+   "resultado_esperado": "RECOMENDADO",
+   "escalamiento": null
+  },
+  {
+   "id": "E2c",
+   "nombre": "Campo: desatado y tabla geomecánica por confirmar",
+   "tarea": {
+    "id": "TAR-E2C",
+    "tipo_tarea": "TT-DESATE",
+    "descripcion": "Desatado mecanizado y sostenimiento en la rampa 5 (techo de 6 m)",
+    "zona": "Rampa 5",
+    "turno": {
+     "fecha": "2026-10-22",
+     "turno": "dia"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-05"
+     ],
+     "equipos": [
+      "EQ-DES-01",
+      "EQ-EMP-04"
+     ]
+    }
+   },
+   "resultado_esperado": "REQUIERE_CAMPO",
+   "escalamiento": null
+  },
+  {
+   "id": "E3",
+   "nombre": "Bloqueo: dumper fuera de servicio sin reemplazo",
+   "tarea": {
+    "id": "TAR-E3",
+    "tipo_tarea": "TT-TRANSP",
+    "descripcion": "Transporte de mineral por la rampa 2 hacia la cancha de mineral",
+    "zona": "Rampa 2",
+    "turno": {
+     "fecha": "2026-10-23",
+     "turno": "noche"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-06"
+     ],
+     "equipos": [
+      "EQ-DUMP-01"
+     ]
+    }
+   },
+   "resultado_esperado": "BLOQUEADO",
+   "escalamiento": "Avisar al jefe de mantenimiento mina y al superintendente de operaciones: no hay dumper operativo ni equivalente para el turno."
+  }
+ ]
+}

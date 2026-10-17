@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Evento } from '@/api/types'
-import e1 from '../../../replays/e1.json'
+import e1 from '../__fixtures__/e1.json'
 import { estadoInicial, idAgente, reducir, reducirTodos } from './reductor'
 import { fuenteArchivo } from './fuentes'
 

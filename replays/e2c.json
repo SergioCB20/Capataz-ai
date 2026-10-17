@@ -1,0 +1,1139 @@
+[
+ {
+  "run_id": "run-65a43da8",
+  "seq": 1,
+  "ts": "2026-10-17T22:25:51.449394Z",
+  "tipo": "run.iniciado",
+  "actor": "sistema",
+  "payload": {
+   "tarea": {
+    "id": "TAR-E2C",
+    "tipo_tarea": "TT-DESATE",
+    "descripcion": "Desatado mecanizado y sostenimiento en la rampa 5 (techo de 6 m)",
+    "zona": "Rampa 5",
+    "turno": {
+     "fecha": "2026-10-22",
+     "turno": "dia"
+    },
+    "asignacion": {
+     "personas": [
+      "PER-05"
+     ],
+     "equipos": [
+      "EQ-DES-01",
+      "EQ-EMP-04"
+     ]
+    }
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 2,
+  "ts": "2026-10-17T22:25:51.459392Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo"
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 3,
+  "ts": "2026-10-17T22:25:51.467169Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "trace": {
+    "nombre": "buscar_incidentes",
+    "entrada": {
+     "actividad": "Desatado mecanizado y sostenimiento",
+     "riesgo_critico": "Caída de rocas"
+    },
+    "salida_resumen": "4 incidente(s): INC-03, INC-01, INC-04, INC-02",
+    "duracion_ms": 3
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 4,
+  "ts": "2026-10-17T22:25:51.476565Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-riesgo",
+  "payload": {
+   "agente": "capataz:agente-riesgo",
+   "resumen": "1 peligro(s) y 5 control(es) exigido(s).",
+   "evaluacion": {
+    "peligros": [
+     {
+      "peligro_id": "PEL-ROCA",
+      "justificacion": "Caída de rocas: peligro asociado a «Desatado mecanizado y sostenimiento».",
+      "controles": [
+       "CTL-SOST",
+       "CTL-EMP",
+       "CTL-DESATADOR",
+       "CTL-GEOMEC",
+       "CTL-DESATADO"
+      ],
+      "incidentes_similares": [
+       "INC-03",
+       "INC-01"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 5,
+  "ts": "2026-10-17T22:25:51.478335Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal"
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 6,
+  "ts": "2026-10-17T22:25:51.479892Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "personal_disponible",
+    "entrada": {
+     "turno": "22/10/2026 día"
+    },
+    "salida_resumen": "2 persona(s): PER-05, PER-07",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 7,
+  "ts": "2026-10-17T22:25:51.481433Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "verificar_certificacion",
+    "entrada": {
+     "persona": "PER-05",
+     "certificaciones": [
+      "SOST"
+     ],
+     "turno": "22/10/2026 día"
+    },
+    "salida_resumen": "Marta Soto: SOST vigente hasta el 10/01/2027",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 8,
+  "ts": "2026-10-17T22:25:51.482827Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "trace": {
+    "nombre": "detectar_doble_asignacion",
+    "entrada": {
+     "persona": "PER-05",
+     "turno": "22/10/2026 día"
+    },
+    "salida_resumen": "0 otra(s) tarea(s)",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 9,
+  "ts": "2026-10-17T22:25:51.484232Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-personal",
+  "payload": {
+   "agente": "capataz:agente-personal",
+   "resumen": "1 requisito(s): 1 CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-SOST",
+     "requisito_id": "REQ-SOST",
+     "estado": "CUMPLE",
+     "evidencia": [
+      {
+       "registro": "personas/PER-05",
+       "campo": "certificaciones.SOST.vence",
+       "valor": "2027-01-10",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      },
+      {
+       "registro": "personas/PER-05",
+       "campo": "turnos",
+       "valor": "22/10/2026 día",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-personal",
+     "detalle": "Marta Soto: SOST vigente hasta el 10/01/2027; disponible el turno 22/10/2026 día"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 10,
+  "ts": "2026-10-17T22:25:51.485351Z",
+  "tipo": "agente.iniciado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo"
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 11,
+  "ts": "2026-10-17T22:25:51.486599Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-DES-01",
+     "tipo_requerido": "empernador",
+     "equivalencias": false
+    },
+    "salida_resumen": "Desatador mecánico 01 es del tipo desatador, no empernador",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 12,
+  "ts": "2026-10-17T22:25:51.489120Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-04",
+     "tipo_requerido": "empernador",
+     "equivalencias": false
+    },
+    "salida_resumen": "Empernador 04 es del tipo empernador",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 13,
+  "ts": "2026-10-17T22:25:51.490410Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-EMP-04",
+     "turno": "22/10/2026 día"
+    },
+    "salida_resumen": "Empernador 04 operativo y disponible el turno 22/10/2026 día",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 14,
+  "ts": "2026-10-17T22:25:51.491563Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "verificar_tipo_equipo",
+    "entrada": {
+     "equipo": "EQ-DES-01",
+     "tipo_requerido": "desatador",
+     "equivalencias": false
+    },
+    "salida_resumen": "Desatador mecánico 01 es del tipo desatador",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 15,
+  "ts": "2026-10-17T22:25:51.492705Z",
+  "tipo": "agente.herramienta",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "trace": {
+    "nombre": "consultar_estado_equipo",
+    "entrada": {
+     "equipo": "EQ-DES-01",
+     "turno": "22/10/2026 día"
+    },
+    "salida_resumen": "Desatador mecánico 01 operativo y disponible el turno 22/10/2026 día",
+    "duracion_ms": 0
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 16,
+  "ts": "2026-10-17T22:25:51.493862Z",
+  "tipo": "agente.completado",
+  "actor": "capataz:agente-equipo",
+  "payload": {
+   "agente": "capataz:agente-equipo",
+   "resumen": "2 requisito(s): 2 CUMPLE",
+   "resultados": [
+    {
+     "control_id": "CTL-EMP",
+     "requisito_id": "REQ-EMP",
+     "estado": "CUMPLE",
+     "evidencia": [
+      {
+       "registro": "equipos/EQ-EMP-04",
+       "campo": "tipo_equipo",
+       "valor": "empernador",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      },
+      {
+       "registro": "equipos/EQ-EMP-04",
+       "campo": "estado",
+       "valor": "operativo",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-equipo",
+     "detalle": "Empernador 04 es del tipo empernador; Empernador 04 operativo y disponible el turno 22/10/2026 día"
+    },
+    {
+     "control_id": "CTL-DESATADOR",
+     "requisito_id": "REQ-DESATADOR",
+     "estado": "CUMPLE",
+     "evidencia": [
+      {
+       "registro": "equipos/EQ-DES-01",
+       "campo": "tipo_equipo",
+       "valor": "desatador",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      },
+      {
+       "registro": "equipos/EQ-DES-01",
+       "campo": "estado",
+       "valor": "operativo",
+       "fuente": {
+        "tipo": "simulado",
+        "referencia": "Dato simulado",
+        "url": null
+       }
+      }
+     ],
+     "verificado_por": "capataz:agente-equipo",
+     "detalle": "Desatador mecánico 01 es del tipo desatador; Desatador mecánico 01 operativo y disponible el turno 22/10/2026 día"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 17,
+  "ts": "2026-10-17T22:25:51.495337Z",
+  "tipo": "supervisor.consolidado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "resultados": [
+    {
+     "control_id": "CTL-SOST",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-SOST",
+       "requisito_id": "REQ-SOST",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "personas/PER-05",
+         "campo": "certificaciones.SOST.vence",
+         "valor": "2027-01-10",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "personas/PER-05",
+         "campo": "turnos",
+         "valor": "22/10/2026 día",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-personal",
+       "detalle": "Marta Soto: SOST vigente hasta el 10/01/2027; disponible el turno 22/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-EMP",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-EMP",
+       "requisito_id": "REQ-EMP",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-EMP-04",
+         "campo": "tipo_equipo",
+         "valor": "empernador",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "equipos/EQ-EMP-04",
+         "campo": "estado",
+         "valor": "operativo",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Empernador 04 es del tipo empernador; Empernador 04 operativo y disponible el turno 22/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-DESATADOR",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-DESATADOR",
+       "requisito_id": "REQ-DESATADOR",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-DES-01",
+         "campo": "tipo_equipo",
+         "valor": "desatador",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "equipos/EQ-DES-01",
+         "campo": "estado",
+         "valor": "operativo",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Desatador mecánico 01 es del tipo desatador; Desatador mecánico 01 operativo y disponible el turno 22/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-GEOMEC",
+     "bloqueante": true,
+     "estado": "NO_VERIFICABLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-GEOMEC",
+       "requisito_id": "REQ-GEOMEC",
+       "estado": "NO_VERIFICABLE",
+       "evidencia": [],
+       "verificado_por": "capataz:agente-supervisor",
+       "detalle": "Requiere confirmación en campo"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-DESATADO",
+     "bloqueante": true,
+     "estado": "NO_VERIFICABLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-DESATADO",
+       "requisito_id": "REQ-DESATADO",
+       "estado": "NO_VERIFICABLE",
+       "evidencia": [],
+       "verificado_por": "capataz:agente-supervisor",
+       "detalle": "Requiere confirmación en campo"
+      }
+     ]
+    }
+   ],
+   "estado_sistema": "REQUIERE_CAMPO"
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 18,
+  "ts": "2026-10-17T22:25:51.496655Z",
+  "tipo": "plan.listo",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan": {
+    "id": "plan-c2168576",
+    "run_id": "run-65a43da8",
+    "estado_sistema": "REQUIERE_CAMPO",
+    "asignacion": {
+     "personas": [
+      "PER-05"
+     ],
+     "equipos": [
+      "EQ-DES-01",
+      "EQ-EMP-04"
+     ]
+    },
+    "cambios": [],
+    "resultados": [
+     {
+      "control_id": "CTL-SOST",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-SOST",
+        "requisito_id": "REQ-SOST",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "personas/PER-05",
+          "campo": "certificaciones.SOST.vence",
+          "valor": "2027-01-10",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "personas/PER-05",
+          "campo": "turnos",
+          "valor": "22/10/2026 día",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-personal",
+        "detalle": "Marta Soto: SOST vigente hasta el 10/01/2027; disponible el turno 22/10/2026 día"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-EMP",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-EMP",
+        "requisito_id": "REQ-EMP",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-EMP-04",
+          "campo": "tipo_equipo",
+          "valor": "empernador",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "equipos/EQ-EMP-04",
+          "campo": "estado",
+          "valor": "operativo",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Empernador 04 es del tipo empernador; Empernador 04 operativo y disponible el turno 22/10/2026 día"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-DESATADOR",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-DESATADOR",
+        "requisito_id": "REQ-DESATADOR",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-DES-01",
+          "campo": "tipo_equipo",
+          "valor": "desatador",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "equipos/EQ-DES-01",
+          "campo": "estado",
+          "valor": "operativo",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Desatador mecánico 01 es del tipo desatador; Desatador mecánico 01 operativo y disponible el turno 22/10/2026 día"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-GEOMEC",
+      "bloqueante": true,
+      "estado": "NO_VERIFICABLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-GEOMEC",
+        "requisito_id": "REQ-GEOMEC",
+        "estado": "NO_VERIFICABLE",
+        "evidencia": [],
+        "verificado_por": "capataz:agente-supervisor",
+        "detalle": "Requiere confirmación en campo"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-DESATADO",
+      "bloqueante": true,
+      "estado": "NO_VERIFICABLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-DESATADO",
+        "requisito_id": "REQ-DESATADO",
+        "estado": "NO_VERIFICABLE",
+        "evidencia": [],
+        "verificado_por": "capataz:agente-supervisor",
+        "detalle": "Requiere confirmación en campo"
+       }
+      ]
+     }
+    ],
+    "escalamiento": null,
+    "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+   },
+   "planes_alternativos": []
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 19,
+  "ts": "2026-10-17T22:25:51.498243Z",
+  "tipo": "humano.campo_requerido",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "preguntas": [
+    {
+     "requisito_id": "REQ-GEOMEC",
+     "pregunta": "¿Está publicada en la labor la tabla geomecánica vigente del mes?",
+     "control_id": "CTL-GEOMEC"
+    },
+    {
+     "requisito_id": "REQ-DESATADO",
+     "pregunta": "¿Se completó el desatado total de la labor, con dos personas (una desata y otra vigila)?",
+     "control_id": "CTL-DESATADO"
+    }
+   ]
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 20,
+  "ts": "2026-10-17T22:25:57.606407Z",
+  "tipo": "humano.campo_confirmado",
+  "actor": "humano:supervisor",
+  "payload": {
+   "confirmaciones": {
+    "usuario": "supervisor",
+    "ts": "2026-10-17T22:25:55.548155Z",
+    "respuestas": [
+     {
+      "requisito_id": "REQ-GEOMEC",
+      "cumple": true,
+      "nota": "Verificado en la labor"
+     },
+     {
+      "requisito_id": "REQ-DESATADO",
+      "cumple": true,
+      "nota": "Verificado en la labor"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 21,
+  "ts": "2026-10-17T22:25:57.610995Z",
+  "tipo": "supervisor.consolidado",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "resultados": [
+    {
+     "control_id": "CTL-SOST",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-SOST",
+       "requisito_id": "REQ-SOST",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "personas/PER-05",
+         "campo": "certificaciones.SOST.vence",
+         "valor": "2027-01-10",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "personas/PER-05",
+         "campo": "turnos",
+         "valor": "22/10/2026 día",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-personal",
+       "detalle": "Marta Soto: SOST vigente hasta el 10/01/2027; disponible el turno 22/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-EMP",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-EMP",
+       "requisito_id": "REQ-EMP",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-EMP-04",
+         "campo": "tipo_equipo",
+         "valor": "empernador",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "equipos/EQ-EMP-04",
+         "campo": "estado",
+         "valor": "operativo",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Empernador 04 es del tipo empernador; Empernador 04 operativo y disponible el turno 22/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-DESATADOR",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-DESATADOR",
+       "requisito_id": "REQ-DESATADOR",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "equipos/EQ-DES-01",
+         "campo": "tipo_equipo",
+         "valor": "desatador",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        },
+        {
+         "registro": "equipos/EQ-DES-01",
+         "campo": "estado",
+         "valor": "operativo",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Dato simulado",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "capataz:agente-equipo",
+       "detalle": "Desatador mecánico 01 es del tipo desatador; Desatador mecánico 01 operativo y disponible el turno 22/10/2026 día"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-GEOMEC",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-GEOMEC",
+       "requisito_id": "REQ-GEOMEC",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "confirmacion_campo/REQ-GEOMEC",
+         "campo": "respuesta",
+         "valor": "sí: Verificado en la labor",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Confirmado por supervisor el 2026-10-17 22:25",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "humano:supervisor",
+       "detalle": "Verificado en la labor"
+      }
+     ]
+    },
+    {
+     "control_id": "CTL-DESATADO",
+     "bloqueante": true,
+     "estado": "CUMPLE",
+     "requisitos": [
+      {
+       "control_id": "CTL-DESATADO",
+       "requisito_id": "REQ-DESATADO",
+       "estado": "CUMPLE",
+       "evidencia": [
+        {
+         "registro": "confirmacion_campo/REQ-DESATADO",
+         "campo": "respuesta",
+         "valor": "sí: Verificado en la labor",
+         "fuente": {
+          "tipo": "simulado",
+          "referencia": "Confirmado por supervisor el 2026-10-17 22:25",
+          "url": null
+         }
+        }
+       ],
+       "verificado_por": "humano:supervisor",
+       "detalle": "Verificado en la labor"
+      }
+     ]
+    }
+   ],
+   "estado_sistema": "RECOMENDADO"
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 22,
+  "ts": "2026-10-17T22:25:57.613338Z",
+  "tipo": "plan.listo",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan": {
+    "id": "plan-c2168576",
+    "run_id": "run-65a43da8",
+    "estado_sistema": "RECOMENDADO",
+    "asignacion": {
+     "personas": [
+      "PER-05"
+     ],
+     "equipos": [
+      "EQ-DES-01",
+      "EQ-EMP-04"
+     ]
+    },
+    "cambios": [],
+    "resultados": [
+     {
+      "control_id": "CTL-SOST",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-SOST",
+        "requisito_id": "REQ-SOST",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "personas/PER-05",
+          "campo": "certificaciones.SOST.vence",
+          "valor": "2027-01-10",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "personas/PER-05",
+          "campo": "turnos",
+          "valor": "22/10/2026 día",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-personal",
+        "detalle": "Marta Soto: SOST vigente hasta el 10/01/2027; disponible el turno 22/10/2026 día"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-EMP",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-EMP",
+        "requisito_id": "REQ-EMP",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-EMP-04",
+          "campo": "tipo_equipo",
+          "valor": "empernador",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "equipos/EQ-EMP-04",
+          "campo": "estado",
+          "valor": "operativo",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Empernador 04 es del tipo empernador; Empernador 04 operativo y disponible el turno 22/10/2026 día"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-DESATADOR",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-DESATADOR",
+        "requisito_id": "REQ-DESATADOR",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "equipos/EQ-DES-01",
+          "campo": "tipo_equipo",
+          "valor": "desatador",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         },
+         {
+          "registro": "equipos/EQ-DES-01",
+          "campo": "estado",
+          "valor": "operativo",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Dato simulado",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "capataz:agente-equipo",
+        "detalle": "Desatador mecánico 01 es del tipo desatador; Desatador mecánico 01 operativo y disponible el turno 22/10/2026 día"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-GEOMEC",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-GEOMEC",
+        "requisito_id": "REQ-GEOMEC",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "confirmacion_campo/REQ-GEOMEC",
+          "campo": "respuesta",
+          "valor": "sí: Verificado en la labor",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Confirmado por supervisor el 2026-10-17 22:25",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "humano:supervisor",
+        "detalle": "Verificado en la labor"
+       }
+      ]
+     },
+     {
+      "control_id": "CTL-DESATADO",
+      "bloqueante": true,
+      "estado": "CUMPLE",
+      "requisitos": [
+       {
+        "control_id": "CTL-DESATADO",
+        "requisito_id": "REQ-DESATADO",
+        "estado": "CUMPLE",
+        "evidencia": [
+         {
+          "registro": "confirmacion_campo/REQ-DESATADO",
+          "campo": "respuesta",
+          "valor": "sí: Verificado en la labor",
+          "fuente": {
+           "tipo": "simulado",
+           "referencia": "Confirmado por supervisor el 2026-10-17 22:25",
+           "url": null
+          }
+         }
+        ],
+        "verificado_por": "humano:supervisor",
+        "detalle": "Verificado en la labor"
+       }
+      ]
+     }
+    ],
+    "escalamiento": null,
+    "motivo": "Sin verificar: Tabla geomecánica vigente publicada en la labor; Desatado total antes del sostenimiento."
+   },
+   "planes_alternativos": []
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 23,
+  "ts": "2026-10-17T22:25:57.615744Z",
+  "tipo": "humano.decision_requerida",
+  "actor": "capataz:agente-supervisor",
+  "payload": {
+   "plan_id": "plan-c2168576",
+   "solo_rechazo": false
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 24,
+  "ts": "2026-10-17T22:26:04.729160Z",
+  "tipo": "humano.decision_tomada",
+  "actor": "humano:supervisor",
+  "payload": {
+   "decision": {
+    "plan_id": "plan-c2168576",
+    "decision": "aprobar",
+    "comentario": null,
+    "usuario": "supervisor"
+   }
+  }
+ },
+ {
+  "run_id": "run-65a43da8",
+  "seq": 25,
+  "ts": "2026-10-17T22:26:04.734642Z",
+  "tipo": "run.finalizado",
+  "actor": "sistema",
+  "payload": {
+   "estado": "APROBADA"
+  }
+ }
+]

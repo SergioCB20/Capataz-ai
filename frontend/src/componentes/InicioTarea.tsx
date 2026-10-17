@@ -159,7 +159,7 @@ export function InicioTarea({ catalogo, conBackend, iniciando, error, onIniciar 
       <section aria-labelledby="form" className={tarjeta}>
         <h2 id="form" className="text-lg font-extrabold">{escenarioId ? `Tarea del escenario ${escenarioId}` : 'Tarea libre'}</h2>
         <p className="mt-1 mb-[18px] text-[13px] text-tenue">
-          {conBackend ? 'Catálogo cargado desde el servidor.' : 'Sin servidor: catálogo de demostración local.'} Los datos de personal, equipos e incidentes son simulados.
+          {conBackend ? 'Catálogo cargado desde el servidor.' : 'Sin servidor: catálogo empaquetado en la app.'} Los datos de personal, equipos e incidentes son simulados.
         </p>
         <form
           onSubmit={(ev) => {
