@@ -27,6 +27,7 @@ create table if not exists controles    (id text primary key, peligro_id text no
 create table if not exists personas     (id text primary key, data jsonb not null);
 create table if not exists equipos      (id text primary key, tipo_equipo text not null, data jsonb not null);
 create table if not exists escenarios   (id text primary key, data jsonb not null);
+create table if not exists incidentes   (id text primary key, tipo_tarea_id text not null, data jsonb not null);
 
 -- Ejecución
 create table if not exists runs (
@@ -79,6 +80,7 @@ alter table controles enable row level security;
 alter table personas enable row level security;
 alter table equipos enable row level security;
 alter table escenarios enable row level security;
+alter table incidentes enable row level security;
 alter table runs enable row level security;
 alter table eventos enable row level security;
 alter table planes enable row level security;
@@ -88,7 +90,7 @@ alter table agent_registry enable row level security;
 
 ## Reglas de uso
 
-1. **Solo el backend habla con Supabase.** El frontend consume `/api/*`. Evita exponer claves y reglas de acceso.
+1. **Solo el backend habla con Supabase.** El frontend consume `/api/*`. Evita exponer claves y reglas de acceso. El «ciclo cerrado» del diagrama (eventos, plan y decisión guardados) también pasa por la API: Frontend → FastAPI → `Store` → Supabase.
 2. **`SUPABASE_SERVICE_ROLE_KEY` nunca va al frontend ni al repositorio** (RT-09). Si se llega a necesitar acceso desde el navegador (p. ej. Realtime), se hace con la clave pública y políticas de solo lectura explícitas.
 3. **Eventos inmutables:** solo `insert`; sin `update`/`delete` desde el código de aplicación.
 4. **Idempotencia:** `(run_id, seq)` como clave primaria; reintentar un evento no duplica.

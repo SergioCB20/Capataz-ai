@@ -29,6 +29,7 @@
 | RF-F1-16 | Cada `ResultadoRequisito` lleva `Evidencia` (registro consultado, campo, valor) y `verificado_por`. Sin evidencia ⇒ no puede ser `CUMPLE`. | M | AP, PT | Test: resultado `CUMPLE` sin evidencia es rechazado por la capa de agentes. |
 | RF-F1-17 | Consolidación con `consolidar_control` y `calcular_estado_sistema` del contrato; evento `supervisor.consolidado` con los `ResultadoControl`. | M | PT | No existe lógica duplicada de «peor estado» fuera del contrato. |
 | RF-F1-18 | Generación del `Plan` (`Asignacion` de personas y equipos) con `estado_sistema`. Si es `RECOMENDADO`, emite `plan.listo` y `humano.decision_requerida`. | M | AP | E1 produce un plan sin cambios (`Cambio` vacío). |
+| RF-F1-19 | **Herramienta de Riesgo `buscar_incidentes(tipo_tarea, actividad, tipo_equipo)`** (determinista) sobre los incidentes del catálogo (RF-F0-16). El Agente Riesgo puede citar incidentes en su justificación, pero solo por IDs devueltos por la herramienta. | S | AP, PT | Test: IDs de incidentes citados ⊆ resultado de la herramienta. |
 
 ## C. Decisión humana (camino feliz)
 
@@ -60,6 +61,6 @@
 
 | Riesgo | Mitigación |
 |---|---|
-| El LLM devuelve estructuras inválidas | Salida con *tool use* validada por Pydantic; un reintento; si falla ⇒ RF-F1-06. |
+| El LLM devuelve estructuras inválidas | Salida con *function calling* validada por Pydantic; un reintento; si falla ⇒ RF-F1-06. |
 | Frontend bloqueado esperando al backend | Desarrollar contra eventos grabados del contrato (preparar ya un `replays/e1.json` a mano). |
-| Latencia alta del LLM | Haiku para tareas simples (opcional); *timeouts* (RF-F1-07). |
+| Latencia alta del LLM | Modelo más ligero de OpenRouter para tareas simples (cambiando `LLM_MODEL`, opcional); *timeouts* (RF-F1-07). |

@@ -39,8 +39,8 @@ De 3:30 a 5:00: ensayo, correcciones, pitch. **No se agregan funcionalidades.**
 | RT-05 | **Auditoría = flujo de eventos.** Cada evento se persiste antes de emitirse; `seq` monótono por run. | M |
 | RT-06 | **Primera pasada estricta**; las equivalencias (`equipo_equivalente`, `certificacion_equivalente`) solo se usan al evaluar alternativas. Máximo **2 rondas** de resolución de conflicto. | M |
 | RT-07 | **Todo dato simulado se muestra como tal** en la UI (insignia «simulado» cuando `Fuente.tipo == simulado`). | M |
-| RT-08 | **La demo no depende de la red.** Modo `replay` y almacén en memoria funcionan sin Supabase ni LLM. | M |
-| RT-09 | Las claves (`ANTHROPIC_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) viven solo en el backend; nunca en el frontend ni en el repo. | M |
+| RT-08 | **La demo no depende de la red.** Modo `replay` y almacén en memoria funcionan sin Supabase ni LLM. La demo se presenta con frontend y backend **locales**; el despliegue en Vercel es solo una vitrina (RF-F3-45). | M |
+| RT-09 | Las claves (`OPENROUTER_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) viven solo en el backend; nunca en el frontend ni en el repo. | M |
 | RT-10 | Las citas normativas deben ser reales o marcarse `simulado`; no se inventan referencias. | M |
 
 ## Escenarios de demo (definición común)
@@ -59,5 +59,5 @@ Agente de Costo · autenticación de usuarios finales · *override* de planes bl
 ## Preguntas abiertas (confirmar con organizadores)
 
 1. Tema exacto del hackathon y formato de entrega/demo.
-2. Disponibilidad de modelos y créditos de la API durante el evento.
+2. Créditos de OpenRouter durante el evento y límites de uso de GPT-6 Luna.
 3. Si hay Internet estable en la sala (determina si Supabase en la nube es seguro durante la demo; ver RT-08).

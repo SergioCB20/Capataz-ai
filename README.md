@@ -26,7 +26,7 @@ Principio central: **el código verifica; el LLM razona y explica.**
 | Frontend | Vite, React, TypeScript, Tailwind, shadcn/ui, React Flow |
 | Tiempo real | SSE (`EventSource`) |
 | Backend | Python 3.11+, FastAPI, Pydantic v2, asyncio |
-| LLM | API de Anthropic con *tool use* |
+| LLM | GPT-6 Luna vía OpenRouter (API compatible con OpenAI, *function calling*) |
 | Persistencia | Supabase (Postgres), con `MemoryStore` como respaldo |
 | Pruebas | pytest |
 
@@ -36,18 +36,20 @@ Principio central: **el código verifica; el LLM razona y explica.**
 capataz/
 ├─ backend/        FastAPI, contrato (contract.py), orquestador, agentes, herramientas
 ├─ frontend/       Vite + React + TS
-├─ data/           Catálogo y escenarios (JSON, simulados)
+├─ data/           Catálogo, incidentes y escenarios (JSON, simulados)
 ├─ knowledge/      Base de conocimiento normativa (Markdown, con citas)
 ├─ replays/        Eventos grabados por escenario (demo sin red)
 ├─ registry/       Tarjetas de agentes (fase opcional, inspirada en NANDA)
+├─ scripts/        Generador sintético (borradores de datos, revisión humana)
 ├─ supabase/       Migraciones SQL
-└─ docs/requisitos/  Requisitos funcionales por fase
+├─ docs/requisitos/   Requisitos funcionales por fase
+└─ docs/arquitectura/ Diagrama de arquitectura y notas
 ```
 
 ## Arranque rápido
 
 ```bash
-cp .env.example .env          # ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+cp .env.example .env          # OPENROUTER_API_KEY, LLM_MODEL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 # Sin credenciales: STORE_BACKEND=memory y LLM_MODE=fake
 
 cd backend && uv sync && uv run uvicorn app.main:app --reload     # :8000
@@ -56,6 +58,15 @@ cd backend && uv run pytest                                       # pruebas
 ```
 
 Las claves viven solo en el backend. Nunca se suben al repositorio.
+
+### Despliegue y demo
+
+- **Demo:** frontend y backend **locales**, para no depender de Internet:
+  ```bash
+  cd frontend && VITE_API_URL=http://localhost:8000 pnpm build && pnpm preview
+  ```
+  El backend debe incluir ese origen en `CORS_ORIGINS`.
+- **Vercel:** solo vitrina pública del frontend; no se usa para presentar.
 
 ## Escenarios de demo
 
@@ -71,3 +82,5 @@ Si falla la red o el LLM, la demo corre en **modo replay**.
 ## Documentación
 
 Requisitos funcionales por fase, anexo de Supabase y matriz de trazabilidad con la rúbrica: [`docs/requisitos/00-indice.md`](docs/requisitos/00-indice.md).
+
+Arquitectura: [`docs/arquitectura/README.md`](docs/arquitectura/README.md).
